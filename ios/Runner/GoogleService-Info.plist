@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>416436349316-6lnq8qrgvi8sh553gs3d6oisn7kcm9i1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.416436349316-6lnq8qrgvi8sh553gs3d6oisn7kcm9i1</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>416436349316-qo2temo5plv5nlb5t7omfrk48pusgrjj.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyApJ9kk7bYiShcUpRkQtpXgGILrkTFYcH0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>416436349316</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mycompany.nourrishare</string>
+	<key>PROJECT_ID</key>
+	<string>nourrishare</string>
+	<key>STORAGE_BUCKET</key>
+	<string>nourrishare.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:416436349316:ios:21594a01300b0ee70195d1</string>
+	<key>DATABASE_URL</key>
+	<string>https://nourrishare-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>
