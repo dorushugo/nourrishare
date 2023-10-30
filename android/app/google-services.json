@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "416436349316",
+    "firebase_url": "https://nourrishare-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "nourrishare",
+    "storage_bucket": "nourrishare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416436349316:android:b03146dc17e76fc10195d1",
+        "android_client_info": {
+          "package_name": "com.mycompany.nourrishare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416436349316-qo2temo5plv5nlb5t7omfrk48pusgrjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.nourrishare",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "416436349316-7eag0tnv57m0n0cna36kjd0locuujff9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcXycYHfurxC6bI2Kp0cqlvZ474Ez5nMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416436349316-7eag0tnv57m0n0cna36kjd0locuujff9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "416436349316-6lnq8qrgvi8sh553gs3d6oisn7kcm9i1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.nourrishare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
