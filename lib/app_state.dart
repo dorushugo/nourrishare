@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
+import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -16,17 +18,37 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _nombreNotif = prefs.getInt('ff_nombreNotif') ?? _nombreNotif;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
 
+  late SharedPreferences prefs;
+
   String _Nomdepage = '';
   String get Nomdepage => _Nomdepage;
   set Nomdepage(String _value) {
     _Nomdepage = _value;
+  }
+
+  int _nombreNotif = 0;
+  int get nombreNotif => _nombreNotif;
+  set nombreNotif(int _value) {
+    _nombreNotif = _value;
+    prefs.setInt('ff_nombreNotif', _value);
+  }
+
+  int _nombreCommande = 0;
+  int get nombreCommande => _nombreCommande;
+  set nombreCommande(int _value) {
+    _nombreCommande = _value;
   }
 }
 

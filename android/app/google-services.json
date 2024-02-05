@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "416436349316-54j2km57qe61vp768d7qoph5ae0gcg0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.nourrishare",
+            "certificate_hash": "d302ca7c0130b3f63839d9fc8a7899e2c29ea25a"
+          }
+        },
+        {
           "client_id": "416436349316-qo2temo5plv5nlb5t7omfrk48pusgrjj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

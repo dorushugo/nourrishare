@@ -24,11 +24,6 @@ class UsersRecord extends FirestoreRecord {
   String get email => _email ?? '';
   bool hasEmail() => _email != null;
 
-  // "display_name" field.
-  String? _displayName;
-  String get displayName => _displayName ?? '';
-  bool hasDisplayName() => _displayName != null;
-
   // "photo_url" field.
   String? _photoUrl;
   String get photoUrl => _photoUrl ?? '';
@@ -121,9 +116,73 @@ class UsersRecord extends FirestoreRecord {
   List<DocumentReference> get platsFavoris => _platsFavoris ?? const [];
   bool hasPlatsFavoris() => _platsFavoris != null;
 
+  // "firstName" field.
+  String? _firstName;
+  String get firstName => _firstName ?? '';
+  bool hasFirstName() => _firstName != null;
+
+  // "lastName" field.
+  String? _lastName;
+  String get lastName => _lastName ?? '';
+  bool hasLastName() => _lastName != null;
+
+  // "display_name" field.
+  String? _displayName;
+  String get displayName => _displayName ?? '';
+  bool hasDisplayName() => _displayName != null;
+
+  // "city" field.
+  String? _city;
+  String get city => _city ?? '';
+  bool hasCity() => _city != null;
+
+  // "urlstripe" field.
+  String? _urlstripe;
+  String get urlstripe => _urlstripe ?? '';
+  bool hasUrlstripe() => _urlstripe != null;
+
+  // "dateOfBirth" field.
+  DateTime? _dateOfBirth;
+  DateTime? get dateOfBirth => _dateOfBirth;
+  bool hasDateOfBirth() => _dateOfBirth != null;
+
+  // "postalCode" field.
+  String? _postalCode;
+  String get postalCode => _postalCode ?? '';
+  bool hasPostalCode() => _postalCode != null;
+
+  // "lastconnexion" field.
+  DateTime? _lastconnexion;
+  DateTime? get lastconnexion => _lastconnexion;
+  bool hasLastconnexion() => _lastconnexion != null;
+
+  // "supprime" field.
+  bool? _supprime;
+  bool get supprime => _supprime ?? false;
+  bool hasSupprime() => _supprime != null;
+
+  // "commandes" field.
+  List<DocumentReference>? _commandes;
+  List<DocumentReference> get commandes => _commandes ?? const [];
+  bool hasCommandes() => _commandes != null;
+
+  // "stripeAccountID" field.
+  String? _stripeAccountID;
+  String get stripeAccountID => _stripeAccountID ?? '';
+  bool hasStripeAccountID() => _stripeAccountID != null;
+
+  // "stripChargesEnabled" field.
+  bool? _stripChargesEnabled;
+  bool get stripChargesEnabled => _stripChargesEnabled ?? false;
+  bool hasStripChargesEnabled() => _stripChargesEnabled != null;
+
+  // "createStripeAccountUrl" field.
+  String? _createStripeAccountUrl;
+  String get createStripeAccountUrl => _createStripeAccountUrl ?? '';
+  bool hasCreateStripeAccountUrl() => _createStripeAccountUrl != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
-    _displayName = snapshotData['display_name'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
@@ -142,6 +201,19 @@ class UsersRecord extends FirestoreRecord {
     _demandeamientrante = getDataList(snapshotData['demandeamientrante']);
     _chats = getDataList(snapshotData['chats']);
     _platsFavoris = getDataList(snapshotData['plats_favoris']);
+    _firstName = snapshotData['firstName'] as String?;
+    _lastName = snapshotData['lastName'] as String?;
+    _displayName = snapshotData['display_name'] as String?;
+    _city = snapshotData['city'] as String?;
+    _urlstripe = snapshotData['urlstripe'] as String?;
+    _dateOfBirth = snapshotData['dateOfBirth'] as DateTime?;
+    _postalCode = snapshotData['postalCode'] as String?;
+    _lastconnexion = snapshotData['lastconnexion'] as DateTime?;
+    _supprime = snapshotData['supprime'] as bool?;
+    _commandes = getDataList(snapshotData['commandes']);
+    _stripeAccountID = snapshotData['stripeAccountID'] as String?;
+    _stripChargesEnabled = snapshotData['stripChargesEnabled'] as bool?;
+    _createStripeAccountUrl = snapshotData['createStripeAccountUrl'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -168,7 +240,6 @@ class UsersRecord extends FirestoreRecord {
       UsersRecord.getDocumentFromData(
         {
           'email': snapshot.data['email'],
-          'display_name': snapshot.data['display_name'],
           'photo_url': snapshot.data['photo_url'],
           'uid': snapshot.data['uid'],
           'created_time': convertAlgoliaParam(
@@ -245,6 +316,33 @@ class UsersRecord extends FirestoreRecord {
               true,
             ).toList(),
           ),
+          'firstName': snapshot.data['firstName'],
+          'lastName': snapshot.data['lastName'],
+          'display_name': snapshot.data['display_name'],
+          'city': snapshot.data['city'],
+          'urlstripe': snapshot.data['urlstripe'],
+          'dateOfBirth': convertAlgoliaParam(
+            snapshot.data['dateOfBirth'],
+            ParamType.DateTime,
+            false,
+          ),
+          'postalCode': snapshot.data['postalCode'],
+          'lastconnexion': convertAlgoliaParam(
+            snapshot.data['lastconnexion'],
+            ParamType.DateTime,
+            false,
+          ),
+          'supprime': snapshot.data['supprime'],
+          'commandes': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['commandes'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'stripeAccountID': snapshot.data['stripeAccountID'],
+          'stripChargesEnabled': snapshot.data['stripChargesEnabled'],
+          'createStripeAccountUrl': snapshot.data['createStripeAccountUrl'],
         },
         UsersRecord.collection.doc(snapshot.objectID),
       );
@@ -282,7 +380,6 @@ class UsersRecord extends FirestoreRecord {
 
 Map<String, dynamic> createUsersRecordData({
   String? email,
-  String? displayName,
   String? photoUrl,
   String? uid,
   DateTime? createdTime,
@@ -294,11 +391,22 @@ Map<String, dynamic> createUsersRecordData({
   double? longitude,
   String? geohash,
   LatLng? latlong,
+  String? firstName,
+  String? lastName,
+  String? displayName,
+  String? city,
+  String? urlstripe,
+  DateTime? dateOfBirth,
+  String? postalCode,
+  DateTime? lastconnexion,
+  bool? supprime,
+  String? stripeAccountID,
+  bool? stripChargesEnabled,
+  String? createStripeAccountUrl,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'email': email,
-      'display_name': displayName,
       'photo_url': photoUrl,
       'uid': uid,
       'created_time': createdTime,
@@ -310,6 +418,18 @@ Map<String, dynamic> createUsersRecordData({
       'longitude': longitude,
       'geohash': geohash,
       'latlong': latlong,
+      'firstName': firstName,
+      'lastName': lastName,
+      'display_name': displayName,
+      'city': city,
+      'urlstripe': urlstripe,
+      'dateOfBirth': dateOfBirth,
+      'postalCode': postalCode,
+      'lastconnexion': lastconnexion,
+      'supprime': supprime,
+      'stripeAccountID': stripeAccountID,
+      'stripChargesEnabled': stripChargesEnabled,
+      'createStripeAccountUrl': createStripeAccountUrl,
     }.withoutNulls,
   );
 
@@ -323,7 +443,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
   bool equals(UsersRecord? e1, UsersRecord? e2) {
     const listEquality = ListEquality();
     return e1?.email == e2?.email &&
-        e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
@@ -341,13 +460,25 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         listEquality.equals(e1?.demandeamissortante, e2?.demandeamissortante) &&
         listEquality.equals(e1?.demandeamientrante, e2?.demandeamientrante) &&
         listEquality.equals(e1?.chats, e2?.chats) &&
-        listEquality.equals(e1?.platsFavoris, e2?.platsFavoris);
+        listEquality.equals(e1?.platsFavoris, e2?.platsFavoris) &&
+        e1?.firstName == e2?.firstName &&
+        e1?.lastName == e2?.lastName &&
+        e1?.displayName == e2?.displayName &&
+        e1?.city == e2?.city &&
+        e1?.urlstripe == e2?.urlstripe &&
+        e1?.dateOfBirth == e2?.dateOfBirth &&
+        e1?.postalCode == e2?.postalCode &&
+        e1?.lastconnexion == e2?.lastconnexion &&
+        e1?.supprime == e2?.supprime &&
+        listEquality.equals(e1?.commandes, e2?.commandes) &&
+        e1?.stripeAccountID == e2?.stripeAccountID &&
+        e1?.stripChargesEnabled == e2?.stripChargesEnabled &&
+        e1?.createStripeAccountUrl == e2?.createStripeAccountUrl;
   }
 
   @override
   int hash(UsersRecord? e) => const ListEquality().hash([
         e?.email,
-        e?.displayName,
         e?.photoUrl,
         e?.uid,
         e?.createdTime,
@@ -365,7 +496,20 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.demandeamissortante,
         e?.demandeamientrante,
         e?.chats,
-        e?.platsFavoris
+        e?.platsFavoris,
+        e?.firstName,
+        e?.lastName,
+        e?.displayName,
+        e?.city,
+        e?.urlstripe,
+        e?.dateOfBirth,
+        e?.postalCode,
+        e?.lastconnexion,
+        e?.supprime,
+        e?.commandes,
+        e?.stripeAccountID,
+        e?.stripChargesEnabled,
+        e?.createStripeAccountUrl
       ]);
 
   @override

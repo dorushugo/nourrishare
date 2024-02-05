@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components_general/plats_petits/plats_petits_widget.dart';
-import '/components_general/user_card/user_card_widget.dart';
+import '/components_general/plats_voisins/plats_voisins_widget.dart';
+import '/components_general/user_card_back/user_card_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -16,22 +16,22 @@ class VendeurDetailModel extends FlutterFlowModel<VendeurDetailWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Model for UserCard component.
-  late UserCardModel userCardModel;
-  // Models for Plats_petits dynamic component.
-  late FlutterFlowDynamicModels<PlatsPetitsModel> platsPetitsModels;
+  // Model for UserCardBack component.
+  late UserCardBackModel userCardBackModel;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ChatsRecord? convCreeResult;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ChatsRecord? convCreeResult2;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    userCardModel = createModel(context, () => UserCardModel());
-    platsPetitsModels = FlutterFlowDynamicModels(() => PlatsPetitsModel());
+    userCardBackModel = createModel(context, () => UserCardBackModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    userCardModel.dispose();
-    platsPetitsModels.dispose();
+    userCardBackModel.dispose();
   }
 
   /// Action blocks are added here.

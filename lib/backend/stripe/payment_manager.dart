@@ -17,7 +17,7 @@ final _isProd = false;
 const _kProdStripePublishableKey = '';
 const _kTestStripePublishableKey =
     'pk_test_51JQyT3CmEcxfXHvzsbYRDGV45MpoF97oBLUYAJhu0u6a7Xy42Qt0Dx78Rn8GBsr8Qag1iyRJrbtoN4ADoAApeqaL004oQx32AF';
-const _kAppleMerchantId = 'merchant.com.nourrishare';
+const _kAppleMerchantId = '';
 
 String stripePublishableKey() =>
     _isProd ? _kProdStripePublishableKey : _kTestStripePublishableKey;
@@ -94,14 +94,14 @@ Future<StripePaymentResponse> processStripePayment(
         merchantDisplayName: 'NourriShare',
         googlePay: allowGooglePay
             ? PaymentSheetGooglePay(
-                merchantCountryCode: 'FR',
+                merchantCountryCode: 'fr',
                 currencyCode: currency,
                 testEnv: !_isProd,
               )
             : null,
         applePay: isiOS && allowApplePay
             ? PaymentSheetApplePay(
-                merchantCountryCode: 'FR',
+                merchantCountryCode: 'fr',
               )
             : null,
         style: themeStyle,

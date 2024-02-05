@@ -8,10 +8,10 @@ import 'switchpage_model.dart';
 export 'switchpage_model.dart';
 
 class SwitchpageWidget extends StatefulWidget {
-  const SwitchpageWidget({Key? key}) : super(key: key);
+  const SwitchpageWidget({super.key});
 
   @override
-  _SwitchpageWidgetState createState() => _SwitchpageWidgetState();
+  State<SwitchpageWidget> createState() => _SwitchpageWidgetState();
 }
 
 class _SwitchpageWidgetState extends State<SwitchpageWidget> {
@@ -27,8 +27,6 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SwitchpageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -42,150 +40,143 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-      child: Material(
-        color: Colors.transparent,
-        elevation: 0.0,
-        shape: RoundedRectangleBorder(
+    return Material(
+      color: Colors.transparent,
+      elevation: 0.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: Container(
+        width: double.infinity,
+        height: 54.0,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).grey4,
           borderRadius: BorderRadius.circular(16.0),
-        ),
-        child: Container(
-          width: double.infinity,
-          height: 54.0,
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).grey4,
-            borderRadius: BorderRadius.circular(16.0),
-            border: Border.all(
-              color: FlutterFlowTheme.of(context).grey4,
-              width: 0.0,
-            ),
+          border: Border.all(
+            color: FlutterFlowTheme.of(context).transparent,
+            width: 0.0,
           ),
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 4.0, 4.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      _model.updatePage(() {
-                        _model.optionSelect = false;
-                      });
-                    },
-                    child: Container(
-                      height: 46.0,
-                      decoration: BoxDecoration(
-                        color: valueOrDefault<Color>(
-                          _model.optionSelect
-                              ? Color(0x00ECF4ED)
-                              : FlutterFlowTheme.of(context).primary,
-                          FlutterFlowTheme.of(context).primary,
-                        ),
-                        borderRadius: BorderRadius.circular(16.0),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).grey4,
-                          width: 0.0,
-                        ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(4.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    _model.updatePage(() {
+                      _model.optionSelect = false;
+                    });
+                  },
+                  child: Container(
+                    height: 46.0,
+                    decoration: BoxDecoration(
+                      color: valueOrDefault<Color>(
+                        _model.optionSelect
+                            ? Color(0x00ECF4ED)
+                            : FlutterFlowTheme.of(context).primary,
+                        FlutterFlowTheme.of(context).primary,
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                4.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Voisins',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .titleSmallFamily,
-                                    color: _model.optionSelect
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleSmallFamily),
-                                  ),
-                            ),
+                      borderRadius: BorderRadius.circular(16.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).grey4,
+                        width: 0.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              4.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'Vos collègues',
+                            style: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .titleSmallFamily,
+                                  color: _model.optionSelect
+                                      ? FlutterFlowTheme.of(context).primaryText
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .titleSmallFamily),
+                                ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Expanded(
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      _model.updatePage(() {
-                        _model.optionSelect = true;
-                      });
-                    },
-                    child: Container(
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: valueOrDefault<Color>(
-                          !_model.optionSelect
-                              ? Color(0x00ECF4ED)
-                              : FlutterFlowTheme.of(context).primary,
-                          Colors.transparent,
-                        ),
-                        borderRadius: BorderRadius.circular(16.0),
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).grey4,
-                          width: 0.0,
-                        ),
+              ),
+              Expanded(
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    _model.updatePage(() {
+                      _model.optionSelect = true;
+                    });
+                  },
+                  child: Container(
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: valueOrDefault<Color>(
+                        !_model.optionSelect
+                            ? Color(0x00ECF4ED)
+                            : FlutterFlowTheme.of(context).primary,
+                        Colors.transparent,
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                4.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Collègues',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily,
-                                    color: !_model.optionSelect
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w900,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodyMediumFamily),
-                                  ),
-                            ),
+                      borderRadius: BorderRadius.circular(16.0),
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).grey4,
+                        width: 0.0,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              4.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'Vos voisins',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyMediumFamily,
+                                  color: !_model.optionSelect
+                                      ? FlutterFlowTheme.of(context).primaryText
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w900,
+                                  useGoogleFonts: GoogleFonts.asMap()
+                                      .containsKey(FlutterFlowTheme.of(context)
+                                          .bodyMediumFamily),
+                                ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ].divide(SizedBox(width: 8.0)),
-            ),
+              ),
+            ].divide(SizedBox(width: 8.0)),
           ),
         ),
       ),

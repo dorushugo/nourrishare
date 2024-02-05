@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 import '../main.dart';
 
@@ -63,6 +65,34 @@ Color colorFromCssString(String color, {Color? defaultColor}) {
     return fromCssColor(color);
   } catch (_) {}
   return defaultColor ?? Colors.black;
+}
+
+Future launchMap({
+  MapType? mapType,
+  LatLng? location,
+  String? address,
+  required title,
+}) async {
+  final coords = location != null
+      ? Coords(location.latitude, location.longitude)
+      : Coords(0, 0);
+  final extraParams = address != null ? {'q': address} : null;
+  final noMap =
+      mapType == null || !(await MapLauncher.isMapAvailable(mapType) ?? false);
+  if (noMap) {
+    final installedMaps = await MapLauncher.installedMaps;
+    return installedMaps.first.showMarker(
+      coords: coords,
+      title: title,
+      extraParams: extraParams,
+    );
+  }
+  return MapLauncher.showMarker(
+    mapType: mapType!,
+    coords: coords,
+    title: title,
+    extraParams: extraParams,
+  );
 }
 
 enum FormatType {
@@ -158,6 +188,27 @@ extension DateTimeComparisonOperators on DateTime {
   bool operator >=(DateTime other) => this > other || isAtSameMomentAs(other);
 }
 
+T? castToType<T>(dynamic value) {
+  if (value == null) {
+    return null;
+  }
+  switch (T) {
+    case double:
+      // Doubles may be stored as ints in some cases.
+      return value.toDouble() as T;
+    case int:
+      // Likewise, ints may be stored as doubles. If this is the case
+      // (i.e. no decimal value), return the value as an int.
+      if (value is num && value.toInt() == value) {
+        return value.toInt() as T;
+      }
+      break;
+    default:
+      break;
+  }
+  return value as T;
+}
+
 dynamic getJsonField(
   dynamic response,
   String jsonPath, [
@@ -171,7 +222,12 @@ dynamic getJsonField(
     return field.map((f) => f.value).toList();
   }
   final value = field.first.value;
-  return isForList && value is! Iterable ? [value] : value;
+  if (isForList) {
+    return value is! Iterable
+        ? [value]
+        : (value is List ? value : value.toList());
+  }
+  return value;
 }
 
 Rect? getWidgetBoundingBox(BuildContext context) {
@@ -266,6 +322,9 @@ extension FFTextEditingControllerExt on TextEditingController? {
 }
 
 extension IterableExt<T> on Iterable<T> {
+  List<T> sortedList<S extends Comparable>([S Function(T)? keyOf]) => toList()
+    ..sort(keyOf == null ? null : ((a, b) => keyOf(a).compareTo(keyOf(b))));
+
   List<S> mapIndexed<S>(S Function(int, T) func) => toList()
       .asMap()
       .map((index, value) => MapEntry(index, func(index, value)))
@@ -322,6 +381,12 @@ extension FFStringExt on String {
 
 extension ListFilterExt<T> on Iterable<T?> {
   List<T> get withoutNulls => where((s) => s != null).map((e) => e!).toList();
+}
+
+extension MapListContainsExt on List<dynamic> {
+  bool containsMap(dynamic map) => map is Map
+      ? any((e) => e is Map && const DeepCollectionEquality().equals(e, map))
+      : contains(map);
 }
 
 extension ListDivideExt<T extends Widget> on Iterable<T> {

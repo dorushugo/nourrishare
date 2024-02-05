@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -101,7 +102,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'Profilpage',
-          path: '/profilpage',
+          path: '/profilPage',
+          requireAuth: true,
           builder: (context, params) => ProfilpageWidget(),
         ),
         FFRoute(
@@ -121,7 +123,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'vendeur_detail',
-          path: '/vendeurDetail',
+          path: '/vendeurDetail/:seller',
           requireAuth: true,
           builder: (context, params) => VendeurDetailWidget(
             seller: params.getParam(
@@ -140,30 +142,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Profilcompletion',
           path: '/profilcompletion',
+          requireAuth: true,
           builder: (context, params) => ProfilcompletionWidget(),
-        ),
-        FFRoute(
-          name: 'rechercheUsers',
-          path: '/rechercheUsers',
-          builder: (context, params) => RechercheUsersWidget(),
-        ),
-        FFRoute(
-          name: 'listAmis',
-          path: '/listAmis',
-          builder: (context, params) => ListAmisWidget(),
         ),
         FFRoute(
           name: 'messageList',
           path: '/messageList',
+          requireAuth: true,
           builder: (context, params) => MessageListWidget(),
         ),
         FFRoute(
-          name: 'Chat',
-          path: '/chat',
+          name: 'chatPage',
+          path: '/chatPage',
           requireAuth: true,
-          builder: (context, params) => ChatWidget(
-            otherUser: params.getParam(
-                'otherUser', ParamType.DocumentReference, false, ['Users']),
+          builder: (context, params) => ChatPageWidget(
             chat: params.getParam(
                 'chat', ParamType.DocumentReference, false, ['Chats']),
           ),
@@ -171,12 +163,111 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'rechercheMessage',
           path: '/rechercheMessage',
+          requireAuth: true,
           builder: (context, params) => RechercheMessageWidget(),
         ),
         FFRoute(
-          name: 'ProfileSettings',
-          path: '/profileSettings',
-          builder: (context, params) => ProfileSettingsWidget(),
+          name: 'Inscription',
+          path: '/Inscription',
+          builder: (context, params) => InscriptionWidget(),
+        ),
+        FFRoute(
+          name: 'stripeCompletion',
+          path: '/stripeCompletion',
+          requireAuth: true,
+          builder: (context, params) => StripeCompletionWidget(),
+        ),
+        FFRoute(
+          name: 'Profilsettings',
+          path: '/profilsettings',
+          requireAuth: true,
+          builder: (context, params) => ProfilsettingsWidget(),
+        ),
+        FFRoute(
+          name: 'chatGroupPage',
+          path: '/chatGroupPage',
+          requireAuth: true,
+          builder: (context, params) => ChatGroupPageWidget(
+            othersUser: params.getParam<DocumentReference>(
+                'othersUser', ParamType.DocumentReference, true, ['Users']),
+            chat: params.getParam(
+                'chat', ParamType.DocumentReference, false, ['Chats']),
+            group: params.getParam(
+                'group', ParamType.DocumentReference, false, ['Groupes']),
+          ),
+        ),
+        FFRoute(
+          name: 'addGroup',
+          path: '/addGroup',
+          requireAuth: true,
+          builder: (context, params) => AddGroupWidget(
+            group: params.getParam(
+                'group', ParamType.DocumentReference, false, ['Groupes']),
+          ),
+        ),
+        FFRoute(
+          name: 'modifGroup',
+          path: '/modifGroup',
+          requireAuth: true,
+          builder: (context, params) => ModifGroupWidget(
+            group: params.getParam(
+                'group', ParamType.DocumentReference, false, ['Groupes']),
+          ),
+        ),
+        FFRoute(
+          name: 'ajouterUserGroupe',
+          path: '/addUserGroupe',
+          requireAuth: true,
+          builder: (context, params) => AjouterUserGroupeWidget(
+            group: params.getParam(
+                'group', ParamType.DocumentReference, false, ['Groupes']),
+          ),
+        ),
+        FFRoute(
+          name: 'connexionGroupe',
+          path: '/connexionGroupe',
+          requireAuth: true,
+          builder: (context, params) => ConnexionGroupeWidget(
+            groupe: params.getParam(
+                'groupe', ParamType.DocumentReference, false, ['Groupes']),
+          ),
+        ),
+        FFRoute(
+          name: 'group_detail',
+          path: '/groupDetail',
+          requireAuth: true,
+          builder: (context, params) => GroupDetailWidget(
+            groupRef: params.getParam(
+                'groupRef', ParamType.DocumentReference, false, ['Groupes']),
+          ),
+        ),
+        FFRoute(
+          name: 'ConnexionInscription',
+          path: '/connexionInscription',
+          builder: (context, params) => ConnexionInscriptionWidget(),
+        ),
+        FFRoute(
+          name: 'Livraison',
+          path: '/livraison',
+          builder: (context, params) => LivraisonWidget(
+            commandeRef: params.getParam('commandeRef',
+                ParamType.DocumentReference, false, ['Commandes']),
+          ),
+        ),
+        FFRoute(
+          name: 'Notifications',
+          path: '/Notifications',
+          requireAuth: true,
+          builder: (context, params) => NotificationsWidget(),
+        ),
+        FFRoute(
+          name: 'modifierPlat',
+          path: '/modifierPlat',
+          requireAuth: true,
+          builder: (context, params) => ModifierPlatWidget(
+            plat: params.getParam(
+                'plat', ParamType.DocumentReference, false, ['Plats']),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -356,14 +447,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).secondary,
-                      ),
+              ? Container(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/Logo_avec_texte.png',
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )
@@ -375,13 +465,20 @@ class FFRoute {
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder: PageTransition(
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
                     alignment: transitionInfo.alignment,
                     child: child,
-                  ).transitionsBuilder,
+                  ).buildTransitions(
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ),
                 )
               : MaterialPage(key: state.pageKey, child: child);
         },

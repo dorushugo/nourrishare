@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'recherche_message_widget.dart' show RechercheMessageWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -18,13 +17,15 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 class RechercheMessageModel extends FlutterFlowModel<RechercheMessageWidget> {
+  ///  Local state fields for this page.
+
+  int compteurBoucle = 0;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // Algolia Search Results from action on rechercheMessage
   List<UsersRecord>? algoliaSearchResults1 = [];
-  // Model for NavBar1 component.
-  late NavBar1Model navBar1Model;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
@@ -33,8 +34,8 @@ class RechercheMessageModel extends FlutterFlowModel<RechercheMessageWidget> {
   Completer<List<UsersRecord>>? algoliaRequestCompleter2;
   // Algolia Search Results from action on Container
   List<GroupesRecord>? algoliaSearchResults2 = [];
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  ChatsRecord? convCree2;
+  // Model for NavBar1 component.
+  late NavBar1Model navBar1Model;
 
   /// Initialization and disposal methods.
 
@@ -44,9 +45,10 @@ class RechercheMessageModel extends FlutterFlowModel<RechercheMessageWidget> {
 
   void dispose() {
     unfocusNode.dispose();
-    navBar1Model.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
+
+    navBar1Model.dispose();
   }
 
   /// Action blocks are added here.

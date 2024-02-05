@@ -1,9 +1,12 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +15,14 @@ export 'plats_collegues_model.dart';
 
 class PlatsColleguesWidget extends StatefulWidget {
   const PlatsColleguesWidget({
-    Key? key,
+    super.key,
     required this.plat,
-  }) : super(key: key);
+  });
 
   final DocumentReference? plat;
 
   @override
-  _PlatsColleguesWidgetState createState() => _PlatsColleguesWidgetState();
+  State<PlatsColleguesWidget> createState() => _PlatsColleguesWidgetState();
 }
 
 class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
@@ -36,7 +39,20 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
     super.initState();
     _model = createModel(context, () => PlatsColleguesModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if ((currentUserDocument?.platsFavoris?.toList() ?? [])
+              .contains(widget.plat) ==
+          true) {
+        setState(() {
+          _model.selecteur = true;
+        });
+      } else {
+        setState(() {
+          _model.selecteur = false;
+        });
+      }
+    });
   }
 
   @override
@@ -105,7 +121,7 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.00, -1.00),
+                    alignment: AlignmentDirectional(0.0, -1.0),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
@@ -113,15 +129,17 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
-                            child: Image.network(
-                              containerPlatsRecord.images.first,
+                            child: CachedNetworkImage(
+                              fadeInDuration: Duration(milliseconds: 0),
+                              fadeOutDuration: Duration(milliseconds: 0),
+                              imageUrl: containerPlatsRecord.images.first,
                               width: 168.0,
                               height: 128.0,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1.00, -1.00),
+                            alignment: AlignmentDirectional(1.0, -1.0),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 8.0, 0.0),
@@ -131,19 +149,62 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .primaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 16.0,
+                                      color: FlutterFlowTheme.of(context)
+                                          .boxShadow,
+                                      offset: Offset(0.0, 2.0),
+                                      spreadRadius: 0.0,
+                                    )
+                                  ],
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                alignment: AlignmentDirectional(0.00, 0.00),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Align(
-                                  alignment: AlignmentDirectional(1.00, -1.00),
+                                  alignment: AlignmentDirectional(1.0, -1.0),
                                   child: ToggleIcon(
                                     onPressed: () async {
                                       setState(() =>
                                           _model.selecteur = !_model.selecteur);
+                                      if ((currentUserDocument?.platsFavoris
+                                                      ?.toList() ??
+                                                  [])
+                                              .contains(containerPlatsRecord
+                                                  .reference) ==
+                                          true) {
+                                        await currentUserReference!.update({
+                                          ...mapToFirestore(
+                                            {
+                                              'plats_favoris':
+                                                  FieldValue.arrayRemove([
+                                                containerPlatsRecord.reference
+                                              ]),
+                                            },
+                                          ),
+                                        });
+                                        setState(() {
+                                          _model.selecteur = false;
+                                        });
+                                      } else {
+                                        await currentUserReference!.update({
+                                          ...mapToFirestore(
+                                            {
+                                              'plats_favoris':
+                                                  FieldValue.arrayUnion([
+                                                containerPlatsRecord.reference
+                                              ]),
+                                            },
+                                          ),
+                                        });
+                                        setState(() {
+                                          _model.selecteur = true;
+                                        });
+                                      }
                                     },
                                     value: _model.selecteur,
                                     onIcon: Icon(
-                                      FFIcons.kheart,
+                                      FFIcons.kheart2,
                                       color: FlutterFlowTheme.of(context)
                                           .secondary,
                                       size: 15.0,
@@ -164,7 +225,7 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Text(
                       containerPlatsRecord.name,
                       textAlign: TextAlign.start,
@@ -201,10 +262,10 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.00, 0.00),
+                            alignment: AlignmentDirectional(-1.0, 0.0),
                             child: Text(
                               rowUsersRecord.displayName.maybeHandleOverflow(
-                                maxChars: 8,
+                                maxChars: 14,
                                 replacement: '…',
                               ),
                               textAlign: TextAlign.start,
