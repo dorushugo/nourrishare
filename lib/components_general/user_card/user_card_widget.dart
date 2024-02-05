@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,14 +13,14 @@ export 'user_card_model.dart';
 
 class UserCardWidget extends StatefulWidget {
   const UserCardWidget({
-    Key? key,
+    super.key,
     required this.userRef,
-  }) : super(key: key);
+  });
 
   final DocumentReference? userRef;
 
   @override
-  _UserCardWidgetState createState() => _UserCardWidgetState();
+  State<UserCardWidget> createState() => _UserCardWidgetState();
 }
 
 class _UserCardWidgetState extends State<UserCardWidget> {
@@ -35,8 +36,6 @@ class _UserCardWidgetState extends State<UserCardWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UserCardModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -76,7 +75,7 @@ class _UserCardWidgetState extends State<UserCardWidget> {
           onTap: () async {
             context.pushNamed(
               'vendeur_detail',
-              queryParameters: {
+              pathParameters: {
                 'seller': serializeParam(
                   widget.userRef,
                   ParamType.DocumentReference,
@@ -120,11 +119,20 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(800.0),
-                          child: Image.network(
-                            containerUsersRecord.photoUrl,
+                          child: CachedNetworkImage(
+                            fadeInDuration: Duration(milliseconds: 0),
+                            fadeOutDuration: Duration(milliseconds: 0),
+                            imageUrl: containerUsersRecord.photoUrl,
                             width: 300.0,
                             height: 200.0,
                             fit: BoxFit.cover,
+                            errorWidget: (context, error, stackTrace) =>
+                                Image.asset(
+                              'assets/images/error_image.png',
+                              width: 300.0,
+                              height: 200.0,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -134,7 +142,11 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            containerUsersRecord.displayName,
+                            containerUsersRecord.displayName
+                                .maybeHandleOverflow(
+                              maxChars: 20,
+                              replacement: '…',
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
                                 .override(
@@ -181,8 +193,8 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                   ),
                   FlutterFlowIconButton(
                     borderRadius: 10.0,
-                    buttonSize: 40.0,
-                    fillColor: FlutterFlowTheme.of(context).primary,
+                    buttonSize: 44.0,
+                    fillColor: FlutterFlowTheme.of(context).secondary,
                     icon: Icon(
                       FFIcons.kmenuIcon3,
                       color: FlutterFlowTheme.of(context).primaryBackground,
@@ -191,7 +203,7 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                     onPressed: () async {
                       context.pushNamed(
                         'vendeur_detail',
-                        queryParameters: {
+                        pathParameters: {
                           'seller': serializeParam(
                             widget.userRef,
                             ParamType.DocumentReference,

@@ -10,6 +10,7 @@ class FFIcons {
   static const String _nourriShareNew5Family = 'NourriShareNew5';
   static const String _nourriShareNew7Family = 'NourriShareNew7';
   static const String _nourriShareNew8Family = 'NourriShareNew8';
+  static const String _nourriShareFavFilledFamily = 'NourriShareFavFilled';
 
   // NourriShareNew
   static const IconData knotifications =
@@ -104,4 +105,8 @@ class FFIcons {
   // NourriShareNew8
   static const IconData klocation1 =
       IconData(0xe800, fontFamily: _nourriShareNew8Family);
+
+  // NourriShareFavFilled
+  static const IconData kheart2 =
+      IconData(0xe801, fontFamily: _nourriShareFavFilledFamily);
 }

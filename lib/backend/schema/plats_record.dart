@@ -69,6 +69,51 @@ class PlatsRecord extends FirestoreRecord {
   DateTime? get date => _date;
   bool hasDate() => _date != null;
 
+  // "buyer" field.
+  DocumentReference? _buyer;
+  DocumentReference? get buyer => _buyer;
+  bool hasBuyer() => _buyer != null;
+
+  // "refund_id" field.
+  String? _refundId;
+  String get refundId => _refundId ?? '';
+  bool hasRefundId() => _refundId != null;
+
+  // "payment_intent_id" field.
+  String? _paymentIntentId;
+  String get paymentIntentId => _paymentIntentId ?? '';
+  bool hasPaymentIntentId() => _paymentIntentId != null;
+
+  // "Ingredientstype" field.
+  bool? _ingredientstype;
+  bool get ingredientstype => _ingredientstype ?? false;
+  bool hasIngredientstype() => _ingredientstype != null;
+
+  // "created_time" field.
+  DateTime? _createdTime;
+  DateTime? get createdTime => _createdTime;
+  bool hasCreatedTime() => _createdTime != null;
+
+  // "supprime" field.
+  bool? _supprime;
+  bool get supprime => _supprime ?? false;
+  bool hasSupprime() => _supprime != null;
+
+  // "groupe_destine" field.
+  List<DocumentReference>? _groupeDestine;
+  List<DocumentReference> get groupeDestine => _groupeDestine ?? const [];
+  bool hasGroupeDestine() => _groupeDestine != null;
+
+  // "venduavoisin" field.
+  bool? _venduavoisin;
+  bool get venduavoisin => _venduavoisin ?? false;
+  bool hasVenduavoisin() => _venduavoisin != null;
+
+  // "temps_preparation_min" field.
+  int? _tempsPreparationMin;
+  int get tempsPreparationMin => _tempsPreparationMin ?? 0;
+  bool hasTempsPreparationMin() => _tempsPreparationMin != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _seller = snapshotData['Seller'] as DocumentReference?;
@@ -80,6 +125,16 @@ class PlatsRecord extends FirestoreRecord {
     _quantite = castToType<int>(snapshotData['quantite']);
     _prix = castToType<double>(snapshotData['prix']);
     _date = snapshotData['date'] as DateTime?;
+    _buyer = snapshotData['buyer'] as DocumentReference?;
+    _refundId = snapshotData['refund_id'] as String?;
+    _paymentIntentId = snapshotData['payment_intent_id'] as String?;
+    _ingredientstype = snapshotData['Ingredientstype'] as bool?;
+    _createdTime = snapshotData['created_time'] as DateTime?;
+    _supprime = snapshotData['supprime'] as bool?;
+    _groupeDestine = getDataList(snapshotData['groupe_destine']);
+    _venduavoisin = snapshotData['venduavoisin'] as bool?;
+    _tempsPreparationMin =
+        castToType<int>(snapshotData['temps_preparation_min']);
   }
 
   static CollectionReference get collection =>
@@ -139,6 +194,33 @@ class PlatsRecord extends FirestoreRecord {
             ParamType.DateTime,
             false,
           ),
+          'buyer': convertAlgoliaParam(
+            snapshot.data['buyer'],
+            ParamType.DocumentReference,
+            false,
+          ),
+          'refund_id': snapshot.data['refund_id'],
+          'payment_intent_id': snapshot.data['payment_intent_id'],
+          'Ingredientstype': snapshot.data['Ingredientstype'],
+          'created_time': convertAlgoliaParam(
+            snapshot.data['created_time'],
+            ParamType.DateTime,
+            false,
+          ),
+          'supprime': snapshot.data['supprime'],
+          'groupe_destine': safeGet(
+            () => convertAlgoliaParam<DocumentReference>(
+              snapshot.data['groupe_destine'],
+              ParamType.DocumentReference,
+              true,
+            ).toList(),
+          ),
+          'venduavoisin': snapshot.data['venduavoisin'],
+          'temps_preparation_min': convertAlgoliaParam(
+            snapshot.data['temps_preparation_min'],
+            ParamType.int,
+            false,
+          ),
         },
         PlatsRecord.collection.doc(snapshot.objectID),
       );
@@ -183,6 +265,14 @@ Map<String, dynamic> createPlatsRecordData({
   int? quantite,
   double? prix,
   DateTime? date,
+  DocumentReference? buyer,
+  String? refundId,
+  String? paymentIntentId,
+  bool? ingredientstype,
+  DateTime? createdTime,
+  bool? supprime,
+  bool? venduavoisin,
+  int? tempsPreparationMin,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -194,6 +284,14 @@ Map<String, dynamic> createPlatsRecordData({
       'quantite': quantite,
       'prix': prix,
       'date': date,
+      'buyer': buyer,
+      'refund_id': refundId,
+      'payment_intent_id': paymentIntentId,
+      'Ingredientstype': ingredientstype,
+      'created_time': createdTime,
+      'supprime': supprime,
+      'venduavoisin': venduavoisin,
+      'temps_preparation_min': tempsPreparationMin,
     }.withoutNulls,
   );
 
@@ -215,7 +313,16 @@ class PlatsRecordDocumentEquality implements Equality<PlatsRecord> {
         e1?.etat == e2?.etat &&
         e1?.quantite == e2?.quantite &&
         e1?.prix == e2?.prix &&
-        e1?.date == e2?.date;
+        e1?.date == e2?.date &&
+        e1?.buyer == e2?.buyer &&
+        e1?.refundId == e2?.refundId &&
+        e1?.paymentIntentId == e2?.paymentIntentId &&
+        e1?.ingredientstype == e2?.ingredientstype &&
+        e1?.createdTime == e2?.createdTime &&
+        e1?.supprime == e2?.supprime &&
+        listEquality.equals(e1?.groupeDestine, e2?.groupeDestine) &&
+        e1?.venduavoisin == e2?.venduavoisin &&
+        e1?.tempsPreparationMin == e2?.tempsPreparationMin;
   }
 
   @override
@@ -229,7 +336,16 @@ class PlatsRecordDocumentEquality implements Equality<PlatsRecord> {
         e?.etat,
         e?.quantite,
         e?.prix,
-        e?.date
+        e?.date,
+        e?.buyer,
+        e?.refundId,
+        e?.paymentIntentId,
+        e?.ingredientstype,
+        e?.createdTime,
+        e?.supprime,
+        e?.groupeDestine,
+        e?.venduavoisin,
+        e?.tempsPreparationMin
       ]);
 
   @override

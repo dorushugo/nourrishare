@@ -4,8 +4,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,14 +16,14 @@ export 'plats_petits_model.dart';
 
 class PlatsPetitsWidget extends StatefulWidget {
   const PlatsPetitsWidget({
-    Key? key,
+    super.key,
     required this.plat,
-  }) : super(key: key);
+  });
 
   final DocumentReference? plat;
 
   @override
-  _PlatsPetitsWidgetState createState() => _PlatsPetitsWidgetState();
+  State<PlatsPetitsWidget> createState() => _PlatsPetitsWidgetState();
 }
 
 class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
@@ -38,7 +40,20 @@ class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
     super.initState();
     _model = createModel(context, () => PlatsPetitsModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if ((currentUserDocument?.platsFavoris?.toList() ?? [])
+              .contains(widget.plat) ==
+          true) {
+        setState(() {
+          _model.selecteur = true;
+        });
+      } else {
+        setState(() {
+          _model.selecteur = false;
+        });
+      }
+    });
   }
 
   @override
@@ -107,7 +122,7 @@ class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.00, -1.00),
+                    alignment: AlignmentDirectional(0.0, -1.0),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
@@ -115,15 +130,17 @@ class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
-                            child: Image.network(
-                              containerPlatsRecord.images.first,
+                            child: CachedNetworkImage(
+                              fadeInDuration: Duration(milliseconds: 0),
+                              fadeOutDuration: Duration(milliseconds: 0),
+                              imageUrl: containerPlatsRecord.images.first,
                               width: 132.0,
                               height: 88.0,
                               fit: BoxFit.cover,
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1.00, -1.00),
+                            alignment: AlignmentDirectional(1.0, -1.0),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 8.0, 0.0),
@@ -133,17 +150,59 @@ class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .primaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 16.0,
+                                      color: FlutterFlowTheme.of(context)
+                                          .boxShadow,
+                                      offset: Offset(0.0, 2.0),
+                                    )
+                                  ],
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                alignment: AlignmentDirectional(0.00, 0.00),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: ToggleIcon(
                                   onPressed: () async {
                                     setState(() =>
                                         _model.selecteur = !_model.selecteur);
+                                    if ((currentUserDocument?.platsFavoris
+                                                    ?.toList() ??
+                                                [])
+                                            .contains(containerPlatsRecord
+                                                .reference) ==
+                                        true) {
+                                      await currentUserReference!.update({
+                                        ...mapToFirestore(
+                                          {
+                                            'plats_favoris':
+                                                FieldValue.arrayRemove([
+                                              containerPlatsRecord.reference
+                                            ]),
+                                          },
+                                        ),
+                                      });
+                                      setState(() {
+                                        _model.selecteur = false;
+                                      });
+                                    } else {
+                                      await currentUserReference!.update({
+                                        ...mapToFirestore(
+                                          {
+                                            'plats_favoris':
+                                                FieldValue.arrayUnion([
+                                              containerPlatsRecord.reference
+                                            ]),
+                                          },
+                                        ),
+                                      });
+                                      setState(() {
+                                        _model.selecteur = true;
+                                      });
+                                    }
                                   },
                                   value: _model.selecteur,
                                   onIcon: Icon(
-                                    FFIcons.kheart,
+                                    FFIcons.kheart2,
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
                                     size: 15.0,
@@ -163,7 +222,7 @@ class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(-1.00, 0.00),
+                    alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Text(
                       containerPlatsRecord.name,
                       textAlign: TextAlign.start,
@@ -200,7 +259,7 @@ class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.00, 0.00),
+                            alignment: AlignmentDirectional(-1.0, 0.0),
                             child: AuthUserStreamWidget(
                               builder: (context) => Text(
                                 valueOrDefault<String>(
@@ -212,6 +271,9 @@ class _PlatsPetitsWidgetState extends State<PlatsPetitsWidget> {
                                       rowUsersRecord.latitude,
                                       rowUsersRecord.longitude),
                                   'Inconnue',
+                                ).maybeHandleOverflow(
+                                  maxChars: 12,
+                                  replacement: '…',
                                 ),
                                 textAlign: TextAlign.start,
                                 maxLines: 2,

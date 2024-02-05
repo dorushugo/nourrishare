@@ -10,7 +10,8 @@ import 'schema/plats_record.dart';
 import 'schema/groupes_record.dart';
 import 'schema/chats_record.dart';
 import 'schema/chat_messages_record.dart';
-import 'schema/friend_request_record.dart';
+import 'schema/commandes_record.dart';
+import 'schema/notification_record.dart';
 import 'dart:async';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -25,7 +26,8 @@ export 'schema/plats_record.dart';
 export 'schema/groupes_record.dart';
 export 'schema/chats_record.dart';
 export 'schema/chat_messages_record.dart';
-export 'schema/friend_request_record.dart';
+export 'schema/commandes_record.dart';
+export 'schema/notification_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -417,53 +419,53 @@ Future<FFFirestorePage<ChatMessagesRecord>> queryChatMessagesRecordPage({
       return page;
     });
 
-/// Functions to query FriendRequestRecords (as a Stream and as a Future).
-Future<int> queryFriendRequestRecordCount({
+/// Functions to query CommandesRecords (as a Stream and as a Future).
+Future<int> queryCommandesRecordCount({
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      FriendRequestRecord.collection,
+      CommandesRecord.collection,
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
-Stream<List<FriendRequestRecord>> queryFriendRequestRecord({
+Stream<List<CommandesRecord>> queryCommandesRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      FriendRequestRecord.collection,
-      FriendRequestRecord.fromSnapshot,
+      CommandesRecord.collection,
+      CommandesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<List<FriendRequestRecord>> queryFriendRequestRecordOnce({
+Future<List<CommandesRecord>> queryCommandesRecordOnce({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      FriendRequestRecord.collection,
-      FriendRequestRecord.fromSnapshot,
+      CommandesRecord.collection,
+      CommandesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
-Future<FFFirestorePage<FriendRequestRecord>> queryFriendRequestRecordPage({
+Future<FFFirestorePage<CommandesRecord>> queryCommandesRecordPage({
   Query Function(Query)? queryBuilder,
   DocumentSnapshot? nextPageMarker,
   required int pageSize,
   required bool isStream,
-  required PagingController<DocumentSnapshot?, FriendRequestRecord> controller,
+  required PagingController<DocumentSnapshot?, CommandesRecord> controller,
   List<StreamSubscription?>? streamSubscriptions,
 }) =>
     queryCollectionPage(
-      FriendRequestRecord.collection,
-      FriendRequestRecord.fromSnapshot,
+      CommandesRecord.collection,
+      CommandesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -475,7 +477,89 @@ Future<FFFirestorePage<FriendRequestRecord>> queryFriendRequestRecordPage({
       );
       if (isStream) {
         final streamSubscription =
-            (page.dataStream)?.listen((List<FriendRequestRecord> data) {
+            (page.dataStream)?.listen((List<CommandesRecord> data) {
+          data.forEach((item) {
+            final itemIndexes = controller.itemList!
+                .asMap()
+                .map((k, v) => MapEntry(v.reference.id, k));
+            final index = itemIndexes[item.reference.id];
+            final items = controller.itemList!;
+            if (index != null) {
+              items.replaceRange(index, index + 1, [item]);
+              controller.itemList = {
+                for (var item in items) item.reference: item
+              }.values.toList();
+            }
+          });
+        });
+        streamSubscriptions?.add(streamSubscription);
+      }
+      return page;
+    });
+
+/// Functions to query NotificationRecords (as a Stream and as a Future).
+Future<int> queryNotificationRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      NotificationRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<NotificationRecord>> queryNotificationRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      NotificationRecord.collection(parent),
+      NotificationRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<NotificationRecord>> queryNotificationRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      NotificationRecord.collection(parent),
+      NotificationRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+Future<FFFirestorePage<NotificationRecord>> queryNotificationRecordPage({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+  required PagingController<DocumentSnapshot?, NotificationRecord> controller,
+  List<StreamSubscription?>? streamSubscriptions,
+}) =>
+    queryCollectionPage(
+      NotificationRecord.collection(parent),
+      NotificationRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    ).then((page) {
+      controller.appendPage(
+        page.data,
+        page.nextPageMarker,
+      );
+      if (isStream) {
+        final streamSubscription =
+            (page.dataStream)?.listen((List<NotificationRecord> data) {
           data.forEach((item) {
             final itemIndexes = controller.itemList!
                 .asMap()

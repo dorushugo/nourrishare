@@ -1,31 +1,59 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components_general/aucunelement/aucunelement_widget.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/components_general/no_chats/no_chats_widget.dart';
+import '/components_general/no_group/no_group_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'message_list_model.dart';
 export 'message_list_model.dart';
 
 class MessageListWidget extends StatefulWidget {
-  const MessageListWidget({Key? key}) : super(key: key);
+  const MessageListWidget({super.key});
 
   @override
-  _MessageListWidgetState createState() => _MessageListWidgetState();
+  State<MessageListWidget> createState() => _MessageListWidgetState();
 }
 
-class _MessageListWidgetState extends State<MessageListWidget> {
+class _MessageListWidgetState extends State<MessageListWidget>
+    with TickerProviderStateMixin {
   late MessageListModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng? currentUserLocationValue;
+
+  final animationsMap = {
+    'containerOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 460.ms,
+          begin: Offset(100.0, 0.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -47,8 +75,6 @@ class _MessageListWidgetState extends State<MessageListWidget> {
           .onError((_, __) => _model.algoliaSearchResults = [])
           .whenComplete(() => setState(() {}));
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -71,84 +97,104 @@ class _MessageListWidgetState extends State<MessageListWidget> {
 
     context.watch<FFAppState>();
 
-    return Title(
-        title: 'messageList',
-        color: FlutterFlowTheme.of(context).primary.withAlpha(0XFF),
-        child: GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            key: scaffoldKey,
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            body: SafeArea(
-              top: true,
-              child: Align(
-                alignment: AlignmentDirectional(0.00, -1.00),
-                child: Container(
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        child: Row(
+    return GestureDetector(
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
+          child: Align(
+            alignment: AlignmentDirectional(0.0, -1.0),
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+              child: Container(
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    wrapWithModel(
+                      model: _model.navBar1Model,
+                      updateCallback: () => setState(() {}),
+                      child: NavBar1Widget(),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 100.0),
+                      child: SingleChildScrollView(
+                        primary: false,
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 0.0,
-                              child: VerticalDivider(
-                                width: 32.0,
-                                thickness: 1.0,
-                                color: FlutterFlowTheme.of(context).accent4,
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Messages',
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineMedium,
+                                  Container(
+                                    decoration: BoxDecoration(),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          'Messages',
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineMedium,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  FFButtonWidget(
+                                    onPressed: () async {
+                                      context.pushNamed('rechercheMessage');
+                                    },
+                                    text: 'Nouveau chat',
+                                    icon: Icon(
+                                      FFIcons.kcallmessage,
+                                      size: 20.0,
+                                    ),
+                                    options: FFButtonOptions(
+                                      height: 48.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 4.0, 0.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily,
+                                            color: Colors.white,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmallFamily),
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                            FlutterFlowIconButton(
-                              borderRadius: 200.0,
-                              buttonSize: 48.0,
-                              fillColor: FlutterFlowTheme.of(context).secondary,
-                              icon: Icon(
-                                Icons.group_add,
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                size: 20.0,
-                              ),
-                              onPressed: () async {
-                                context.pushNamed('rechercheMessage');
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      wrapWithModel(
-                        model: _model.navBar1Model,
-                        updateCallback: () => setState(() {}),
-                        child: NavBar1Widget(),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 60.0, 24.0, 100.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 40.0, 0.0, 0.0),
+                              child: Text(
                                 'Vos groupes',
                                 style: FlutterFlowTheme.of(context)
                                     .labelLarge
@@ -163,12 +209,17 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                   .labelLargeFamily),
                                     ),
                               ),
-                              Container(
-                                decoration: BoxDecoration(),
-                                child: Container(
-                                  height: 200.0,
-                                  child: StreamBuilder<List<GroupesRecord>>(
-                                    stream: queryGroupesRecord(
+                            ),
+                            Container(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              height: 260.0,
+                              decoration: BoxDecoration(),
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: StreamBuilder<List<GroupesRecord>>(
+                                  stream: _model.groupeQuery(
+                                    requestFn: () => queryGroupesRecord(
                                       queryBuilder: (groupesRecord) =>
                                           groupesRecord.where(
                                         'Users',
@@ -176,53 +227,54 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                       ),
                                       limit: 20,
                                     ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                              ),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
                                             ),
                                           ),
-                                        );
-                                      }
-                                      List<GroupesRecord>
-                                          listViewGroupesRecordList =
-                                          snapshot.data!;
-                                      if (listViewGroupesRecordList.isEmpty) {
-                                        return Container(
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          child: AucunelementWidget(),
-                                        );
-                                      }
-                                      return ListView.separated(
-                                        padding: EdgeInsets.zero,
-                                        primary: false,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount:
-                                            listViewGroupesRecordList.length,
-                                        separatorBuilder: (_, __) =>
-                                            SizedBox(width: 24.0),
-                                        itemBuilder: (context, listViewIndex) {
-                                          final listViewGroupesRecord =
-                                              listViewGroupesRecordList[
-                                                  listViewIndex];
-                                          return Padding(
+                                        ),
+                                      );
+                                    }
+                                    List<GroupesRecord>
+                                        listViewGroupesRecordList =
+                                        snapshot.data!;
+                                    if (listViewGroupesRecordList.isEmpty) {
+                                      return Center(
+                                        child: NoGroupWidget(),
+                                      );
+                                    }
+                                    return ListView.separated(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 24.0),
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount:
+                                          listViewGroupesRecordList.length,
+                                      separatorBuilder: (_, __) =>
+                                          SizedBox(width: 24.0),
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewGroupesRecord =
+                                            listViewGroupesRecordList[
+                                                listViewIndex];
+                                        return Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 12.0, 0.0, 12.0),
                                             child: Container(
                                               width: 160.0,
-                                              height: 168.0,
+                                              height: 224.0,
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 boxShadow: [
@@ -236,65 +288,257 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                     BorderRadius.circular(20.0),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        12.0, 12.0, 12.0, 12.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Column(
                                                   mainAxisSize:
-                                                      MainAxisSize.max,
+                                                      MainAxisSize.min,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceEvenly,
                                                   children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50.0),
-                                                      child: Image.network(
-                                                        listViewGroupesRecord
-                                                            .photoUrl,
-                                                        width: 60.0,
-                                                        height: 60.0,
-                                                        fit: BoxFit.cover,
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                          'group_detail',
+                                                          queryParameters: {
+                                                            'groupRef':
+                                                                serializeParam(
+                                                              listViewGroupesRecord
+                                                                  .reference,
+                                                              ParamType
+                                                                  .DocumentReference,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      },
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16.0),
+                                                        child:
+                                                            CachedNetworkImage(
+                                                          fadeInDuration:
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      0),
+                                                          fadeOutDuration:
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      0),
+                                                          imageUrl:
+                                                              listViewGroupesRecord
+                                                                  .photoUrl,
+                                                          width:
+                                                              double.infinity,
+                                                          height: 90.0,
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0,
-                                                                  8.0),
-                                                      child: Text(
-                                                        listViewGroupesRecord
-                                                            .displayName,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Plus Jakarta Sans',
-                                                                  color: Color(
-                                                                      0xFF14181B),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
-                                                      ),
+                                                    Text(
+                                                      listViewGroupesRecord
+                                                          .displayName,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Plus Jakarta Sans',
+                                                                color: Color(
+                                                                    0xFF14181B),
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
                                                     ),
                                                     FFButtonWidget(
-                                                      onPressed: () {
-                                                        print(
-                                                            'Button pressed ...');
+                                                      onPressed: () async {
+                                                        _model.chatDuGroupe =
+                                                            await queryChatsRecordCount(
+                                                          queryBuilder:
+                                                              (chatsRecord) =>
+                                                                  chatsRecord
+                                                                      .where(
+                                                            'group_ref',
+                                                            isEqualTo:
+                                                                listViewGroupesRecord
+                                                                    .reference,
+                                                          ),
+                                                        );
+                                                        if (_model
+                                                                .chatDuGroupe !=
+                                                            0) {
+                                                          _model.chatDuGroupeItem =
+                                                              await queryChatsRecordOnce(
+                                                            queryBuilder:
+                                                                (chatsRecord) =>
+                                                                    chatsRecord
+                                                                        .where(
+                                                              'group_ref',
+                                                              isEqualTo:
+                                                                  listViewGroupesRecord
+                                                                      .reference,
+                                                            ),
+                                                            singleRecord: true,
+                                                          ).then((s) => s
+                                                                  .firstOrNull);
+
+                                                          context.goNamed(
+                                                            'chatGroupPage',
+                                                            queryParameters: {
+                                                              'othersUser':
+                                                                  serializeParam(
+                                                                listViewGroupesRecord
+                                                                    .users,
+                                                                ParamType
+                                                                    .DocumentReference,
+                                                                true,
+                                                              ),
+                                                              'chat':
+                                                                  serializeParam(
+                                                                _model
+                                                                    .chatDuGroupeItem
+                                                                    ?.reference,
+                                                                ParamType
+                                                                    .DocumentReference,
+                                                              ),
+                                                              'group':
+                                                                  serializeParam(
+                                                                listViewGroupesRecord
+                                                                    .reference,
+                                                                ParamType
+                                                                    .DocumentReference,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        } else {
+                                                          var chatsRecordReference =
+                                                              ChatsRecord
+                                                                  .collection
+                                                                  .doc();
+                                                          await chatsRecordReference
+                                                              .set({
+                                                            ...createChatsRecordData(
+                                                              lastMessage:
+                                                                  'Nouvelle conversation',
+                                                              lastMessageTime:
+                                                                  getCurrentTimestamp,
+                                                              lastMessageSentBy:
+                                                                  currentUserReference,
+                                                              lastMessageSeenBy:
+                                                                  currentUserReference,
+                                                              groupeChat: true,
+                                                              groupRef:
+                                                                  listViewGroupesRecord
+                                                                      .reference,
+                                                            ),
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'users':
+                                                                    listViewGroupesRecord
+                                                                        .users,
+                                                              },
+                                                            ),
+                                                          });
+                                                          _model.convGroupeCree =
+                                                              ChatsRecord
+                                                                  .getDocumentFromData({
+                                                            ...createChatsRecordData(
+                                                              lastMessage:
+                                                                  'Nouvelle conversation',
+                                                              lastMessageTime:
+                                                                  getCurrentTimestamp,
+                                                              lastMessageSentBy:
+                                                                  currentUserReference,
+                                                              lastMessageSeenBy:
+                                                                  currentUserReference,
+                                                              groupeChat: true,
+                                                              groupRef:
+                                                                  listViewGroupesRecord
+                                                                      .reference,
+                                                            ),
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'users':
+                                                                    listViewGroupesRecord
+                                                                        .users,
+                                                              },
+                                                            ),
+                                                          }, chatsRecordReference);
+                                                          while (_model
+                                                                  .userCompteur <
+                                                              listViewGroupesRecord
+                                                                  .users
+                                                                  .length) {
+                                                            await listViewGroupesRecord
+                                                                .users[_model
+                                                                    .userCompteur]
+                                                                .update({
+                                                              ...mapToFirestore(
+                                                                {
+                                                                  'chats':
+                                                                      FieldValue
+                                                                          .arrayUnion([
+                                                                    _model
+                                                                        .convGroupeCree
+                                                                        ?.reference
+                                                                  ]),
+                                                                },
+                                                              ),
+                                                            });
+                                                            _model.userCompteur =
+                                                                _model.userCompteur +
+                                                                    1;
+                                                          }
+                                                          _model.userCompteur =
+                                                              0;
+
+                                                          context.goNamed(
+                                                            'chatGroupPage',
+                                                            queryParameters: {
+                                                              'othersUser':
+                                                                  serializeParam(
+                                                                listViewGroupesRecord
+                                                                    .users,
+                                                                ParamType
+                                                                    .DocumentReference,
+                                                                true,
+                                                              ),
+                                                              'chat':
+                                                                  serializeParam(
+                                                                _model
+                                                                    .convGroupeCree
+                                                                    ?.reference,
+                                                                ParamType
+                                                                    .DocumentReference,
+                                                              ),
+                                                              'group':
+                                                                  serializeParam(
+                                                                listViewGroupesRecord
+                                                                    .reference,
+                                                                ParamType
+                                                                    .DocumentReference,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        }
+
+                                                        setState(() {});
                                                       },
                                                       text: 'Chatter',
                                                       icon: Icon(
@@ -311,12 +555,7 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                                     16.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            EdgeInsets.all(0.0),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -353,19 +592,25 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                                     200.0),
                                                       ),
                                                     ),
-                                                  ],
+                                                  ].divide(
+                                                      SizedBox(height: 12.0)),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
+                                            ).animateOnPageLoad(animationsMap[
+                                                'containerOnPageLoadAnimation']!),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
-                              Text(
-                                'Vos amis',
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              child: Text(
+                                'Vos conversations',
                                 style: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
@@ -379,7 +624,11 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                   .labelLargeFamily),
                                     ),
                               ),
-                              Container(
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(),
                                 child: Padding(
@@ -392,6 +641,11 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                             'users',
                                             arrayContains: currentUserReference,
                                           )
+                                          .where(
+                                            'groupe_chat',
+                                            isNotEqualTo: true,
+                                          )
+                                          .orderBy('groupe_chat')
                                           .orderBy('last_message_time',
                                               descending: true),
                                       limit: 20,
@@ -417,7 +671,9 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                           listViewChatsRecordList =
                                           snapshot.data!;
                                       if (listViewChatsRecordList.isEmpty) {
-                                        return AucunelementWidget();
+                                        return Center(
+                                          child: NoChatsWidget(),
+                                        );
                                       }
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
@@ -475,15 +731,8 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                       Colors.transparent,
                                                   onTap: () async {
                                                     context.pushNamed(
-                                                      'Chat',
+                                                      'chatPage',
                                                       queryParameters: {
-                                                        'otherUser':
-                                                            serializeParam(
-                                                          userList5UsersRecord
-                                                              .reference,
-                                                          ParamType
-                                                              .DocumentReference,
-                                                        ),
                                                         'chat': serializeParam(
                                                           listViewChatsRecord
                                                               .reference,
@@ -495,7 +744,7 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                   },
                                                   child: Container(
                                                     width: double.infinity,
-                                                    height: 60.0,
+                                                    height: 70.0,
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       boxShadow: [
@@ -526,18 +775,48 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: [
-                                                          ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        26.0),
-                                                            child:
-                                                                Image.network(
-                                                              userList5UsersRecord
-                                                                  .photoUrl,
-                                                              width: 36.0,
-                                                              height: 36.0,
-                                                              fit: BoxFit.cover,
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        8.0,
+                                                                        0.0,
+                                                                        8.0),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          16.0),
+                                                              child:
+                                                                  Image.network(
+                                                                userList5UsersRecord
+                                                                    .photoUrl,
+                                                                width: 70.0,
+                                                                height: double
+                                                                    .infinity,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                alignment:
+                                                                    Alignment(
+                                                                        0.0,
+                                                                        0.0),
+                                                                errorBuilder: (context,
+                                                                        error,
+                                                                        stackTrace) =>
+                                                                    Image.asset(
+                                                                  'assets/images/error_image.png',
+                                                                  width: 70.0,
+                                                                  height: double
+                                                                      .infinity,
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                  alignment:
+                                                                      Alignment(
+                                                                          0.0,
+                                                                          0.0),
+                                                                ),
+                                                              ),
                                                             ),
                                                           ),
                                                           Expanded(
@@ -596,7 +875,7 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                                               .lastMessage
                                                                               .maybeHandleOverflow(
                                                                             maxChars:
-                                                                                25,
+                                                                                13,
                                                                             replacement:
                                                                                 '…',
                                                                           ),
@@ -618,9 +897,21 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                             ),
                                                           ),
                                                           FFButtonWidget(
-                                                            onPressed: () {
-                                                              print(
-                                                                  'Button pressed ...');
+                                                            onPressed:
+                                                                () async {
+                                                              context.pushNamed(
+                                                                'chatPage',
+                                                                queryParameters:
+                                                                    {
+                                                                  'chat':
+                                                                      serializeParam(
+                                                                    listViewChatsRecord
+                                                                        .reference,
+                                                                    ParamType
+                                                                        .DocumentReference,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                              );
                                                             },
                                                             text: 'Chatter',
                                                             icon: Icon(
@@ -639,12 +930,8 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                                                           16.0,
                                                                           0.0),
                                                               iconPadding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                  EdgeInsets
+                                                                      .all(0.0),
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .secondary,
@@ -691,16 +978,18 @@ class _MessageListWidgetState extends State<MessageListWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(height: 8.0)),
-                          ),
+                            ),
+                          ].divide(SizedBox(height: 8.0)),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

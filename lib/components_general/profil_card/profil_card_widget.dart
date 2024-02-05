@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,14 +13,14 @@ export 'profil_card_model.dart';
 
 class ProfilCardWidget extends StatefulWidget {
   const ProfilCardWidget({
-    Key? key,
+    super.key,
     required this.userRef,
-  }) : super(key: key);
+  });
 
   final DocumentReference? userRef;
 
   @override
-  _ProfilCardWidgetState createState() => _ProfilCardWidgetState();
+  State<ProfilCardWidget> createState() => _ProfilCardWidgetState();
 }
 
 class _ProfilCardWidgetState extends State<ProfilCardWidget> {
@@ -35,8 +36,6 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfilCardModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -74,15 +73,7 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () async {
-            context.pushNamed(
-              'vendeur_detail',
-              queryParameters: {
-                'seller': serializeParam(
-                  widget.userRef,
-                  ParamType.DocumentReference,
-                ),
-              }.withoutNulls,
-            );
+            context.pushNamed('Profilpage');
           },
           child: Container(
             width: double.infinity,
@@ -120,11 +111,20 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(800.0),
-                          child: Image.network(
-                            containerUsersRecord.photoUrl,
+                          child: CachedNetworkImage(
+                            fadeInDuration: Duration(milliseconds: 0),
+                            fadeOutDuration: Duration(milliseconds: 0),
+                            imageUrl: containerUsersRecord.photoUrl,
                             width: 300.0,
                             height: 200.0,
                             fit: BoxFit.cover,
+                            errorWidget: (context, error, stackTrace) =>
+                                Image.asset(
+                              'assets/images/error_image.png',
+                              width: 300.0,
+                              height: 200.0,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -134,7 +134,11 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            containerUsersRecord.displayName,
+                            containerUsersRecord.displayName
+                                .maybeHandleOverflow(
+                              maxChars: 20,
+                              replacement: '…',
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
                                 .override(
@@ -170,8 +174,8 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
                   ),
                   FlutterFlowIconButton(
                     borderRadius: 10.0,
-                    buttonSize: 40.0,
-                    fillColor: FlutterFlowTheme.of(context).primary,
+                    buttonSize: 44.0,
+                    fillColor: FlutterFlowTheme.of(context).secondary,
                     icon: Icon(
                       FFIcons.kmenuIcon3,
                       color: FlutterFlowTheme.of(context).primaryBackground,
@@ -180,7 +184,7 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
                     onPressed: () async {
                       context.pushNamed(
                         'vendeur_detail',
-                        queryParameters: {
+                        pathParameters: {
                           'seller': serializeParam(
                             widget.userRef,
                             ParamType.DocumentReference,

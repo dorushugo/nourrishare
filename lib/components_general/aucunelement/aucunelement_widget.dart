@@ -8,10 +8,10 @@ import 'aucunelement_model.dart';
 export 'aucunelement_model.dart';
 
 class AucunelementWidget extends StatefulWidget {
-  const AucunelementWidget({Key? key}) : super(key: key);
+  const AucunelementWidget({super.key});
 
   @override
-  _AucunelementWidgetState createState() => _AucunelementWidgetState();
+  State<AucunelementWidget> createState() => _AucunelementWidgetState();
 }
 
 class _AucunelementWidgetState extends State<AucunelementWidget> {
@@ -27,8 +27,6 @@ class _AucunelementWidgetState extends State<AucunelementWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AucunelementModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

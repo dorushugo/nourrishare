@@ -77,14 +77,13 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
   @override
   Widget build(BuildContext context) => _loading
-      ? Center(
-          child: SizedBox(
-            width: 50.0,
-            height: 50.0,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                FlutterFlowTheme.of(context).secondary,
-              ),
+      ? Container(
+          color: FlutterFlowTheme.of(context).primaryBackground,
+          child: Center(
+            child: Image.asset(
+              'assets/images/Logo_avec_texte.png',
+              width: MediaQuery.sizeOf(context).width * 0.7,
+              fit: BoxFit.contain,
             ),
           ),
         )
@@ -121,28 +120,79 @@ final parametersBuilderMap =
           'plats': getParameter<DocumentReference>(data, 'plats'),
         },
       ),
-  'vendeur_detail': (data) async => ParameterData(
-        allParams: {
-          'seller': getParameter<DocumentReference>(data, 'seller'),
-        },
-      ),
+  'vendeur_detail': (data) async {
+    final allParams = {
+      'seller': getParameter<DocumentReference>(data, 'seller'),
+    };
+    return ParameterData(
+      requiredParams: {
+        'seller': serializeParam(
+          allParams['seller'],
+          ParamType.DocumentReference,
+        ),
+      },
+      allParams: allParams,
+    );
+  },
   'ajouterunplat': (data) async => ParameterData(
         allParams: {
           'seller': getParameter<DocumentReference>(data, 'seller'),
         },
       ),
   'Profilcompletion': ParameterData.none(),
-  'rechercheUsers': ParameterData.none(),
-  'listAmis': ParameterData.none(),
   'messageList': ParameterData.none(),
-  'Chat': (data) async => ParameterData(
+  'chatPage': (data) async => ParameterData(
         allParams: {
-          'otherUser': getParameter<DocumentReference>(data, 'otherUser'),
           'chat': getParameter<DocumentReference>(data, 'chat'),
         },
       ),
   'rechercheMessage': ParameterData.none(),
-  'ProfileSettings': ParameterData.none(),
+  'Inscription': ParameterData.none(),
+  'stripeCompletion': ParameterData.none(),
+  'Profilsettings': ParameterData.none(),
+  'chatGroupPage': (data) async => ParameterData(
+        allParams: {
+          'chat': getParameter<DocumentReference>(data, 'chat'),
+          'group': getParameter<DocumentReference>(data, 'group'),
+        },
+      ),
+  'addGroup': (data) async => ParameterData(
+        allParams: {
+          'group': getParameter<DocumentReference>(data, 'group'),
+        },
+      ),
+  'modifGroup': (data) async => ParameterData(
+        allParams: {
+          'group': getParameter<DocumentReference>(data, 'group'),
+        },
+      ),
+  'ajouterUserGroupe': (data) async => ParameterData(
+        allParams: {
+          'group': getParameter<DocumentReference>(data, 'group'),
+        },
+      ),
+  'connexionGroupe': (data) async => ParameterData(
+        allParams: {
+          'groupe': getParameter<DocumentReference>(data, 'groupe'),
+        },
+      ),
+  'group_detail': (data) async => ParameterData(
+        allParams: {
+          'groupRef': getParameter<DocumentReference>(data, 'groupRef'),
+        },
+      ),
+  'ConnexionInscription': ParameterData.none(),
+  'Livraison': (data) async => ParameterData(
+        allParams: {
+          'commandeRef': getParameter<DocumentReference>(data, 'commandeRef'),
+        },
+      ),
+  'Notifications': ParameterData.none(),
+  'modifierPlat': (data) async => ParameterData(
+        allParams: {
+          'plat': getParameter<DocumentReference>(data, 'plat'),
+        },
+      ),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

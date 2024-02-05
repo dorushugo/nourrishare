@@ -1,7 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components_general/ingredients_voisins/ingredients_voisins_widget.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
+import '/components_general/no_ingredient/no_ingredient_widget.dart';
+import '/components_general/no_plats/no_plats_widget.dart';
+import '/components_general/plats_collegues/plats_collegues_widget.dart';
+import '/components_general/plats_petits/plats_petits_widget.dart';
+import '/components_general/plats_petits_collegues/plats_petits_collegues_widget.dart';
 import '/components_general/plats_voisins/plats_voisins_widget.dart';
 import '/components_general/profil_card/profil_card_widget.dart';
 import '/components_general/switchpage/switchpage_widget.dart';

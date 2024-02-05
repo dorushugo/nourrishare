@@ -10,6 +10,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 String? calculateDistance(
@@ -42,4 +43,51 @@ String? calculateDistance(
   distance = math.max(0.1, ((distance * 10).ceil() / 10));
 
   return '${distance.toStringAsFixed(1)} km';
+}
+
+DateTime returnDate13YearsAgo() {
+  // Return date to 12 years and 364 days from today
+  final now = DateTime.now();
+  final thirteenYearsAgo = DateTime(now.year - 13, now.month, now.day)
+      .subtract(const Duration(days: 1));
+  return thirteenYearsAgo;
+}
+
+bool calculateTime30(DateTime dateCreation) {
+  // Return false if time between dateCreation and now is more than 5 minutes
+  final now = DateTime.now();
+  final difference = now.difference(dateCreation);
+  return difference.inMinutes <= 30;
+}
+
+bool calculateTime(DateTime dateCreation) {
+  // Return false if time between dateCreation and now is more than 5 minutes
+  final now = DateTime.now();
+  final difference = now.difference(dateCreation);
+  return difference.inMinutes <= 5;
+}
+
+List<int> returnDobFields(DateTime dateOfBirth) {
+  // Return the day, month and year of birth from date of birht.
+  return [dateOfBirth.day, dateOfBirth.month, dateOfBirth.year];
+}
+
+dynamic decodeJson(String? apiReturn) {
+  // Decode JSON in apiReturn
+  if (apiReturn == null) {
+    return null;
+  }
+  return json.decode(apiReturn);
+}
+
+String replaceString(String inputJson) {
+  // Supprime les guillemets, les retours à la ligne et les caractères d'échappement
+  String formattedString = inputJson.replaceAll('\n', ' ');
+  formattedString = formattedString.replaceAll('\"', '');
+  formattedString = formattedString.replaceAll(' n ', '');
+  formattedString = formattedString.replaceAll('\\', '');
+  formattedString = formattedString.replaceAll('{', '');
+  formattedString = formattedString.replaceAll('}', '');
+
+  return formattedString;
 }

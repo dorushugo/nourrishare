@@ -1,11 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/components/profil_settings_card_widget.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
 import '/components_general/plats_voisins/plats_voisins_widget.dart';
+import '/components_general/profil_settings_card/profil_settings_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'profilpage_widget.dart' show ProfilpageWidget;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
