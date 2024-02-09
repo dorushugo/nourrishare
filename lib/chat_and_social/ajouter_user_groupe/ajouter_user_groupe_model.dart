@@ -1,21 +1,9 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'ajouter_user_groupe_widget.dart' show AjouterUserGroupeWidget;
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 class AjouterUserGroupeModel extends FlutterFlowModel<AjouterUserGroupeWidget> {
   ///  Local state fields for this page.
@@ -42,10 +30,12 @@ class AjouterUserGroupeModel extends FlutterFlowModel<AjouterUserGroupeWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     navBar1Model = createModel(context, () => NavBar1Model());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     navBar1Model.dispose();
@@ -63,7 +53,7 @@ class AjouterUserGroupeModel extends FlutterFlowModel<AjouterUserGroupeWidget> {
   }) async {
     final stopwatch = Stopwatch()..start();
     while (true) {
-      await Future.delayed(Duration(milliseconds: 50));
+      await Future.delayed(const Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
       final requestComplete = algoliaRequestCompleter?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {

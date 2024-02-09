@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -102,14 +101,16 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Modifier votre plat',
+                              FFLocalizations.of(context).getText(
+                                '1328yg1c' /* Modifier votre plat */,
+                              ),
                               style: FlutterFlowTheme.of(context).headlineSmall,
                             ),
                             Container(
@@ -140,7 +141,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
@@ -149,12 +150,12 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                             width: double.infinity,
                             height: 220.0,
                             fit: BoxFit.cover,
-                            alignment: Alignment(0.0, 0.0),
+                            alignment: const Alignment(0.0, 0.0),
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: TextFormField(
                           controller: _model.nomPlatController ??=
@@ -166,7 +167,9 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                           textInputAction: TextInputAction.next,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Nom du plat',
+                            labelText: FFLocalizations.of(context).getText(
+                              '0q93m1i0' /* Nom du plat */,
+                            ),
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelSmall
                                 .override(
@@ -191,7 +194,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                           .labelMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFEAF4F1),
                                 width: 1.0,
                               ),
@@ -218,7 +221,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                               ),
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            contentPadding: EdgeInsets.all(20.0),
+                            contentPadding: const EdgeInsets.all(20.0),
                             prefixIcon: Icon(
                               FFIcons.kchef,
                               color: FlutterFlowTheme.of(context).primary,
@@ -242,7 +245,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: FlutterFlowDropDown<bool>(
                           controller: _model.ingredientsValueController ??=
@@ -251,7 +254,14 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                 formPlatsRecord.ingredientstype,
                           ),
                           options: List<bool>.from([true, false]),
-                          optionLabels: ['Ingrédient', 'Plat cuisiné'],
+                          optionLabels: [
+                            FFLocalizations.of(context).getText(
+                              '9dn4ggin' /* Ingrédient */,
+                            ),
+                            FFLocalizations.of(context).getText(
+                              '4n8ucqkt' /* Plat cuisiné */,
+                            )
+                          ],
                           onChanged: (val) =>
                               setState(() => _model.ingredientsValue = val),
                           width: double.infinity,
@@ -267,7 +277,9 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                     FlutterFlowTheme.of(context)
                                         .bodyMediumFamily),
                               ),
-                          hintText: 'Quel type de plat ?',
+                          hintText: FFLocalizations.of(context).getText(
+                            '73rfca8u' /* Quel type de plat ? */,
+                          ),
                           icon: Icon(
                             Icons.keyboard_arrow_down_rounded,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -277,14 +289,14 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                           borderColor: FlutterFlowTheme.of(context).grey4,
                           borderWidth: 2.0,
                           borderRadius: 20.0,
-                          margin: EdgeInsets.all(20.0),
+                          margin: const EdgeInsets.all(20.0),
                           hidesUnderline: true,
                           isSearchable: false,
                           isMultiSelect: false,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: TextFormField(
                           controller: _model.prixController ??=
@@ -296,7 +308,9 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                           textInputAction: TextInputAction.next,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Prix (€)',
+                            labelText: FFLocalizations.of(context).getText(
+                              'g62qgslp' /* Prix (€) */,
+                            ),
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelSmall
                                 .override(
@@ -321,7 +335,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                           .labelMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFEAF4F1),
                                 width: 1.0,
                               ),
@@ -348,7 +362,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                               ),
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            contentPadding: EdgeInsets.all(20.0),
+                            contentPadding: const EdgeInsets.all(20.0),
                             prefixIcon: Icon(
                               FFIcons.kbuy,
                               color: FlutterFlowTheme.of(context).primary,
@@ -374,7 +388,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: TextFormField(
                           controller: _model.ingredientsController ??=
@@ -386,7 +400,9 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                           textInputAction: TextInputAction.next,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Ingrédients',
+                            labelText: FFLocalizations.of(context).getText(
+                              'hue3x9n2' /* Ingrédients */,
+                            ),
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelSmall
                                 .override(
@@ -411,7 +427,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                           .labelMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFEAF4F1),
                                 width: 1.0,
                               ),
@@ -438,7 +454,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                               ),
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            contentPadding: EdgeInsets.all(20.0),
+                            contentPadding: const EdgeInsets.all(20.0),
                             prefixIcon: Icon(
                               FFIcons.kproteins,
                               color: FlutterFlowTheme.of(context).primary,
@@ -464,7 +480,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: TextFormField(
                           controller: _model.allergenesController ??=
@@ -476,7 +492,9 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                           textInputAction: TextInputAction.next,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Allergènes',
+                            labelText: FFLocalizations.of(context).getText(
+                              'ifsgrglr' /* Allergènes */,
+                            ),
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelSmall
                                 .override(
@@ -501,7 +519,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                           .labelMediumFamily),
                                 ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFFEAF4F1),
                                 width: 1.0,
                               ),
@@ -528,7 +546,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                               ),
                               borderRadius: BorderRadius.circular(16.0),
                             ),
-                            contentPadding: EdgeInsets.all(20.0),
+                            contentPadding: const EdgeInsets.all(20.0),
                             prefixIcon: Icon(
                               FFIcons.kinfoSquare,
                               color: FlutterFlowTheme.of(context).primary,
@@ -554,14 +572,16 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Quantité',
+                              FFLocalizations.of(context).getText(
+                                'razrjtxm' /* Quantité */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -620,18 +640,20 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              alignment: const AlignmentDirectional(-1.0, 0.0),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: Text(
-                                  'À qui souhaitez vous vendre ce plat ?',
+                                  FFLocalizations.of(context).getText(
+                                    'ulo0we7f' /* À qui souhaitez vous vendre ce... */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -657,11 +679,21 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                               ),
                               options: List<int>.from([1, 3, 2, 4, 5]),
                               optionLabels: [
-                                'Mes voisins',
-                                'Toutes les personnes dans mes groupes',
-                                'À tout le monde (voisins et groupes)',
-                                'À un ou des groupes en particulier',
-                                'Garder en brouillon'
+                                FFLocalizations.of(context).getText(
+                                  'r4lwgc6g' /* Mes voisins */,
+                                ),
+                                FFLocalizations.of(context).getText(
+                                  'ojolhdfi' /* Toutes les personnes dans mes ... */,
+                                ),
+                                FFLocalizations.of(context).getText(
+                                  'efczwbzv' /* À tout le monde (voisins et gr... */,
+                                ),
+                                FFLocalizations.of(context).getText(
+                                  'hst7mh48' /* À un ou des groupes en particu... */,
+                                ),
+                                FFLocalizations.of(context).getText(
+                                  'udlxqd4a' /* Garder en brouillon */,
+                                )
                               ],
                               onChanged: (val) => setState(
                                   () => _model.placedeventeValue = val),
@@ -679,7 +711,9 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                             FlutterFlowTheme.of(context)
                                                 .bodyMediumFamily),
                                   ),
-                              hintText: 'À qui voulez vous proposer ce plat ?',
+                              hintText: FFLocalizations.of(context).getText(
+                                '6n5vvbpn' /* À qui voulez vous proposer ce ... */,
+                              ),
                               icon: Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 color:
@@ -690,7 +724,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                               borderColor: FlutterFlowTheme.of(context).grey4,
                               borderWidth: 2.0,
                               borderRadius: 20.0,
-                              margin: EdgeInsets.all(20.0),
+                              margin: const EdgeInsets.all(20.0),
                               hidesUnderline: true,
                               isSearchable: false,
                               isMultiSelect: false,
@@ -703,12 +737,14 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         children: [
                           if (_model.placedeventeValue.toString() == '4')
                             Align(
-                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              alignment: const AlignmentDirectional(-1.0, 0.0),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 8.0),
                                 child: Text(
-                                  'À quels groupes voulez-vous vendre ?',
+                                  FFLocalizations.of(context).getText(
+                                    'mr1pt7el' /* À quels groupes voulez-vous ve... */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -728,16 +764,16 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                             ),
                           if (_model.placedeventeValue.toString() == '4')
                             Container(
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 maxHeight: 315.0,
                               ),
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 12.0, 24.0, 44.0),
                                       child: StreamBuilder<List<GroupesRecord>>(
                                         stream: queryGroupesRecord(
@@ -778,7 +814,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                               snapshot.data!;
                                           if (listViewGroupesRecordList
                                               .isEmpty) {
-                                            return Center(
+                                            return const Center(
                                               child: NoGroupWidget(),
                                             );
                                           }
@@ -795,7 +831,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                   listViewGroupesRecordList[
                                                       listViewIndex];
                                               return Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 4.0, 0.0, 8.0),
                                                 child: Container(
@@ -803,7 +839,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                   height: 60.0,
                                                   decoration: BoxDecoration(
                                                     color: Colors.white,
-                                                    boxShadow: [
+                                                    boxShadow: const [
                                                       BoxShadow(
                                                         blurRadius: 4.0,
                                                         color:
@@ -818,7 +854,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(8.0, 0.0,
                                                                 8.0, 0.0),
                                                     child: Row(
@@ -853,7 +889,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                         Expanded(
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         12.0,
                                                                         0.0,
@@ -879,7 +915,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                                       .override(
                                                                         fontFamily:
                                                                             'Plus Jakarta Sans',
-                                                                        color: Color(
+                                                                        color: const Color(
                                                                             0xFF14181B),
                                                                         fontSize:
                                                                             14.0,
@@ -895,7 +931,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           4.0,
                                                                           0.0,
@@ -907,7 +943,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                                             .labelMedium
                                                                             .override(
                                                                               fontFamily: 'Plus Jakarta Sans',
-                                                                              color: Color(0xFF57636C),
+                                                                              color: const Color(0xFF57636C),
                                                                               fontSize: 14.0,
                                                                               fontWeight: FontWeight.normal,
                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
@@ -986,18 +1022,14 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 40.0),
                         child: FFButtonWidget(
-                          onPressed: ((_model.nomPlatController.text == null ||
-                                      _model.nomPlatController.text == '') &&
-                                  (_model.prixController.text != null &&
-                                      _model.prixController.text != '') &&
-                                  (_model.ingredientsController.text != null &&
-                                      _model.ingredientsController.text !=
+                          onPressed: ((_model.nomPlatController.text == '') &&
+                                  (_model.prixController.text != '') &&
+                                  (_model.ingredientsController.text !=
                                           '') &&
-                                  (_model.ingredientsController.text != null &&
-                                      _model.ingredientsController.text !=
+                                  (_model.ingredientsController.text !=
                                           '') &&
                                   (_model.placedeventeValue != null))
                               ? null
@@ -1032,7 +1064,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                         {
                                           'groupe_destine': (currentUserDocument
                                                   ?.groupes
-                                                  ?.toList() ??
+                                                  .toList() ??
                                               []),
                                         },
                                       ),
@@ -1058,24 +1090,26 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                               .primaryText,
                                         ),
                                       ),
-                                      duration: Duration(milliseconds: 4000),
+                                      duration: const Duration(milliseconds: 4000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context)
                                               .primaryBackground,
                                     ),
                                   );
                                 },
-                          text: 'Modifier le plat',
-                          icon: Icon(
+                          text: FFLocalizations.of(context).getText(
+                            'l2ghqjw7' /* Modifier le plat */,
+                          ),
+                          icon: const Icon(
                             FFIcons.keditSquare,
                             size: 15.0,
                           ),
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 60.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 4.0, 0.0),
                             color: FlutterFlowTheme.of(context).secondary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -1089,7 +1123,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 3.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -1101,7 +1135,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 24.0)),
+                    ].divide(const SizedBox(height: 24.0)),
                   ),
                 ),
               );

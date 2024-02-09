@@ -9,17 +9,14 @@ import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'chat_page_model.dart';
 export 'chat_page_model.dart';
@@ -70,9 +67,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
       _model.currentChat = await ChatsRecord.getDocumentOnce(widget.chat!);
       setState(() {
         _model.otherUser = _model.currentChat?.users
-            ?.where((e) => e.id != currentUserReference?.id)
+            .where((e) => e.id != currentUserReference?.id)
             .toList()
-            ?.first;
+            .first;
       });
     });
 
@@ -82,7 +79,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
       () async {
         await _model.columnController?.animateTo(
           _model.columnController!.position.maxScrollExtent,
-          duration: Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 100),
           curve: Curves.ease,
         );
       },
@@ -138,7 +135,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
               final containerUsersRecord = snapshot.data!;
               return Container(
                 width: double.infinity,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: StreamBuilder<ChatsRecord>(
                   stream: ChatsRecord.getDocument(widget.chat!),
                   builder: (context, snapshot) {
@@ -157,20 +154,20 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                       );
                     }
                     final stackChatsRecord = snapshot.data!;
-                    return Container(
+                    return SizedBox(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: MediaQuery.sizeOf(context).height * 1.0,
                       child: Stack(
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: const AlignmentDirectional(0.0, 1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 85.0, 0.0, 56.0),
                               child: Container(
                                 width: double.infinity,
                                 height: MediaQuery.sizeOf(context).height * 1.0,
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: SingleChildScrollView(
                                   controller: _model.columnController,
                                   child: Column(
@@ -178,7 +175,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 24.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -188,7 +185,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                               CrossAxisAlignment.stretch,
                                           children: [
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, -1.0),
                                               child: StreamBuilder<
                                                   List<ChatMessagesRecord>>(
@@ -231,14 +228,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                       snapshot.data!;
                                                   if (listViewChatMessagesRecordList
                                                       .isEmpty) {
-                                                    return Center(
+                                                    return const Center(
                                                       child:
                                                           DemarrerconvWidget(),
                                                     );
                                                   }
                                                   return ListView.separated(
                                                     padding:
-                                                        EdgeInsets.symmetric(
+                                                        const EdgeInsets.symmetric(
                                                             vertical: 8.0),
                                                     reverse: true,
                                                     shrinkWrap: true,
@@ -248,7 +245,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         listViewChatMessagesRecordList
                                                             .length,
                                                     separatorBuilder: (_, __) =>
-                                                        SizedBox(height: 8.0),
+                                                        const SizedBox(height: 8.0),
                                                     itemBuilder: (context,
                                                         listViewIndex) {
                                                       final listViewChatMessagesRecord =
@@ -256,7 +253,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                               listViewIndex];
                                                       return Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
@@ -277,9 +274,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     currentUserReference) &&
                                                                 (listViewChatMessagesRecord
                                                                             .text !=
-                                                                        null &&
-                                                                    listViewChatMessagesRecord
-                                                                            .text !=
                                                                         ''))
                                                               Column(
                                                                 mainAxisSize:
@@ -293,7 +287,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         .end,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             15.0,
                                                                             0.0,
@@ -319,16 +313,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                               context: context,
                                                                               builder: (alertDialogContext) {
                                                                                 return AlertDialog(
-                                                                                  title: Text('Voulez vous supprimer ce message ?'),
-                                                                                  content: Text('Votre interlocuteur verra que vous avez supprimé votre message.'),
+                                                                                  title: const Text('Voulez vous supprimer ce message ?'),
+                                                                                  content: const Text('Votre interlocuteur verra que vous avez supprimé votre message.'),
                                                                                   actions: [
                                                                                     TextButton(
                                                                                       onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                      child: Text('Conserver'),
+                                                                                      child: const Text('Conserver'),
                                                                                     ),
                                                                                     TextButton(
                                                                                       onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                      child: Text('Supprimer'),
+                                                                                      child: const Text('Supprimer'),
                                                                                     ),
                                                                                   ],
                                                                                 );
@@ -359,11 +353,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                             BoxShadow(
                                                                               blurRadius: 16.0,
                                                                               color: FlutterFlowTheme.of(context).boxShadow,
-                                                                              offset: Offset(0.0, 2.0),
+                                                                              offset: const Offset(0.0, 2.0),
                                                                             )
                                                                           ],
                                                                           borderRadius:
-                                                                              BorderRadius.only(
+                                                                              const BorderRadius.only(
                                                                             bottomLeft:
                                                                                 Radius.circular(20.0),
                                                                             bottomRight:
@@ -376,7 +370,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         ),
                                                                         child:
                                                                             Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               16.0,
                                                                               10.0,
                                                                               16.0,
@@ -416,7 +410,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     ),
                                                                   ),
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             8.0,
@@ -428,7 +422,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                               .min,
                                                                       children: [
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
                                                                               0.0,
                                                                               0.0,
@@ -473,13 +467,10 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     currentUserReference) &&
                                                                 (listViewChatMessagesRecord
                                                                             .text !=
-                                                                        null &&
-                                                                    listViewChatMessagesRecord
-                                                                            .text !=
                                                                         ''))
                                                               Align(
                                                                 alignment:
-                                                                    AlignmentDirectional(
+                                                                    const AlignmentDirectional(
                                                                         -1.0,
                                                                         0.0),
                                                                 child: Column(
@@ -503,7 +494,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                           false,
                                                                     ))
                                                                       Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             8.0,
@@ -539,7 +530,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                             clipBehavior:
                                                                                 Clip.antiAlias,
                                                                             decoration:
-                                                                                BoxDecoration(
+                                                                                const BoxDecoration(
                                                                               shape: BoxShape.circle,
                                                                             ),
                                                                             child:
@@ -567,11 +558,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                             color:
                                                                                 FlutterFlowTheme.of(context).boxShadow,
                                                                             offset:
-                                                                                Offset(0.0, 2.0),
+                                                                                const Offset(0.0, 2.0),
                                                                           )
                                                                         ],
                                                                         borderRadius:
-                                                                            BorderRadius.only(
+                                                                            const BorderRadius.only(
                                                                           bottomLeft:
                                                                               Radius.circular(0.0),
                                                                           bottomRight:
@@ -584,7 +575,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                       ),
                                                                       child:
                                                                           Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             16.0,
                                                                             10.0,
                                                                             16.0,
@@ -622,7 +613,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           8.0,
                                                                           0.0,
@@ -667,9 +658,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                     currentUserReference) &&
                                                                 (listViewChatMessagesRecord
                                                                             .image !=
-                                                                        null &&
-                                                                    listViewChatMessagesRecord
-                                                                            .image !=
                                                                         ''))
                                                               Row(
                                                                 mainAxisSize:
@@ -702,16 +690,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                                 context: context,
                                                                                 builder: (alertDialogContext) {
                                                                                   return AlertDialog(
-                                                                                    title: Text('Voulez vous supprimer ce message ?'),
-                                                                                    content: Text('Votre interlocuteur verra que vous avez supprimé votre message.'),
+                                                                                    title: const Text('Voulez vous supprimer ce message ?'),
+                                                                                    content: const Text('Votre interlocuteur verra que vous avez supprimé votre message.'),
                                                                                     actions: [
                                                                                       TextButton(
                                                                                         onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                        child: Text('Conserver'),
+                                                                                        child: const Text('Conserver'),
                                                                                       ),
                                                                                       TextButton(
                                                                                         onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                        child: Text('Supprimer'),
+                                                                                        child: const Text('Supprimer'),
                                                                                       ),
                                                                                     ],
                                                                                   );
@@ -756,8 +744,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                                   type: PageTransitionType.fade,
                                                                                   child: FlutterFlowExpandedImageView(
                                                                                     image: CachedNetworkImage(
-                                                                                      fadeInDuration: Duration(milliseconds: 500),
-                                                                                      fadeOutDuration: Duration(milliseconds: 500),
+                                                                                      fadeInDuration: const Duration(milliseconds: 500),
+                                                                                      fadeOutDuration: const Duration(milliseconds: 500),
                                                                                       imageUrl: listViewChatMessagesRecord.image,
                                                                                       fit: BoxFit.contain,
                                                                                     ),
@@ -775,8 +763,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                               child: ClipRRect(
                                                                                 borderRadius: BorderRadius.circular(16.0),
                                                                                 child: CachedNetworkImage(
-                                                                                  fadeInDuration: Duration(milliseconds: 500),
-                                                                                  fadeOutDuration: Duration(milliseconds: 500),
+                                                                                  fadeInDuration: const Duration(milliseconds: 500),
+                                                                                  fadeOutDuration: const Duration(milliseconds: 500),
                                                                                   imageUrl: listViewChatMessagesRecord.image,
                                                                                   width: 300.0,
                                                                                   height: 200.0,
@@ -788,7 +776,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         ),
                                                                       ),
                                                                       Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
                                                                             8.0,
                                                                             0.0,
@@ -833,9 +821,6 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         .user !=
                                                                     currentUserReference) &&
                                                                 (listViewChatMessagesRecord
-                                                                            .image !=
-                                                                        null &&
-                                                                    listViewChatMessagesRecord
                                                                             .image !=
                                                                         ''))
                                                               Row(
@@ -908,12 +893,12 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                         ),
                                                                       ),
                                                                       Align(
-                                                                        alignment: AlignmentDirectional(
+                                                                        alignment: const AlignmentDirectional(
                                                                             -1.0,
                                                                             0.0),
                                                                         child:
                                                                             Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
                                                                               8.0,
                                                                               0.0,
@@ -953,7 +938,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                                   ),
                                                                 ],
                                                               ),
-                                                          ].divide(SizedBox(
+                                                          ].divide(const SizedBox(
                                                               height: 0.0)),
                                                         ),
                                                       );
@@ -974,13 +959,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             child: Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 0.0, 0.0),
                                 child: wrapWithModel(
                                   model: _model.userCardBackModel,
@@ -993,7 +978,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
+                            alignment: const AlignmentDirectional(0.0, 1.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
@@ -1006,7 +991,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                     sigmaY: 0.0,
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 4.0, 24.0, 4.0),
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -1025,9 +1010,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                         children: [
                                           Expanded(
                                             child: Container(
-                                              decoration: BoxDecoration(),
+                                              decoration: const BoxDecoration(),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         8.0, 0.0, 0.0, 0.0),
                                                 child: TextFormField(
@@ -1123,7 +1108,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                     });
                                                     triggerPushNotification(
                                                       notificationTitle:
-                                                          'Nouveau message de ${currentUserDisplayName}',
+                                                          'Nouveau message de $currentUserDisplayName',
                                                       notificationText: _model
                                                           .messageCreated!.text,
                                                       notificationImageUrl:
@@ -1165,17 +1150,33 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                         },
                                                       ),
                                                     });
+                                                    await _model
+                                                        .listViewController
+                                                        ?.animateTo(
+                                                      _model
+                                                          .listViewController!
+                                                          .position
+                                                          .maxScrollExtent,
+                                                      duration: const Duration(
+                                                          milliseconds: 100),
+                                                      curve: Curves.ease,
+                                                    );
 
                                                     setState(() {});
                                                   },
                                                   textCapitalization:
-                                                      TextCapitalization.none,
+                                                      TextCapitalization
+                                                          .sentences,
                                                   textInputAction:
                                                       TextInputAction.send,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     hintText:
-                                                        'Commencez à écrire',
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                      'nteh7hgc' /* Commencez à écrire */,
+                                                    ),
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodySmall
@@ -1241,7 +1242,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 8.0, 0.0),
                                             child: FlutterFlowIconButton(
                                               borderColor: Colors.transparent,
@@ -1277,7 +1278,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                   try {
                                                     showUploadMessage(
                                                       context,
-                                                      'Uploading file...',
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'a05hq3iz' /* Téléchargement du fichier */,
+                                                      ),
                                                       showLoading: true,
                                                     );
                                                     selectedUploadedFiles =
@@ -1336,11 +1341,21 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                           downloadUrls.first;
                                                     });
                                                     showUploadMessage(
-                                                        context, 'Success!');
+                                                        context,
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'yjwesk6d' /* Fichier téléchargé !  */,
+                                                        ));
                                                   } else {
                                                     setState(() {});
-                                                    showUploadMessage(context,
-                                                        'Failed to upload data');
+                                                    showUploadMessage(
+                                                        context,
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'pbrnslxi' /* Le téléchargement a échoué. */,
+                                                        ));
                                                     return;
                                                   }
                                                 }
@@ -1387,7 +1402,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 }, chatMessagesRecordReference);
                                                 triggerPushNotification(
                                                   notificationTitle:
-                                                      'Nouveau message de ${currentUserDisplayName}',
+                                                      'Nouveau message de $currentUserDisplayName',
                                                   notificationText: 'Image',
                                                   notificationImageUrl:
                                                       currentUserPhoto,
@@ -1429,7 +1444,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 16.0, 0.0),
                                             child: FlutterFlowIconButton(
                                               borderColor: Colors.transparent,
@@ -1525,7 +1540,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget>
                                                 });
                                                 triggerPushNotification(
                                                   notificationTitle:
-                                                      'Nouveau message de ${currentUserDisplayName}',
+                                                      'Nouveau message de $currentUserDisplayName',
                                                   notificationText: _model
                                                       .messageCreatedCopy!.text,
                                                   notificationImageUrl:

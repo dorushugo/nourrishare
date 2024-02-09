@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'switchpage_model.dart';
@@ -58,7 +57,7 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(4.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +78,7 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
                     decoration: BoxDecoration(
                       color: valueOrDefault<Color>(
                         _model.optionSelect
-                            ? Color(0x00ECF4ED)
+                            ? const Color(0x00ECF4ED)
                             : FlutterFlowTheme.of(context).primary,
                         FlutterFlowTheme.of(context).primary,
                       ),
@@ -94,10 +93,12 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               4.0, 0.0, 0.0, 0.0),
                           child: Text(
-                            'Vos collègues',
+                            FFLocalizations.of(context).getText(
+                              'riepcl4u' /* Vos collègues */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
@@ -134,7 +135,7 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
                     decoration: BoxDecoration(
                       color: valueOrDefault<Color>(
                         !_model.optionSelect
-                            ? Color(0x00ECF4ED)
+                            ? const Color(0x00ECF4ED)
                             : FlutterFlowTheme.of(context).primary,
                         Colors.transparent,
                       ),
@@ -150,10 +151,12 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               4.0, 0.0, 0.0, 0.0),
                           child: Text(
-                            'Vos voisins',
+                            FFLocalizations.of(context).getText(
+                              '9kioiwla' /* Vos voisins */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -176,7 +179,7 @@ class _SwitchpageWidgetState extends State<SwitchpageWidget> {
                   ),
                 ),
               ),
-            ].divide(SizedBox(width: 8.0)),
+            ].divide(const SizedBox(width: 8.0)),
           ),
         ),
       ),

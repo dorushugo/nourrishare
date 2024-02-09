@@ -1,22 +1,9 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
-import '/components_general/no_ingredient/no_ingredient_widget.dart';
-import '/components_general/no_plats/no_plats_widget.dart';
-import '/components_general/plats_collegues/plats_collegues_widget.dart';
-import '/components_general/plats_petits/plats_petits_widget.dart';
-import '/components_general/plats_petits_collegues/plats_petits_collegues_widget.dart';
-import '/components_general/plats_voisins/plats_voisins_widget.dart';
 import '/components_general/profil_card/profil_card_widget.dart';
 import '/components_general/switchpage/switchpage_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'accueil_widget.dart' show AccueilWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class AccueilModel extends FlutterFlowModel<AccueilWidget> {
   ///  State fields for stateful widgets in this page.
@@ -31,12 +18,14 @@ class AccueilModel extends FlutterFlowModel<AccueilWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     profilCardModel = createModel(context, () => ProfilCardModel());
     switchpageModel = createModel(context, () => SwitchpageModel());
     navBar1Model = createModel(context, () => NavBar1Model());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     profilCardModel.dispose();

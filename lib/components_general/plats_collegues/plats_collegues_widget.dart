@@ -4,10 +4,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_toggle_icon.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'plats_collegues_model.dart';
@@ -41,7 +39,7 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if ((currentUserDocument?.platsFavoris?.toList() ?? [])
+      if ((currentUserDocument?.platsFavoris.toList() ?? [])
               .contains(widget.plat) ==
           true) {
         setState(() {
@@ -109,39 +107,46 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                 BoxShadow(
                   blurRadius: 16.0,
                   color: FlutterFlowTheme.of(context).boxShadow,
-                  offset: Offset(0.0, 2.0),
+                  offset: const Offset(0.0, 2.0),
                   spreadRadius: 0.0,
                 )
               ],
               borderRadius: BorderRadius.circular(16.0),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.0, -1.0),
+                    alignment: const AlignmentDirectional(0.0, -1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 8.0),
                       child: Stack(
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
                             child: CachedNetworkImage(
-                              fadeInDuration: Duration(milliseconds: 0),
-                              fadeOutDuration: Duration(milliseconds: 0),
+                              fadeInDuration: const Duration(milliseconds: 0),
+                              fadeOutDuration: const Duration(milliseconds: 0),
                               imageUrl: containerPlatsRecord.images.first,
                               width: 168.0,
                               height: 128.0,
                               fit: BoxFit.cover,
+                              errorWidget: (context, error, stackTrace) =>
+                                  Image.asset(
+                                'assets/images/error_image.png',
+                                width: 168.0,
+                                height: 128.0,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1.0, -1.0),
+                            alignment: const AlignmentDirectional(1.0, -1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 8.0, 8.0, 0.0),
                               child: Container(
                                 width: 30.0,
@@ -154,21 +159,21 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                                       blurRadius: 16.0,
                                       color: FlutterFlowTheme.of(context)
                                           .boxShadow,
-                                      offset: Offset(0.0, 2.0),
+                                      offset: const Offset(0.0, 2.0),
                                       spreadRadius: 0.0,
                                     )
                                   ],
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Align(
-                                  alignment: AlignmentDirectional(1.0, -1.0),
+                                  alignment: const AlignmentDirectional(1.0, -1.0),
                                   child: ToggleIcon(
                                     onPressed: () async {
                                       setState(() =>
                                           _model.selecteur = !_model.selecteur);
                                       if ((currentUserDocument?.platsFavoris
-                                                      ?.toList() ??
+                                                      .toList() ??
                                                   [])
                                               .contains(containerPlatsRecord
                                                   .reference) ==
@@ -225,7 +230,7 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    alignment: const AlignmentDirectional(-1.0, 0.0),
                     child: Text(
                       containerPlatsRecord.name,
                       textAlign: TextAlign.start,
@@ -262,7 +267,7 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            alignment: const AlignmentDirectional(-1.0, 0.0),
                             child: Text(
                               rowUsersRecord.displayName.maybeHandleOverflow(
                                 maxChars: 14,
@@ -283,7 +288,7 @@ class _PlatsColleguesWidgetState extends State<PlatsColleguesWidget> {
                                   ),
                             ),
                           ),
-                        ].divide(SizedBox(width: 8.0)),
+                        ].divide(const SizedBox(width: 8.0)),
                       );
                     },
                   ),

@@ -1,8 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'aucunelement_model.dart';
 export 'aucunelement_model.dart';
@@ -41,7 +39,9 @@ class _AucunelementWidgetState extends State<AucunelementWidget> {
     context.watch<FFAppState>();
 
     return Text(
-      'Aucun élément',
+      FFLocalizations.of(context).getText(
+        'j8bd9qfo' /* Aucun élément */,
+      ),
       style: FlutterFlowTheme.of(context).bodyMedium,
     );
   }

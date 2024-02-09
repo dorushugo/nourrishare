@@ -5,7 +5,6 @@ import '/components_general/user_card_back/user_card_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,14 +88,14 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 0.0),
                               child: wrapWithModel(
                                 model: _model.userCardBackModel,
@@ -140,26 +139,29 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                         List<PlatsRecord> containerPlatsRecordList =
                             snapshot.data!;
                         return Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  if (containerPlatsRecordList.length > 0)
+                                  if (containerPlatsRecordList.isNotEmpty)
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
+                                              const AlignmentDirectional(-1.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 0.0, 0.0),
                                             child: Text(
-                                              'Plats en ventes à ses voisins',
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'a4yxtgys' /* Plats en ventes à ses voisins */,
+                                              ),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .titleLarge
@@ -191,7 +193,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                             .width *
                                                         1.0,
                                                 height: 272.0,
-                                                decoration: BoxDecoration(),
+                                                decoration: const BoxDecoration(),
                                                 child: Builder(
                                                   builder: (context) {
                                                     final platsVoisins =
@@ -201,7 +203,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                             .toList();
                                                     return ListView.separated(
                                                       padding:
-                                                          EdgeInsets.symmetric(
+                                                          const EdgeInsets.symmetric(
                                                               horizontal: 24.0),
                                                       scrollDirection:
                                                           Axis.horizontal,
@@ -209,7 +211,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                           platsVoisins.length,
                                                       separatorBuilder: (_,
                                                               __) =>
-                                                          SizedBox(width: 24.0),
+                                                          const SizedBox(width: 24.0),
                                                       itemBuilder: (context,
                                                           platsVoisinsIndex) {
                                                         final platsVoisinsItem =
@@ -217,13 +219,13 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                                 platsVoisinsIndex];
                                                         return Align(
                                                           alignment:
-                                                              AlignmentDirectional(
+                                                              const AlignmentDirectional(
                                                                   -1.0, 0.0),
                                                           child: Container(
                                                             width: 200.0,
                                                             height: 240.0,
                                                             decoration:
-                                                                BoxDecoration(),
+                                                                const BoxDecoration(),
                                                             child:
                                                                 PlatsVoisinsWidget(
                                                               key: Key(
@@ -258,7 +260,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                     'groupe_destine',
                                                     (currentUserDocument
                                                             ?.groupes
-                                                            ?.toList() ??
+                                                            .toList() ??
                                                         []))
                                                 .where(
                                                   'Etat',
@@ -287,25 +289,27 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                             containerPlatsRecordList =
                                             snapshot.data!;
                                         return Container(
-                                          decoration: BoxDecoration(),
+                                          decoration: const BoxDecoration(),
                                           child: Visibility(
-                                            visible: containerPlatsRecordList
-                                                    .length >
-                                                0,
+                                            visible: containerPlatsRecordList.isNotEmpty,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           -1.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Text(
-                                                      'Plats en ventes dans vos groupes',
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'cp9axlkg' /* Plats en ventes dans vos group... */,
+                                                      ),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -339,7 +343,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                                 1.0,
                                                         height: 272.0,
                                                         decoration:
-                                                            BoxDecoration(),
+                                                            const BoxDecoration(),
                                                         child: Builder(
                                                           builder: (context) {
                                                             final platsGroupes =
@@ -349,7 +353,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                                     .toList();
                                                             return ListView
                                                                 .separated(
-                                                              padding: EdgeInsets
+                                                              padding: const EdgeInsets
                                                                   .symmetric(
                                                                       horizontal:
                                                                           24.0),
@@ -360,7 +364,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                                       .length,
                                                               separatorBuilder: (_,
                                                                       __) =>
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                       width:
                                                                           24.0),
                                                               itemBuilder: (context,
@@ -370,7 +374,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                                         platsGroupesIndex];
                                                                 return Align(
                                                                   alignment:
-                                                                      AlignmentDirectional(
+                                                                      const AlignmentDirectional(
                                                                           -1.0,
                                                                           0.0),
                                                                   child:
@@ -380,7 +384,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                                     height:
                                                                         240.0,
                                                                     decoration:
-                                                                        BoxDecoration(),
+                                                                        const BoxDecoration(),
                                                                     child:
                                                                         PlatsVoisinsWidget(
                                                                       key: Key(
@@ -442,21 +446,19 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                         List<ChatsRecord> containerChatsRecordList =
                             snapshot.data!;
                         return Container(
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 40.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                if (containerChatsRecordList.length != 0) {
+                                if (containerChatsRecordList.isNotEmpty) {
                                   if (containerChatsRecordList
                                           .where((e) => valueOrDefault<bool>(
                                                 e.users.contains(widget.seller),
                                                 false,
                                               ))
-                                          .toList()
-                                          .length !=
-                                      0) {
+                                          .toList().isNotEmpty) {
                                     context.pushNamed(
                                       'chatPage',
                                       queryParameters: {
@@ -640,17 +642,19 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
 
                                 setState(() {});
                               },
-                              text: 'Chatter',
-                              icon: Icon(
+                              text: FFLocalizations.of(context).getText(
+                                'r9gtb7es' /* Chatter */,
+                              ),
+                              icon: const Icon(
                                 FFIcons.kcallmessage,
                                 size: 15.0,
                               ),
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 56.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 8.0, 0.0),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -665,7 +669,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                                                   .titleSmallFamily),
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -676,7 +680,7 @@ class _VendeurDetailWidgetState extends State<VendeurDetailWidget> {
                         );
                       },
                     ),
-                  ].divide(SizedBox(height: 24.0)),
+                  ].divide(const SizedBox(height: 24.0)),
                 ),
               );
             },

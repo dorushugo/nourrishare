@@ -9,10 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:map_launcher/map_launcher.dart' as $ml;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -112,16 +109,16 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                 );
               }
               final stackCommandesRecord = snapshot.data!;
-              return Container(
+              return SizedBox(
                 height: MediaQuery.sizeOf(context).height * 1.0,
                 child: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: MediaQuery.sizeOf(context).height * 0.38,
                       child: Stack(
                         children: [
                           Builder(builder: (context) {
-                            final _googleMapMarker = stackCommandesRecord;
+                            final googleMapMarker = stackCommandesRecord;
                             return FlutterFlowGoogleMap(
                               controller: _model.googleMapsController,
                               onCameraIdle: (latLng) =>
@@ -130,8 +127,8 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                   stackCommandesRecord.latlngLivraison!,
                               markers: [
                                 FlutterFlowMarker(
-                                  _googleMapMarker.reference.path,
-                                  _googleMapMarker.latlngLivraison!,
+                                  googleMapMarker.reference.path,
+                                  googleMapMarker.latlngLivraison!,
                                   () async {
                                     await launchMap(
                                       location:
@@ -156,11 +153,11 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                             );
                           }),
                           Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: PointerInterceptor(
                               intercepting: isWeb,
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 24.0, 0.0, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
@@ -179,7 +176,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Icon(
                                         FFIcons.kcloseSquare,
                                         color: FlutterFlowTheme.of(context)
@@ -197,7 +194,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                     ),
                     if (stackCommandesRecord.statusNumber > 1)
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: StreamBuilder<UsersRecord>(
                           stream: UsersRecord.getDocument(
                               stackCommandesRecord.vendorRef!),
@@ -226,7 +223,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                 borderRadius: BorderRadius.circular(32.0),
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(-1.0, -1.0),
+                                alignment: const AlignmentDirectional(-1.0, -1.0),
                                 child: SingleChildScrollView(
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -235,7 +232,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                         CrossAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -243,7 +240,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 24.0, 0.0, 0.0),
                                               child: Container(
@@ -251,7 +248,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                     MediaQuery.sizeOf(context)
                                                             .width *
                                                         0.5,
-                                                decoration: BoxDecoration(),
+                                                decoration: const BoxDecoration(),
                                                 child: Text(
                                                   () {
                                                     if (stackCommandesRecord
@@ -294,7 +291,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                               ),
                                             ),
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 8.0, 0.0, 0.0),
                                               child: Container(
                                                 width:
@@ -302,11 +299,11 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                             .width *
                                                         0.5,
                                                 height: 125.0,
-                                                decoration: BoxDecoration(
+                                                decoration: const BoxDecoration(
                                                   color: Color(0x00ECF4ED),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 8.0, 0.0),
                                                   child: ClipRRect(
@@ -427,7 +424,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                                       .titleLargeFamily),
                                                         ),
                                                   ),
-                                                ].divide(SizedBox(width: 8.0)),
+                                                ].divide(const SizedBox(width: 8.0)),
                                               ),
                                             if (stackCommandesRecord
                                                     .isInstant !=
@@ -476,16 +473,16 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                                       .titleLargeFamily),
                                                         ),
                                                   ),
-                                                ].divide(SizedBox(width: 8.0)),
+                                                ].divide(const SizedBox(width: 8.0)),
                                               ),
                                           ]
-                                              .divide(SizedBox(width: 8.0))
-                                              .addToStart(SizedBox(width: 24.0))
-                                              .addToEnd(SizedBox(width: 24.0)),
+                                              .divide(const SizedBox(width: 8.0))
+                                              .addToStart(const SizedBox(width: 24.0))
+                                              .addToEnd(const SizedBox(width: 24.0)),
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         child: Builder(
                                           builder: (context) {
@@ -498,7 +495,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                               scrollDirection: Axis.vertical,
                                               itemCount: platCommandes.length,
                                               separatorBuilder: (_, __) =>
-                                                  SizedBox(height: 24.0),
+                                                  const SizedBox(height: 24.0),
                                               itemBuilder: (context,
                                                   platCommandesIndex) {
                                                 final platCommandesItem =
@@ -538,7 +535,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -574,7 +571,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                               stackCommandesRecord.createdAt!))
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -631,9 +628,12 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                       ),
                                                     });
                                                   },
-                                                  text:
-                                                      'Annuler votre commande',
-                                                  icon: FaIcon(
+                                                  text: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'ot1fovda' /* Annuler votre commande */,
+                                                  ),
+                                                  icon: const FaIcon(
                                                     FontAwesomeIcons.times,
                                                     size: 20.0,
                                                   ),
@@ -641,11 +641,11 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                     width: double.infinity,
                                                     height: 60.0,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     iconPadding:
-                                                        EdgeInsets.all(0.0),
+                                                        const EdgeInsets.all(0.0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .error,
@@ -666,7 +666,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                                       .titleSmallFamily),
                                                         ),
                                                     elevation: 3.0,
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -728,8 +728,12 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                       ),
                                                     });
                                                   },
-                                                  text: 'Refuser la commande',
-                                                  icon: FaIcon(
+                                                  text: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'vn5whvp4' /* Refuser la commande */,
+                                                  ),
+                                                  icon: const FaIcon(
                                                     FontAwesomeIcons.times,
                                                     size: 20.0,
                                                   ),
@@ -737,11 +741,11 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                     width: double.infinity,
                                                     height: 60.0,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     iconPadding:
-                                                        EdgeInsets.all(0.0),
+                                                        const EdgeInsets.all(0.0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .error,
@@ -762,7 +766,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                                       .titleSmallFamily),
                                                         ),
                                                     elevation: 3.0,
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -771,7 +775,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                             20.0),
                                                   ),
                                                 ),
-                                            ].divide(SizedBox(height: 24.0)),
+                                            ].divide(const SizedBox(height: 24.0)),
                                           ),
                                         ),
                                       if ((stackCommandesRecord.isInstant ==
@@ -782,7 +786,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                               true))
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -839,9 +843,12 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                       ),
                                                     });
                                                   },
-                                                  text:
-                                                      'Annuler votre commande',
-                                                  icon: FaIcon(
+                                                  text: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'invpw1w0' /* Annuler votre commande */,
+                                                  ),
+                                                  icon: const FaIcon(
                                                     FontAwesomeIcons.times,
                                                     size: 20.0,
                                                   ),
@@ -849,11 +856,11 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                     width: double.infinity,
                                                     height: 60.0,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     iconPadding:
-                                                        EdgeInsets.all(0.0),
+                                                        const EdgeInsets.all(0.0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .error,
@@ -874,7 +881,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                                       .titleSmallFamily),
                                                         ),
                                                     elevation: 3.0,
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -936,8 +943,12 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                       ),
                                                     });
                                                   },
-                                                  text: 'Refuser la commande',
-                                                  icon: FaIcon(
+                                                  text: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'huj005x0' /* Refuser la commande */,
+                                                  ),
+                                                  icon: const FaIcon(
                                                     FontAwesomeIcons.times,
                                                     size: 20.0,
                                                   ),
@@ -945,11 +956,11 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                     width: double.infinity,
                                                     height: 60.0,
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     iconPadding:
-                                                        EdgeInsets.all(0.0),
+                                                        const EdgeInsets.all(0.0),
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .error,
@@ -970,7 +981,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                                       .titleSmallFamily),
                                                         ),
                                                     elevation: 3.0,
-                                                    borderSide: BorderSide(
+                                                    borderSide: const BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -979,7 +990,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                             20.0),
                                                   ),
                                                 ),
-                                            ].divide(SizedBox(height: 24.0)),
+                                            ].divide(const SizedBox(height: 24.0)),
                                           ),
                                         ),
                                       if ((currentUserReference !=
@@ -988,7 +999,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                               1))
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 40.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
@@ -1039,18 +1050,21 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                 ),
                                               });
                                             },
-                                            text: 'La commande est prête',
-                                            icon: Icon(
+                                            text: FFLocalizations.of(context)
+                                                .getText(
+                                              'ybvtrqsw' /* La commande est prête */,
+                                            ),
+                                            icon: const Icon(
                                               FFIcons.kcook,
                                               size: 15.0,
                                             ),
                                             options: FFButtonOptions(
                                               width: double.infinity,
                                               height: 60.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 8.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1072,7 +1086,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                                     .titleSmallFamily),
                                                       ),
                                               elevation: 3.0,
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1.0,
                                               ),
@@ -1081,7 +1095,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                             ),
                                           ),
                                         ),
-                                    ].divide(SizedBox(height: 24.0)),
+                                    ].divide(const SizedBox(height: 24.0)),
                                   ),
                                 ),
                               ),
@@ -1091,7 +1105,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                       ),
                     if (stackCommandesRecord.statusNumber == 1)
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           height: MediaQuery.sizeOf(context).height * 0.68,
@@ -1104,7 +1118,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 24.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -1112,15 +1126,17 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 24.0, 0.0, 0.0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 0.5,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Text(
-                                          'En attente de la confirmation du paiement',
+                                          FFLocalizations.of(context).getText(
+                                            'd5tuc0nd' /* En attente de la confirmation ... */,
+                                          ),
                                           maxLines: 4,
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
@@ -1141,19 +1157,19 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 0.0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 0.5,
                                         height: 125.0,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                           color: Color(0x00ECF4ED),
                                         ),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 8.0, 0.0),
                                           child: ClipRRect(
                                             borderRadius:
@@ -1172,7 +1188,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 60.0, 0.0, 0.0),
                                 child: Lottie.network(
                                   'https://assets2.lottiefiles.com/packages/lf20_aZTdD5.json',
@@ -1183,20 +1199,22 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 60.0, 24.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     await launchURL(
                                         stackCommandesRecord.paymentUrl);
                                   },
-                                  text: 'Recommencer le paiement',
+                                  text: FFLocalizations.of(context).getText(
+                                    'om83k9q1' /* Recommencer le paiement */,
+                                  ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 60.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 8.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
@@ -1213,7 +1231,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -1222,7 +1240,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 24.0, 24.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -1231,7 +1249,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                               context: context,
                                               builder: (alertDialogContext) {
                                                 return AlertDialog(
-                                                  title: Text(
+                                                  title: const Text(
                                                       'Votre commande va être annulée'),
                                                   actions: [
                                                     TextButton(
@@ -1239,14 +1257,14 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                           Navigator.pop(
                                                               alertDialogContext,
                                                               false),
-                                                      child: Text('Retour'),
+                                                      child: const Text('Retour'),
                                                     ),
                                                     TextButton(
                                                       onPressed: () =>
                                                           Navigator.pop(
                                                               alertDialogContext,
                                                               true),
-                                                      child: Text(
+                                                      child: const Text(
                                                           'Annuler ma commande'),
                                                     ),
                                                   ],
@@ -1271,7 +1289,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                             ),
                                           ),
                                           duration:
-                                              Duration(milliseconds: 4000),
+                                              const Duration(milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
@@ -1279,17 +1297,19 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                       );
                                     }
                                   },
-                                  text: 'Annuler votre commande',
-                                  icon: FaIcon(
+                                  text: FFLocalizations.of(context).getText(
+                                    'u0kke6rm' /* Annuler votre commande */,
+                                  ),
+                                  icon: const FaIcon(
                                     FontAwesomeIcons.times,
                                     size: 20.0,
                                   ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 60.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsets.all(0.0),
+                                    iconPadding: const EdgeInsets.all(0.0),
                                     color: FlutterFlowTheme.of(context).error,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
@@ -1304,7 +1324,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -1318,7 +1338,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                       ),
                     if (stackCommandesRecord.statusNumber == 0)
                       Align(
-                        alignment: AlignmentDirectional(0.0, 1.0),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Container(
                           width: double.infinity,
                           height: MediaQuery.sizeOf(context).height * 0.68,
@@ -1331,22 +1351,24 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 24.0, 24.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 24.0, 0.0, 0.0),
                                       child: Container(
                                         width:
                                             MediaQuery.sizeOf(context).width *
                                                 0.75,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Text(
-                                          'Le paiement a échoué',
+                                          FFLocalizations.of(context).getText(
+                                            'h5lgeann' /* Le paiement a échoué */,
+                                          ),
                                           textAlign: TextAlign.center,
                                           maxLines: 4,
                                           style: FlutterFlowTheme.of(context)
@@ -1371,7 +1393,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 60.0, 0.0, 0.0),
                                 child: Icon(
                                   FFIcons.kcloseSquare,
@@ -1380,20 +1402,22 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 60.0, 24.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     await launchURL(
                                         stackCommandesRecord.paymentUrl);
                                   },
-                                  text: 'Recommencer le paiement',
+                                  text: FFLocalizations.of(context).getText(
+                                    'cugasmx0' /* Recommencer le paiement */,
+                                  ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 60.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 8.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
@@ -1410,7 +1434,7 @@ class _LivraisonWidgetState extends State<LivraisonWidget>
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),

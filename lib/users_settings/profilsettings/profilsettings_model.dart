@@ -1,28 +1,28 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
-import '/flutter_flow/flutter_flow_google_map.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_place_picker.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/place.dart';
-import '/flutter_flow/upload_data.dart';
-import 'dart:io';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'profilsettings_widget.dart' show ProfilsettingsWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ProfilsettingsModel extends FlutterFlowModel<ProfilsettingsWidget> {
   ///  Local state fields for this page.
 
-  bool mapUI = false;
+  List<String> propositionAutocomplete = [];
+  void addToPropositionAutocomplete(String item) =>
+      propositionAutocomplete.add(item);
+  void removeFromPropositionAutocomplete(String item) =>
+      propositionAutocomplete.remove(item);
+  void removeAtIndexFromPropositionAutocomplete(int index) =>
+      propositionAutocomplete.removeAt(index);
+  void insertAtIndexInPropositionAutocomplete(int index, String item) =>
+      propositionAutocomplete.insert(index, item);
+  void updatePropositionAutocompleteAtIndex(
+          int index, Function(String) updateFn) =>
+      propositionAutocomplete[index] = updateFn(propositionAutocomplete[index]);
+
+  double? lat;
+
+  double? long;
 
   ///  State fields for stateful widgets in this page.
 
@@ -51,28 +51,37 @@ class ProfilsettingsModel extends FlutterFlowModel<ProfilsettingsWidget> {
   DateTime? datePicked;
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
-  // State field(s) for address widget.
-  FocusNode? addressFocusNode;
-  TextEditingController? addressController;
-  String? Function(BuildContext, String?)? addressControllerValidator;
+  // State field(s) for Adresse widget.
+  final adresseKey = GlobalKey();
+  FocusNode? adresseFocusNode;
+  TextEditingController? adresseController;
+  String? adresseSelectedOption;
+  String? Function(BuildContext, String?)? adresseControllerValidator;
+  // Stores action output result for [Backend Call - API (Autocomplete Adress)] action in Adresse widget.
+  ApiCallResponse? propositionsAdresse;
+  // Stores action output result for [Backend Call - API (SearchCityAndPostalCode)] action in Adresse widget.
+  ApiCallResponse? searchCity;
+  // Stores action output result for [Backend Call - API (SearchCityAndPostalCode)] action in Adresse widget.
+  ApiCallResponse? searchCity2;
   // State field(s) for city widget.
+  final cityKey = GlobalKey();
   FocusNode? cityFocusNode;
   TextEditingController? cityController;
+  String? citySelectedOption;
   String? Function(BuildContext, String?)? cityControllerValidator;
-  // State field(s) for postalCode widget.
+  // State field(s) for postal_code widget.
+  final postalCodeKey = GlobalKey();
   FocusNode? postalCodeFocusNode;
   TextEditingController? postalCodeController;
+  String? postalCodeSelectedOption;
   String? Function(BuildContext, String?)? postalCodeControllerValidator;
-  // State field(s) for GoogleMap widget.
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
-  // State field(s) for Addresspicker widget.
-  var addresspickerValue = FFPlace();
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     prenomFocusNode?.dispose();
@@ -87,14 +96,11 @@ class ProfilsettingsModel extends FlutterFlowModel<ProfilsettingsWidget> {
     phoneNumberFocusNode?.dispose();
     phoneNumberController?.dispose();
 
-    addressFocusNode?.dispose();
-    addressController?.dispose();
+    adresseFocusNode?.dispose();
 
     cityFocusNode?.dispose();
-    cityController?.dispose();
 
     postalCodeFocusNode?.dispose();
-    postalCodeController?.dispose();
   }
 
   /// Action blocks are added here.

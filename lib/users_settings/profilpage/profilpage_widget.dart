@@ -5,7 +5,6 @@ import '/components_general/profil_settings_card/profil_settings_card_widget.dar
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -63,28 +62,26 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                     child: wrapWithModel(
                       model: _model.profilSettingsCardModel,
                       updateCallback: () => setState(() {}),
-                      child: ProfilSettingsCardWidget(),
+                      child: const ProfilSettingsCardWidget(),
                     ),
                   ),
                   Container(
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        if ((currentUserDocument?.platsFavoris?.toList() ?? [])
-                                .length >
-                            0)
+                        if ((currentUserDocument?.platsFavoris.toList() ?? []).isNotEmpty)
                           AuthUserStreamWidget(
                             builder: (context) => Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 24.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -92,10 +89,12 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 0.0, 0.0),
                                         child: Text(
-                                          'Plats favoris',
+                                          FFLocalizations.of(context).getText(
+                                            'rod7jq2g' /* Plats favoris */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
@@ -126,24 +125,24 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                             MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height: 272.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Builder(
                                           builder: (context) {
                                             final platFavoris =
                                                 (currentUserDocument
                                                             ?.platsFavoris
-                                                            ?.toList() ??
+                                                            .toList() ??
                                                         [])
                                                     .toList()
                                                     .take(100)
                                                     .toList();
                                             return ListView.separated(
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   horizontal: 24.0),
                                               scrollDirection: Axis.horizontal,
                                               itemCount: platFavoris.length,
                                               separatorBuilder: (_, __) =>
-                                                  SizedBox(width: 24.0),
+                                                  const SizedBox(width: 24.0),
                                               itemBuilder:
                                                   (context, platFavorisIndex) {
                                                 final platFavorisItem =
@@ -151,12 +150,12 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                                         platFavorisIndex];
                                                 return Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           -1.0, 0.0),
                                                   child: Container(
                                                     width: 200.0,
                                                     height: 240.0,
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: PlatsVoisinsWidget(
                                                       key: Key(
                                                           'Keyd7v_${platFavorisIndex}_of_${platFavoris.length}'),
@@ -175,16 +174,14 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                               ],
                             ),
                           ),
-                        if ((currentUserDocument?.plats?.toList() ?? [])
-                                .length >
-                            0)
+                        if ((currentUserDocument?.plats.toList() ?? []).isNotEmpty)
                           AuthUserStreamWidget(
                             builder: (context) => Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 24.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -192,10 +189,12 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 0.0, 0.0),
                                         child: Text(
-                                          'Plats en ventes',
+                                          FFLocalizations.of(context).getText(
+                                            'uowi0qc1' /* Plats en ventes */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
@@ -226,35 +225,35 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                             MediaQuery.sizeOf(context).width *
                                                 1.0,
                                         height: 272.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Builder(
                                           builder: (context) {
                                             final platUser =
                                                 (currentUserDocument?.plats
-                                                            ?.toList() ??
+                                                            .toList() ??
                                                         [])
                                                     .toList()
                                                     .take(10)
                                                     .toList();
                                             return ListView.separated(
-                                              padding: EdgeInsets.symmetric(
+                                              padding: const EdgeInsets.symmetric(
                                                   horizontal: 24.0),
                                               scrollDirection: Axis.horizontal,
                                               itemCount: platUser.length,
                                               separatorBuilder: (_, __) =>
-                                                  SizedBox(width: 24.0),
+                                                  const SizedBox(width: 24.0),
                                               itemBuilder:
                                                   (context, platUserIndex) {
                                                 final platUserItem =
                                                     platUser[platUserIndex];
                                                 return Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           -1.0, 0.0),
                                                   child: Container(
                                                     width: 200.0,
                                                     height: 240.0,
-                                                    decoration: BoxDecoration(),
+                                                    decoration: const BoxDecoration(),
                                                     child: PlatsVoisinsWidget(
                                                       key: Key(
                                                           'Keyp0w_${platUserIndex}_of_${platUser.length}'),
@@ -278,7 +277,7 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         GoRouter.of(context).prepareAuthEvent();
@@ -288,14 +287,16 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                         context.pushNamedAuth(
                             'ConnexionInscription', context.mounted);
                       },
-                      text: 'Déconnexion',
+                      text: FFLocalizations.of(context).getText(
+                        't569y3uk' /* Déconnexion */,
+                      ),
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 56.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).error,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -308,7 +309,7 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                       .titleSmallFamily),
                             ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -321,23 +322,25 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                       false)
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       child: AuthUserStreamWidget(
                         builder: (context) => FFButtonWidget(
                           onPressed: () async {
                             context.pushNamed('stripeCompletion');
                           },
-                          text: 'Activer les paiements',
-                          icon: Icon(
+                          text: FFLocalizations.of(context).getText(
+                            'kb9vgzb9' /* Activer les paiements */,
+                          ),
+                          icon: const Icon(
                             FFIcons.klock,
                             size: 15.0,
                           ),
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 56.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 8.0, 0.0),
                             color: FlutterFlowTheme.of(context).secondary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -351,7 +354,7 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 3.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -369,7 +372,7 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 140.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 140.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -380,20 +383,20 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: Text(
+                                  title: const Text(
                                       'En continuant, vous supprimerez votre compte.'),
-                                  content: Text(
+                                  content: const Text(
                                       'Vos informations seront supprimés. Cette action est irréversible.'),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, false),
-                                      child: Text('Annuler'),
+                                      child: const Text('Annuler'),
                                     ),
                                     TextButton(
                                       onPressed: () => Navigator.pop(
                                           alertDialogContext, true),
-                                      child: Text('Supprimer mon compte'),
+                                      child: const Text('Supprimer mon compte'),
                                     ),
                                   ],
                                 );
@@ -414,7 +417,9 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                         }
                       },
                       child: Text(
-                        'Supprimer mon compte',
+                        FFLocalizations.of(context).getText(
+                          '0zolelaj' /* Supprimer mon compte */,
+                        ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily:
                                   FlutterFlowTheme.of(context).bodyMediumFamily,
@@ -426,13 +431,13 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                       ),
                     ),
                   ),
-                ].divide(SizedBox(height: 24.0)),
+                ].divide(const SizedBox(height: 24.0)),
               ),
             ),
             wrapWithModel(
               model: _model.navBar1Model,
               updateCallback: () => setState(() {}),
-              child: NavBar1Widget(),
+              child: const NavBar1Widget(),
             ),
           ],
         ),

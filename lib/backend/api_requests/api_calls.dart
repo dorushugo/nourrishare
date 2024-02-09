@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import '../cloud_functions/cloud_functions.dart';
-import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -389,7 +387,7 @@ class CreateChatCompletionTextCall {
     return ApiCallResponse.fromCloudCallResponse(response);
   }
 
-  dynamic? messageJson(dynamic response) => getJsonField(
+  dynamic messageJson(dynamic response) => getJsonField(
         response,
         r'''$.choices[:].message.content''',
       );
@@ -1414,6 +1412,97 @@ class GetMessageFileCall {
 }
 
 /// End OpenAI API Group Code
+
+/// Start Google Maps Group Code
+
+class GoogleMapsGroup {
+  static String baseUrl = 'https://maps.googleapis.com/maps/api/';
+  static Map<String, String> headers = {};
+  static AutocompleteAdressCall autocompleteAdressCall =
+      AutocompleteAdressCall();
+  static SearchCityAndPostalCodeCall searchCityAndPostalCodeCall =
+      SearchCityAndPostalCodeCall();
+}
+
+class AutocompleteAdressCall {
+  Future<ApiCallResponse> call({
+    String? input = '',
+    String? components = 'country:FR',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Autocomplete Adress',
+      apiUrl: '${GoogleMapsGroup.baseUrl}place/autocomplete/json',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'key': "AIzaSyC9lduemygUWHmGX2Dr9qC2LoveDM_xxX8",
+        'input': input,
+        'components': components,
+        'types': "address",
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<String>? proposistions(dynamic response) => (getJsonField(
+        response,
+        r'''$.predictions[:].description''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
+class SearchCityAndPostalCodeCall {
+  Future<ApiCallResponse> call({
+    String? address = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'SearchCityAndPostalCode',
+      apiUrl: '${GoogleMapsGroup.baseUrl}geocode/json',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'key': "AIzaSyC9lduemygUWHmGX2Dr9qC2LoveDM_xxX8",
+        'address': address,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  dynamic location(dynamic response) => getJsonField(
+        response,
+        r'''$.results[:].geometry.location''',
+      );
+  String? ville(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.results[0].address_components[2].long_name''',
+      ));
+  String? codePostal(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.results[0].address_components[6].long_name''',
+      ));
+  double? lat(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.results[:].geometry.location.lat''',
+      ));
+  double? lng(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.results[:].geometry.location.lng''',
+      ));
+}
+
+/// End Google Maps Group Code
 
 class ApiPagingParams {
   int nextPageNumber = 0;

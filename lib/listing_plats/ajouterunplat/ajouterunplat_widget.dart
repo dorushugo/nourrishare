@@ -13,7 +13,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -50,8 +49,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
       if (!((valueOrDefault<bool>(
                   currentUserDocument?.stripChargesEnabled, false) ==
               true) &&
-          (valueOrDefault(currentUserDocument?.stripeAccountID, '') != null &&
-              valueOrDefault(currentUserDocument?.stripeAccountID, '') !=
+          (valueOrDefault(currentUserDocument?.stripeAccountID, '') !=
                   ''))) {
         context.pushNamed('stripeCompletion');
 
@@ -64,7 +62,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            duration: Duration(milliseconds: 4000),
+            duration: const Duration(milliseconds: 4000),
             backgroundColor: FlutterFlowTheme.of(context).secondary,
           ),
         );
@@ -122,13 +120,15 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Ajouter un plat',
+                          FFLocalizations.of(context).getText(
+                            '3hdok3ay' /* Ajouter un plat */,
+                          ),
                           style: FlutterFlowTheme.of(context).headlineSmall,
                         ),
                         Container(
@@ -160,7 +160,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -186,7 +186,9 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                           try {
                             showUploadMessage(
                               context,
-                              'Uploading file...',
+                              FFLocalizations.of(context).getText(
+                                'a05hq3iz' /* Téléchargement du fichier */,
+                              ),
                               showLoading: true,
                             );
                             selectedUploadedFiles = selectedMedia
@@ -220,21 +222,28 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                   selectedUploadedFiles.first;
                               _model.uploadedFileUrl = downloadUrls.first;
                             });
-                            showUploadMessage(context, 'Success!');
+                            showUploadMessage(
+                                context,
+                                FFLocalizations.of(context).getText(
+                                  'yjwesk6d' /* Fichier téléchargé !  */,
+                                ));
                           } else {
                             setState(() {});
-                            showUploadMessage(context, 'Failed to upload data');
+                            showUploadMessage(
+                                context,
+                                FFLocalizations.of(context).getText(
+                                  'pbrnslxi' /* Le téléchargement a échoué. */,
+                                ));
                             return;
                           }
                         }
 
-                        if (_model.uploadedFileUrl != null &&
-                            _model.uploadedFileUrl != '') {
+                        if (_model.uploadedFileUrl != '') {
                           await showModalBottomSheet(
                             isScrollControlled: true,
                             backgroundColor:
                                 FlutterFlowTheme.of(context).primaryBackground,
-                            barrierColor: Color(0x75EAF4F1),
+                            barrierColor: const Color(0x75EAF4F1),
                             isDismissible: false,
                             useSafeArea: true,
                             context: context,
@@ -246,13 +255,13 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                     : FocusScope.of(context).unfocus(),
                                 child: Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
-                                  child: Container(
+                                  child: SizedBox(
                                     height:
                                         MediaQuery.sizeOf(context).height * 0.4,
                                     child: ChoixComponentWidget(
                                       titre: 'Voulez-vous utiliser l\'IA ?',
                                       message:
-                                          'Voulez-vous laisser l\'IA vous aider à renseigner les ingrédients, les allergènes et le nom de votre plat.',
+                                          'Voulez-vous laisser l\'IA vous aider à renseigner les ingrédients, les allergènes et le nom de votre plat ? (Environ 10 secondes).',
                                       ctaAccept: 'Oui',
                                       ctaRefus: 'Non',
                                       boolChoice: true,
@@ -328,7 +337,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                     fontWeight: FontWeight.w900,
                                                   ),
                                                 ),
-                                                duration: Duration(
+                                                duration: const Duration(
                                                     milliseconds: 4000),
                                                 backgroundColor:
                                                     FlutterFlowTheme.of(context)
@@ -351,7 +360,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  Duration(milliseconds: 4000),
+                                                  const Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
@@ -380,14 +389,14 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                           ),
                         ),
                         child: Stack(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           children: [
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       40.0, 0.0, 40.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: true
@@ -395,18 +404,20 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                         : () {
                                             print('Button pressed ...');
                                           },
-                                    text: 'Ajouter une photo',
-                                    icon: Icon(
+                                    text: FFLocalizations.of(context).getText(
+                                      '3rjtndow' /* Ajouter une photo */,
+                                    ),
+                                    icon: const Icon(
                                       FFIcons.kimage3,
                                       size: 15.0,
                                     ),
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 60.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 4.0, 0.0),
                                       color: FlutterFlowTheme.of(context)
                                           .secondary,
@@ -423,7 +434,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                         .titleSmallFamily),
                                           ),
                                       elevation: 3.0,
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),
@@ -439,8 +450,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                 ),
                               ],
                             ),
-                            if (_model.uploadedFileUrl != null &&
-                                _model.uploadedFileUrl != '')
+                            if (_model.uploadedFileUrl != '')
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.network(
@@ -448,7 +458,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                   width: double.infinity,
                                   height: 220.0,
                                   fit: BoxFit.cover,
-                                  alignment: Alignment(0.0, 0.0),
+                                  alignment: const Alignment(0.0, 0.0),
                                 ),
                               ),
                           ],
@@ -458,7 +468,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: TextFormField(
                       controller: _model.nomPlatController,
                       focusNode: _model.nomPlatFocusNode,
@@ -466,7 +476,9 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Nom du plat',
+                        labelText: FFLocalizations.of(context).getText(
+                          'zwee7e8u' /* Nom du plat */,
+                        ),
                         labelStyle: FlutterFlowTheme.of(context)
                             .labelSmall
                             .override(
@@ -490,7 +502,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                           .labelMediumFamily),
                                 ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFEAF4F1),
                             width: 1.0,
                           ),
@@ -517,7 +529,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                           ),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
-                        contentPadding: EdgeInsets.all(20.0),
+                        contentPadding: const EdgeInsets.all(20.0),
                         prefixIcon: Icon(
                           FFIcons.kchef,
                           color: FlutterFlowTheme.of(context).primary,
@@ -539,14 +551,21 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: FlutterFlowDropDown<bool>(
                       controller: _model.typeofdishValueController ??=
                           FormFieldController<bool>(
                         _model.typeofdishValue ??= false,
                       ),
                       options: List<bool>.from([true, false]),
-                      optionLabels: ['Ingrédient', 'Plat cuisiné'],
+                      optionLabels: [
+                        FFLocalizations.of(context).getText(
+                          '9as5z72n' /* Ingrédient */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'c94eta0y' /* Plat cuisiné */,
+                        )
+                      ],
                       onChanged: (val) =>
                           setState(() => _model.typeofdishValue = val),
                       width: double.infinity,
@@ -560,7 +579,9 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).bodyMediumFamily),
                           ),
-                      hintText: 'Quel type de plat ?',
+                      hintText: FFLocalizations.of(context).getText(
+                        'g52c51q4' /* Quel type de plat ? */,
+                      ),
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
                         color: FlutterFlowTheme.of(context).primaryText,
@@ -570,7 +591,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                       borderColor: FlutterFlowTheme.of(context).grey4,
                       borderWidth: 2.0,
                       borderRadius: 20.0,
-                      margin: EdgeInsets.all(20.0),
+                      margin: const EdgeInsets.all(20.0),
                       hidesUnderline: true,
                       isSearchable: false,
                       isMultiSelect: false,
@@ -578,7 +599,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: TextFormField(
                       controller: _model.prixController,
                       focusNode: _model.prixFocusNode,
@@ -586,7 +607,9 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Prix',
+                        labelText: FFLocalizations.of(context).getText(
+                          'u8bkl9wn' /* Prix */,
+                        ),
                         labelStyle: FlutterFlowTheme.of(context)
                             .labelSmall
                             .override(
@@ -610,7 +633,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                           .labelMediumFamily),
                                 ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFEAF4F1),
                             width: 1.0,
                           ),
@@ -637,7 +660,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                           ),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
-                        contentPadding: EdgeInsets.all(20.0),
+                        contentPadding: const EdgeInsets.all(20.0),
                         prefixIcon: Icon(
                           FFIcons.kbuy,
                           color: FlutterFlowTheme.of(context).primary,
@@ -661,7 +684,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: TextFormField(
                       controller: _model.ingredientsController,
                       focusNode: _model.ingredientsFocusNode,
@@ -669,7 +692,9 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Ingrédients',
+                        labelText: FFLocalizations.of(context).getText(
+                          '3rrktdr7' /* Ingrédients */,
+                        ),
                         labelStyle: FlutterFlowTheme.of(context)
                             .labelSmall
                             .override(
@@ -693,7 +718,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                           .labelMediumFamily),
                                 ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFEAF4F1),
                             width: 1.0,
                           ),
@@ -720,7 +745,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                           ),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
-                        contentPadding: EdgeInsets.all(20.0),
+                        contentPadding: const EdgeInsets.all(20.0),
                         prefixIcon: Icon(
                           FFIcons.kproteins,
                           color: FlutterFlowTheme.of(context).primary,
@@ -736,7 +761,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).labelSmallFamily),
                           ),
-                      maxLines: 4,
+                      maxLines: 5,
                       minLines: 1,
                       keyboardType: TextInputType.multiline,
                       validator: _model.ingredientsControllerValidator
@@ -745,7 +770,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: TextFormField(
                       controller: _model.allergenesController,
                       focusNode: _model.allergenesFocusNode,
@@ -753,7 +778,9 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                       textInputAction: TextInputAction.next,
                       obscureText: false,
                       decoration: InputDecoration(
-                        labelText: 'Allergènes',
+                        labelText: FFLocalizations.of(context).getText(
+                          'qx828l49' /* Allergènes */,
+                        ),
                         labelStyle: FlutterFlowTheme.of(context)
                             .labelSmall
                             .override(
@@ -777,7 +804,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                           .labelMediumFamily),
                                 ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Color(0xFFEAF4F1),
                             width: 1.0,
                           ),
@@ -804,7 +831,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                           ),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
-                        contentPadding: EdgeInsets.all(20.0),
+                        contentPadding: const EdgeInsets.all(20.0),
                         prefixIcon: Icon(
                           FFIcons.kinfoSquare,
                           color: FlutterFlowTheme.of(context).primary,
@@ -820,7 +847,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                             useGoogleFonts: GoogleFonts.asMap().containsKey(
                                 FlutterFlowTheme.of(context).labelSmallFamily),
                           ),
-                      maxLines: 4,
+                      maxLines: 5,
                       minLines: 1,
                       keyboardType: TextInputType.multiline,
                       validator: _model.allergenesControllerValidator
@@ -829,13 +856,15 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Quantité',
+                          FFLocalizations.of(context).getText(
+                            'ig40dhzn' /* Quantité */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -892,17 +921,19 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          alignment: const AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 8.0),
                             child: Text(
-                              'À qui souhaitez vous vendre ce plat ?',
+                              FFLocalizations.of(context).getText(
+                                '0wbsakeq' /* À qui souhaitez vous vendre ce... */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -923,14 +954,22 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                         FlutterFlowDropDown<int>(
                           controller: _model.placedeventeValueController ??=
                               FormFieldController<int>(
-                            _model.placedeventeValue ??= 4,
+                            _model.placedeventeValue ??= 2,
                           ),
                           options: List<int>.from([1, 3, 2, 4]),
                           optionLabels: [
-                            'Mes voisins',
-                            'Toutes les personnes dans mes groupes',
-                            'À tout le monde (voisins et groupes)',
-                            'À un ou des groupes en particulier'
+                            FFLocalizations.of(context).getText(
+                              '7z3q2wfo' /* Mes voisins */,
+                            ),
+                            FFLocalizations.of(context).getText(
+                              '9ip8apxc' /* Toutes les personnes dans mes ... */,
+                            ),
+                            FFLocalizations.of(context).getText(
+                              '4163gfcg' /* À tout le monde (voisins et gr... */,
+                            ),
+                            FFLocalizations.of(context).getText(
+                              'kcbpju6u' /* À un ou des groupes en particu... */,
+                            )
                           ],
                           onChanged: (val) =>
                               setState(() => _model.placedeventeValue = val),
@@ -940,14 +979,15 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                color: FlutterFlowTheme.of(context).primaryText,
                                 fontWeight: FontWeight.w900,
                                 useGoogleFonts: GoogleFonts.asMap().containsKey(
                                     FlutterFlowTheme.of(context)
                                         .bodyMediumFamily),
                               ),
-                          hintText: 'À qui voulez vous proposer ce plat ?',
+                          hintText: FFLocalizations.of(context).getText(
+                            '2dk0pmzr' /* À qui voulez vous proposer ce ... */,
+                          ),
                           icon: Icon(
                             Icons.keyboard_arrow_down_rounded,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -957,7 +997,8 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                           borderColor: FlutterFlowTheme.of(context).grey4,
                           borderWidth: 2.0,
                           borderRadius: 20.0,
-                          margin: EdgeInsets.all(20.0),
+                          margin: const EdgeInsetsDirectional.fromSTEB(
+                              16.0, 12.0, 16.0, 12.0),
                           hidesUnderline: true,
                           isSearchable: false,
                           isMultiSelect: false,
@@ -970,12 +1011,14 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                     children: [
                       if (_model.placedeventeValue.toString() == '4')
                         Align(
-                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          alignment: const AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 8.0),
                             child: Text(
-                              'À quels groupes voulez-vous vendre ?',
+                              FFLocalizations.of(context).getText(
+                                '0vm2v0ft' /* À quels groupes voulez-vous ve... */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -995,16 +1038,16 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                         ),
                       if (_model.placedeventeValue.toString() == '4')
                         Container(
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxHeight: 315.0,
                           ),
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 12.0, 24.0, 44.0),
                                   child: StreamBuilder<List<GroupesRecord>>(
                                     stream: queryGroupesRecord(
@@ -1041,7 +1084,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                           listViewGroupesRecordList =
                                           snapshot.data!;
                                       if (listViewGroupesRecordList.isEmpty) {
-                                        return Center(
+                                        return const Center(
                                           child: NoGroupWidget(),
                                         );
                                       }
@@ -1058,14 +1101,14 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                   listViewIndex];
                                           return Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 4.0, 0.0, 8.0),
                                             child: Container(
                                               width: double.infinity,
                                               height: 60.0,
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
-                                                boxShadow: [
+                                                boxShadow: const [
                                                   BoxShadow(
                                                     blurRadius: 4.0,
                                                     color: Color(0x32000000),
@@ -1076,7 +1119,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                     BorderRadius.circular(20.0),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         8.0, 0.0, 8.0, 0.0),
                                                 child: Row(
@@ -1110,7 +1153,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                     Expanded(
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     12.0,
                                                                     0.0,
@@ -1135,7 +1178,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                                   .override(
                                                                     fontFamily:
                                                                         'Plus Jakarta Sans',
-                                                                    color: Color(
+                                                                    color: const Color(
                                                                         0xFF14181B),
                                                                     fontSize:
                                                                         14.0,
@@ -1154,7 +1197,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                                       .max,
                                                               children: [
                                                                 Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           4.0,
@@ -1169,7 +1212,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                                           fontFamily:
                                                                               'Plus Jakarta Sans',
                                                                           color:
-                                                                              Color(0xFF57636C),
+                                                                              const Color(0xFF57636C),
                                                                           fontSize:
                                                                               14.0,
                                                                           fontWeight:
@@ -1247,16 +1290,12 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 40.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 40.0),
                     child: FFButtonWidget(
-                      onPressed: ((_model.nomPlatController.text == null ||
-                                  _model.nomPlatController.text == '') &&
-                              (_model.prixController.text != null &&
-                                  _model.prixController.text != '') &&
-                              (_model.uploadedFileUrl != null &&
-                                  _model.uploadedFileUrl != '') &&
-                              (_model.ingredientsController.text != null &&
-                                  _model.ingredientsController.text != ''))
+                      onPressed: ((_model.nomPlatController.text == '') &&
+                              (_model.prixController.text != '') &&
+                              (_model.uploadedFileUrl != '') &&
+                              (_model.ingredientsController.text != ''))
                           ? null
                           : () async {
                               var platsRecordReference =
@@ -1322,7 +1361,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                     {
                                       'groupe_destine': (currentUserDocument
                                               ?.groupes
-                                              ?.toList() ??
+                                              .toList() ??
                                           []),
                                     },
                                   ),
@@ -1352,12 +1391,12 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: Text('Votre plat à bien été publié'),
+                                    title: const Text('Votre plat à bien été publié'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
+                                        child: const Text('Ok'),
                                       ),
                                     ],
                                   );
@@ -1366,14 +1405,16 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
 
                               setState(() {});
                             },
-                      text: 'Mettre en vente',
+                      text: FFLocalizations.of(context).getText(
+                        'megvzirk' /* Mettre en vente */,
+                      ),
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 60.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).secondary,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -1386,7 +1427,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                       .titleSmallFamily),
                             ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -1397,7 +1438,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                       ),
                     ),
                   ),
-                ].divide(SizedBox(height: 24.0)),
+                ].divide(const SizedBox(height: 24.0)),
               ),
             ),
           ),

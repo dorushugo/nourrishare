@@ -1,9 +1,7 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'item_commandes_model.dart';
@@ -67,7 +65,7 @@ class _ItemCommandesWidgetState extends State<ItemCommandesWidget> {
         final containerPlatsRecord = snapshot.data!;
         return Container(
           height: 88.0,
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,7 +73,7 @@ class _ItemCommandesWidgetState extends State<ItemCommandesWidget> {
             children: [
               Container(
                 width: MediaQuery.sizeOf(context).width * 0.55,
-                decoration: BoxDecoration(),
+                decoration: const BoxDecoration(),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,

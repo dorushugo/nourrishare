@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -45,9 +44,9 @@ class _NoIngredientWidgetState extends State<NoIngredientWidget> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SvgPicture.asset(
@@ -59,11 +58,13 @@ class _NoIngredientWidgetState extends State<NoIngredientWidget> {
           ),
         ),
         Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
             child: Text(
-              'Il n\'y a pas d\'ingrédients près de vous, invitez vos amis pour en voir plus !',
+              FFLocalizations.of(context).getText(
+                'gauc0lpl' /* Il n'y a pas d'ingrédients prè... */,
+              ),
               textAlign: TextAlign.center,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,

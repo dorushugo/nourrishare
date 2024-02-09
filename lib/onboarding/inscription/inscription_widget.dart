@@ -71,7 +71,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 54.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Color(0xFF57636C),
               size: 24.0,
@@ -80,10 +80,12 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
               context.pushNamed('ConnexionInscription');
             },
           ),
-          actions: [],
+          actions: const [],
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-              'Inscription',
+              FFLocalizations.of(context).getText(
+                '4k7z1ewa' /* Inscription */,
+              ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                     fontSize: 24.0,
@@ -100,7 +102,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 40.0, 24.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 40.0, 24.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -109,12 +111,14 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(-1.0, 0.0),
+                      alignment: const AlignmentDirectional(-1.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                         child: Text(
-                          'Adresse mail',
+                          FFLocalizations.of(context).getText(
+                            'rv0zcxnn' /* Adresse mail */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -130,16 +134,19 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: TextFormField(
                         controller: _model.mailController,
                         focusNode: _model.mailFocusNode,
+                        autofillHints: const [AutofillHints.email],
                         textCapitalization: TextCapitalization.none,
                         textInputAction: TextInputAction.next,
                         obscureText: false,
                         decoration: InputDecoration(
                           alignLabelWithHint: false,
-                          hintText: 'exemple@mail.fr',
+                          hintText: FFLocalizations.of(context).getText(
+                            'lp12jn17' /* exemple@mail.fr */,
+                          ),
                           hintStyle: FlutterFlowTheme.of(context)
                               .labelSmall
                               .override(
@@ -153,7 +160,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                         .labelSmallFamily),
                               ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFEAF4F1),
                               width: 1.0,
                             ),
@@ -180,7 +187,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                             ),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
-                          contentPadding: EdgeInsets.all(20.0),
+                          contentPadding: const EdgeInsets.all(20.0),
                           prefixIcon: Icon(
                             FFIcons.kmessage,
                             color: FlutterFlowTheme.of(context).primary,
@@ -203,12 +210,14 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(-1.0, 0.0),
+                      alignment: const AlignmentDirectional(-1.0, 0.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                         child: Text(
-                          'Mot de passe',
+                          FFLocalizations.of(context).getText(
+                            'sbi222bk' /* Mot de passe */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -224,16 +233,19 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: TextFormField(
                         controller: _model.passwordController,
                         focusNode: _model.passwordFocusNode,
+                        autofillHints: const [AutofillHints.password],
                         textCapitalization: TextCapitalization.none,
                         textInputAction: TextInputAction.next,
                         obscureText: !_model.passwordVisibility,
                         decoration: InputDecoration(
                           alignLabelWithHint: false,
-                          hintText: '***********',
+                          hintText: FFLocalizations.of(context).getText(
+                            'pldg06xm' /* *********** */,
+                          ),
                           hintStyle: FlutterFlowTheme.of(context)
                               .labelSmall
                               .override(
@@ -247,7 +259,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                         .labelSmallFamily),
                               ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0xFFEAF4F1),
                               width: 1.0,
                             ),
@@ -274,7 +286,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                             ),
                             borderRadius: BorderRadius.circular(16.0),
                           ),
-                          contentPadding: EdgeInsets.all(20.0),
+                          contentPadding: const EdgeInsets.all(20.0),
                           prefixIcon: Icon(
                             FFIcons.klock,
                             color: FlutterFlowTheme.of(context).primary,
@@ -347,7 +359,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            duration: Duration(milliseconds: 8800),
+                            duration: const Duration(milliseconds: 8800),
                             backgroundColor: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                             action: SnackBarAction(
@@ -361,14 +373,16 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                           ),
                         );
                       },
-                      text: 'S\'inscrire',
+                      text: FFLocalizations.of(context).getText(
+                        '1ua5tjyo' /* S'inscrire */,
+                      ),
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 56.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).secondary,
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
@@ -381,7 +395,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                       .titleSmallFamily),
                             ),
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
@@ -393,12 +407,14 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 40.0, 0.0, 16.0),
                             child: Text(
-                              'ou continuez avec',
+                              FFLocalizations.of(context).getText(
+                                'piyb6vt9' /* ou continuez avec */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -415,7 +431,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 16.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -429,27 +445,16 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                               if (user == null) {
                                 return;
                               }
-                              if ((valueOrDefault(currentUserDocument?.address,
-                                              '') !=
-                                          null &&
-                                      valueOrDefault(
+                              if ((valueOrDefault(
                                               currentUserDocument?.address,
                                               '') !=
                                           '') &&
-                                  (currentPhoneNumber != null &&
-                                      currentPhoneNumber != '') &&
+                                  (currentPhoneNumber != '') &&
                                   (valueOrDefault(
                                               currentUserDocument?.firstName,
                                               '') !=
-                                          null &&
-                                      valueOrDefault(
-                                              currentUserDocument?.firstName,
-                                              '') !=
                                           '') &&
-                                  (valueOrDefault(currentUserDocument?.lastName,
-                                              '') !=
-                                          null &&
-                                      valueOrDefault(
+                                  (valueOrDefault(
                                               currentUserDocument?.lastName,
                                               '') !=
                                           '') &&
@@ -466,7 +471,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 16.0,
                                     color: Color(0xFFAEAEAE),
@@ -480,7 +485,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 12.0, 0.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -493,7 +498,9 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'Continuer avec Google',
+                                    FFLocalizations.of(context).getText(
+                                      'mf2y0q0f' /* Continuer avec Google */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -515,14 +522,16 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                         ),
                         if (isiOS)
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 12.0, 0.0, 16.0),
                             child: FFButtonWidget(
                               onPressed: () {
                                 print('Button pressed ...');
                               },
-                              text: 'Continuer avec Apple',
-                              icon: Icon(
+                              text: FFLocalizations.of(context).getText(
+                                'i7jcld19' /* Continuer avec Apple */,
+                              ),
+                              icon: const Icon(
                                 Icons.apple,
                                 color: Colors.white,
                                 size: 24.0,
@@ -530,11 +539,11 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 60.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 12.0, 0.0),
-                                color: Color(0xFF101213),
+                                color: const Color(0xFF101213),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -550,7 +559,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                                   .bodyMediumFamily),
                                     ),
                                 elevation: 0.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Color(0xFF101213),
                                   width: 2.0,
                                 ),
@@ -559,7 +568,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                             ),
                           ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
                           child: RichText(
                             textScaleFactor:
@@ -567,12 +576,16 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: 'En continuant, vous acceptez nos',
-                                  style: TextStyle(),
+                                  text: FFLocalizations.of(context).getText(
+                                    '2px6vamv' /* En continuant, vous acceptez n... */,
+                                  ),
+                                  style: const TextStyle(),
                                 ),
                                 TextSpan(
-                                  text: ' Conditions d\'utilisations ',
-                                  style: TextStyle(
+                                  text: FFLocalizations.of(context).getText(
+                                    'usn6e7v7' /*  Conditions d'utilisations  */,
+                                  ),
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w900,
                                   ),
                                   mouseCursor: SystemMouseCursors.click,
@@ -583,12 +596,16 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                                     },
                                 ),
                                 TextSpan(
-                                  text: 'et notre',
-                                  style: TextStyle(),
+                                  text: FFLocalizations.of(context).getText(
+                                    'l1u8bvx8' /* et notre */,
+                                  ),
+                                  style: const TextStyle(),
                                 ),
                                 TextSpan(
-                                  text: ' Politique de confidentialité',
-                                  style: TextStyle(
+                                  text: FFLocalizations.of(context).getText(
+                                    'aguwngxc' /*  Politique de confidentialité */,
+                                  ),
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w900,
                                   ),
                                   mouseCursor: SystemMouseCursors.click,
@@ -608,7 +625,7 @@ class _InscriptionWidgetState extends State<InscriptionWidget> {
                     ),
                   ],
                 ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(const SizedBox(height: 24.0)),
             ),
           ),
         ),

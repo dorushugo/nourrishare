@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -45,11 +44,11 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+          await getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0));
       safeSetState(() => _model.algoliaSearchResults = null);
       await UsersRecord.search(
         location: getCurrentUserLocation(
-            defaultLocation: LatLng(37.4298229, -122.1735655)),
+            defaultLocation: const LatLng(37.4298229, -122.1735655)),
         maxResults: 6,
         searchRadiusMeters: 10000.0,
       )
@@ -97,7 +96,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 54.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Color(0xFF57636C),
               size: 24.0,
@@ -115,17 +114,19 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
             },
           ),
           title: Text(
-            'Ajouter au groupe',
+            FFLocalizations.of(context).getText(
+              '91uub8jk' /* Ajouter au groupe */,
+            ),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'Outfit',
-                  color: Color(0xFF14181B),
+                  color: const Color(0xFF14181B),
                   fontSize: 24.0,
                   fontWeight: FontWeight.w500,
                   useGoogleFonts: GoogleFonts.asMap().containsKey(
                       FlutterFlowTheme.of(context).headlineSmallFamily),
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 0.0,
         ),
@@ -136,19 +137,19 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
               wrapWithModel(
                 model: _model.navBar1Model,
                 updateCallback: () => setState(() {}),
-                child: NavBar1Widget(),
+                child: const NavBar1Widget(),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 100.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 100.0),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 8.0, 24.0, 12.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
@@ -159,7 +160,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                   focusNode: _model.textFieldFocusNode,
                                   onChanged: (_) => EasyDebounce.debounce(
                                     '_model.textController',
-                                    Duration(milliseconds: 2000),
+                                    const Duration(milliseconds: 2000),
                                     () async {
                                       setState(() => _model
                                           .algoliaRequestCompleter = null);
@@ -177,12 +178,14 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText:
-                                        'Rechercher un groupe ou un utilisateur',
+                                        FFLocalizations.of(context).getText(
+                                      '2w4o5k53' /* Rechercher un groupe ou un uti... */,
+                                    ),
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Plus Jakarta Sans',
-                                          color: Color(0xFF57636C),
+                                          color: const Color(0xFF57636C),
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
                                           useGoogleFonts: GoogleFonts.asMap()
@@ -199,21 +202,21 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0xFF4B39EF),
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0xFFFF5963),
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0xFFFF5963),
                                         width: 2.0,
                                       ),
@@ -227,7 +230,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Plus Jakarta Sans',
-                                        color: Color(0xFF14181B),
+                                        color: const Color(0xFF14181B),
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.normal,
                                         useGoogleFonts: GoogleFonts.asMap()
@@ -240,14 +243,14 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 0.0, 0.0),
                                 child: FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
                                   borderRadius: 30.0,
                                   borderWidth: 1.0,
                                   buttonSize: 44.0,
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.search_rounded,
                                     color: Color(0xFF14181B),
                                     size: 24.0,
@@ -262,15 +265,17 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: Text(
-                          'Utilisateurs',
+                          FFLocalizations.of(context).getText(
+                            'xismk8x7' /* Utilisateurs */,
+                          ),
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
                                 fontFamily: 'Plus Jakarta Sans',
-                                color: Color(0xFF57636C),
+                                color: const Color(0xFF57636C),
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.normal,
                                 useGoogleFonts: GoogleFonts.asMap().containsKey(
@@ -281,9 +286,9 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                       ),
                       Container(
                         width: double.infinity,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 12.0, 24.0, 44.0),
                           child: AuthUserStreamWidget(
                             builder: (context) =>
@@ -322,7 +327,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                     snapshot.data!;
                                 // Customize what your widget looks like with no search results.
                                 if (snapshot.data!.isEmpty) {
-                                  return Container(
+                                  return const SizedBox(
                                     height: 100,
                                     child: Center(
                                       child: Text('No results.'),
@@ -342,14 +347,14 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                       visible: listViewUsersRecord.reference !=
                                           currentUserReference,
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 4.0, 0.0, 8.0),
                                         child: Container(
                                           width: double.infinity,
                                           height: 60.0,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            boxShadow: [
+                                            boxShadow: const [
                                               BoxShadow(
                                                 blurRadius: 4.0,
                                                 color: Color(0x32000000),
@@ -361,7 +366,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                           ),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 0.0, 8.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -393,7 +398,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(12.0, 0.0,
                                                                 0.0, 0.0),
                                                     child: Column(
@@ -415,7 +420,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Plus Jakarta Sans',
-                                                                color: Color(
+                                                                color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 14.0,
                                                                 fontWeight:
@@ -434,7 +439,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           4.0,
@@ -464,7 +469,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Plus Jakarta Sans',
-                                                                      color: Color(
+                                                                      color: const Color(
                                                                           0xFF57636C),
                                                                       fontSize:
                                                                           14.0,
@@ -547,7 +552,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
@@ -586,14 +591,14 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: Text('Utilisateurs ajoutés'),
+                                  title: const Text('Utilisateurs ajoutés'),
                                   content: Text(
                                       '${_model.compteurUser.toString()} utilisateurs ont été ajoutés'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
                                           Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
+                                      child: const Text('Ok'),
                                     ),
                                   ],
                                 );
@@ -601,13 +606,15 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                             );
                             _model.compteurUser = 0;
                           },
-                          text: 'Ajouter les membres',
+                          text: FFLocalizations.of(context).getText(
+                            '8nrfbyf7' /* Ajouter les membres */,
+                          ),
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 60.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 16.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).secondary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -621,7 +628,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                           .titleSmallFamily),
                                 ),
                             elevation: 3.0,
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Colors.transparent,
                               width: 1.0,
                             ),
@@ -631,7 +638,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                       ),
                       Builder(
                         builder: (context) => Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 8.0, 24.0, 40.0),
                           child: FFButtonWidget(
                             onPressed: () async {
@@ -641,17 +648,19 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                     getWidgetBoundingBox(context),
                               );
                             },
-                            text: 'Partager le lien d\'invitation',
-                            icon: Icon(
+                            text: FFLocalizations.of(context).getText(
+                              'p2mqs418' /* Partager le lien d'invitation */,
+                            ),
+                            icon: const Icon(
                               Icons.ios_share,
                               size: 20.0,
                             ),
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 60.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 4.0, 0.0),
                               color: FlutterFlowTheme.of(context).transparent,
                               textStyle: FlutterFlowTheme.of(context)
@@ -667,7 +676,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                                 .titleSmallFamily),
                                   ),
                               elevation: 0.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -676,7 +685,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 8.0)),
+                    ].divide(const SizedBox(height: 8.0)),
                   ),
                 ),
               ),

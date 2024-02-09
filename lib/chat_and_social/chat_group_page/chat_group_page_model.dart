@@ -1,32 +1,37 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
-import '/components_general/demarrerconv/demarrerconv_widget.dart';
-import '/components_general/group_card_back/group_card_back_widget.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
+import '/components_general/group_card/group_card_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
-import 'dart:ui';
 import 'chat_group_page_widget.dart' show ChatGroupPageWidget;
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
 class ChatGroupPageModel extends FlutterFlowModel<ChatGroupPageWidget> {
   ///  Local state fields for this page.
 
   DocumentReference? groupeRef;
 
+  int? numberOfOtherUsers;
+
+  int compteur = 0;
+
+  List<DocumentReference> otherUsers = [];
+  void addToOtherUsers(DocumentReference item) => otherUsers.add(item);
+  void removeFromOtherUsers(DocumentReference item) => otherUsers.remove(item);
+  void removeAtIndexFromOtherUsers(int index) => otherUsers.removeAt(index);
+  void insertAtIndexInOtherUsers(int index, DocumentReference item) =>
+      otherUsers.insert(index, item);
+  void updateOtherUsersAtIndex(
+          int index, Function(DocumentReference) updateFn) =>
+      otherUsers[index] = updateFn(otherUsers[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // State field(s) for Column widget.
+  ScrollController? columnController;
+  // State field(s) for ListView widget.
+  ScrollController? listViewController;
+  // Model for GroupCard component.
+  late GroupCardModel groupCardModel;
   // State field(s) for messageField widget.
   FocusNode? messageFieldFocusNode;
   TextEditingController? messageFieldController;
@@ -39,22 +44,27 @@ class ChatGroupPageModel extends FlutterFlowModel<ChatGroupPageWidget> {
   String uploadedFileUrl = '';
 
   // Stores action output result for [Backend Call - Create Document] action in IconButton widget.
+  ChatMessagesRecord? imageEnvoye;
+  // Stores action output result for [Backend Call - Create Document] action in IconButton widget.
   ChatMessagesRecord? messageCreatedCopy;
-  // Model for GroupCardBack component.
-  late GroupCardBackModel groupCardBackModel;
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
-    groupCardBackModel = createModel(context, () => GroupCardBackModel());
+    columnController = ScrollController();
+    listViewController = ScrollController();
+    groupCardModel = createModel(context, () => GroupCardModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
+    columnController?.dispose();
+    listViewController?.dispose();
+    groupCardModel.dispose();
     messageFieldFocusNode?.dispose();
     messageFieldController?.dispose();
-
-    groupCardBackModel.dispose();
   }
 
   /// Action blocks are added here.

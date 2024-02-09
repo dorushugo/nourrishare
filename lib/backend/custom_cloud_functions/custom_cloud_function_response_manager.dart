@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 
 class StripeWebhookCloudFunctionCallResponse {
   StripeWebhookCloudFunctionCallResponse({

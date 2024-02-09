@@ -3,9 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'group_card_back_model.dart';
@@ -76,7 +74,7 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
               BoxShadow(
                 blurRadius: 16.0,
                 color: FlutterFlowTheme.of(context).boxShadow,
-                offset: Offset(0.0, 2.0),
+                offset: const Offset(0.0, 2.0),
                 spreadRadius: 0.0,
               )
             ],
@@ -123,10 +121,10 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
                   );
                 },
                 child: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 16.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 16.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,7 +133,7 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Container(
-                              decoration: BoxDecoration(),
+                              decoration: const BoxDecoration(),
                               child: FlutterFlowIconButton(
                                 borderColor: Colors.transparent,
                                 borderRadius: 30.0,
@@ -167,9 +165,9 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
                                     borderRadius: BorderRadius.circular(800.0),
                                     child: CachedNetworkImage(
                                       fadeInDuration:
-                                          Duration(milliseconds: 500),
+                                          const Duration(milliseconds: 500),
                                       fadeOutDuration:
-                                          Duration(milliseconds: 500),
+                                          const Duration(milliseconds: 500),
                                       imageUrl: containerGroupesRecord.photoUrl,
                                       width: 48.0,
                                       height: 48.0,
@@ -228,11 +226,11 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
                                                         .headlineSmallFamily),
                                           ),
                                     ),
-                                  ].divide(SizedBox(width: 8.0)),
+                                  ].divide(const SizedBox(width: 8.0)),
                                 ),
                               ],
                             ),
-                          ].divide(SizedBox(width: 8.0)),
+                          ].divide(const SizedBox(width: 8.0)),
                         ),
                         FlutterFlowIconButton(
                           borderRadius: 10.0,

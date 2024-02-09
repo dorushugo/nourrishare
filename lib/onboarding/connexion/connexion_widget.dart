@@ -69,7 +69,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 54.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Color(0xFF57636C),
               size: 24.0,
@@ -78,10 +78,12 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
               context.pushNamed('ConnexionInscription');
             },
           ),
-          actions: [],
+          actions: const [],
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-              'Connexion',
+              FFLocalizations.of(context).getText(
+                'cdu6aoqr' /* Connexion */,
+              ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                     fontSize: 24.0,
@@ -98,19 +100,19 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
               child: Container(
                 width: double.infinity,
-                constraints: BoxConstraints(
+                constraints: const BoxConstraints(
                   maxWidth: 670.0,
                 ),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primaryBackground,
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -120,12 +122,14 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            alignment: const AlignmentDirectional(-1.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 12.0),
                               child: Text(
-                                'Adresse mail',
+                                FFLocalizations.of(context).getText(
+                                  'wsbqe3ga' /* Adresse mail */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -141,11 +145,12 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 24.0),
                             child: TextFormField(
                               controller: _model.mailController,
                               focusNode: _model.mailFocusNode,
+                              autofillHints: const [AutofillHints.email],
                               textCapitalization: TextCapitalization.none,
                               textInputAction: TextInputAction.next,
                               obscureText: false,
@@ -163,7 +168,9 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                                   .labelSmallFamily),
                                     ),
                                 alignLabelWithHint: true,
-                                hintText: 'exemple@mail.fr',
+                                hintText: FFLocalizations.of(context).getText(
+                                  '8y1xmovj' /* exemple@mail.fr */,
+                                ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -177,7 +184,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                                   .labelMediumFamily),
                                     ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFFEAF4F1),
                                     width: 1.0,
                                   ),
@@ -204,7 +211,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
-                                contentPadding: EdgeInsets.all(20.0),
+                                contentPadding: const EdgeInsets.all(20.0),
                                 prefixIcon: Icon(
                                   FFIcons.kmessage,
                                   color: FlutterFlowTheme.of(context).primary,
@@ -231,12 +238,14 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            alignment: const AlignmentDirectional(-1.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 12.0),
                               child: Text(
-                                'Mot de passe',
+                                FFLocalizations.of(context).getText(
+                                  'djpn06rw' /* Mot de passe */,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -252,17 +261,20 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 24.0),
                             child: TextFormField(
                               controller: _model.passwordController,
                               focusNode: _model.passwordFocusNode,
+                              autofillHints: const [AutofillHints.password],
                               textCapitalization: TextCapitalization.none,
                               textInputAction: TextInputAction.next,
                               obscureText: !_model.passwordVisibility,
                               decoration: InputDecoration(
                                 alignLabelWithHint: false,
-                                hintText: '***********',
+                                hintText: FFLocalizations.of(context).getText(
+                                  'eatzmrue' /* *********** */,
+                                ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -276,7 +288,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                                   .labelMediumFamily),
                                     ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFFEAF4F1),
                                     width: 1.0,
                                   ),
@@ -303,7 +315,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
-                                contentPadding: EdgeInsets.all(20.0),
+                                contentPadding: const EdgeInsets.all(20.0),
                                 prefixIcon: Icon(
                                   FFIcons.klock,
                                   color: FlutterFlowTheme.of(context).primary,
@@ -343,7 +355,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 24.0),
                             child: FFButtonWidget(
                               onPressed: () async {
@@ -360,33 +372,19 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                 }
 
                                 if (currentUserEmailVerified == true) {
-                                  if ((currentUserEmail != null &&
-                                          currentUserEmail != '') &&
-                                      (currentUserDisplayName != null &&
-                                          currentUserDisplayName != '') &&
-                                      (currentUserPhoto != null &&
-                                          currentUserPhoto != '') &&
-                                      (currentPhoneNumber != null &&
-                                          currentPhoneNumber != '') &&
+                                  if ((currentUserEmail != '') &&
+                                      (currentUserDisplayName != '') &&
+                                      (currentUserPhoto != '') &&
+                                      (currentPhoneNumber != '') &&
                                       (valueOrDefault(currentUserDocument?.address, '') !=
-                                              null &&
-                                          valueOrDefault(currentUserDocument?.address, '') !=
                                               '') &&
                                       (valueOrDefault(currentUserDocument?.postalCode, '') !=
-                                              null &&
-                                          valueOrDefault(currentUserDocument?.postalCode, '') !=
                                               '') &&
                                       (valueOrDefault(currentUserDocument?.firstName, '') !=
-                                              null &&
-                                          valueOrDefault(currentUserDocument?.firstName, '') !=
                                               '') &&
                                       (valueOrDefault(currentUserDocument?.lastName, '') !=
-                                              null &&
-                                          valueOrDefault(currentUserDocument?.lastName, '') !=
                                               '') &&
-                                      (valueOrDefault(currentUserDocument?.city, '') !=
-                                              null &&
-                                          valueOrDefault(
+                                      (valueOrDefault(
                                                   currentUserDocument?.city, '') !=
                                               '')) {
                                     context.pushNamedAuth(
@@ -401,20 +399,20 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                         context: context,
                                         builder: (alertDialogContext) {
                                           return AlertDialog(
-                                            title: Text(
+                                            title: const Text(
                                                 'Confirmez votre adresse mail'),
-                                            content: Text(
+                                            content: const Text(
                                                 'Vous avez reçu un lien par mail vous permettant de vérifier votre compte.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext, false),
-                                                child: Text('Ok'),
+                                                child: const Text('Ok'),
                                               ),
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext, true),
-                                                child: Text('Renvoyer le code'),
+                                                child: const Text('Renvoyer le code'),
                                               ),
                                             ],
                                           );
@@ -426,13 +424,15 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                   }
                                 }
                               },
-                              text: 'Se connecter',
+                              text: FFLocalizations.of(context).getText(
+                                'wtvcp4a8' /* Se connecter */,
+                              ),
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 56.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).secondary,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -447,7 +447,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                                   .titleSmallFamily),
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),
@@ -456,9 +456,9 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 24.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -470,7 +470,9 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Email required!',
+                                          FFLocalizations.of(context).getText(
+                                            'q7jkqszn' /* Votre email est requis pour ré... */,
+                                          ),
                                         ),
                                       ),
                                     );
@@ -482,7 +484,9 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                   );
                                 },
                                 child: Text(
-                                  'Mot de passe oublié ?',
+                                  FFLocalizations.of(context).getText(
+                                    'moemsbho' /* Mot de passe oublié ? */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -503,18 +507,20 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 0.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 16.0),
                                 child: Text(
-                                  'ou continuez avec',
+                                  FFLocalizations.of(context).getText(
+                                    '12ao2y69' /* ou continuez avec */,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -532,7 +538,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 10.0, 0.0, 16.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -549,28 +555,14 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                   if ((valueOrDefault(
                                                   currentUserDocument?.address,
                                                   '') !=
-                                              null &&
-                                          valueOrDefault(
-                                                  currentUserDocument?.address,
-                                                  '') !=
                                               '') &&
-                                      (currentPhoneNumber != null &&
-                                          currentPhoneNumber != '') &&
+                                      (currentPhoneNumber != '') &&
                                       (valueOrDefault(
-                                                  currentUserDocument
-                                                      ?.firstName,
-                                                  '') !=
-                                              null &&
-                                          valueOrDefault(
                                                   currentUserDocument
                                                       ?.firstName,
                                                   '') !=
                                               '') &&
                                       (valueOrDefault(
-                                                  currentUserDocument?.lastName,
-                                                  '') !=
-                                              null &&
-                                          valueOrDefault(
                                                   currentUserDocument?.lastName,
                                                   '') !=
                                               '') &&
@@ -589,7 +581,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 16.0,
                                         color: Color(0xFFAEAEAE),
@@ -603,7 +595,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 12.0, 0.0),
                                         child: ClipRRect(
                                           borderRadius:
@@ -617,7 +609,9 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                         ),
                                       ),
                                       Text(
-                                        'Se connecter avec Google',
+                                        FFLocalizations.of(context).getText(
+                                          'hkgr1auf' /* Se connecter avec Google */,
+                                        ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -643,7 +637,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                               isAndroid
                                   ? Container()
                                   : Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 24.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -658,30 +652,14 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                                           currentUserDocument
                                                               ?.address,
                                                           '') !=
-                                                      null &&
-                                                  valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.address,
-                                                          '') !=
                                                       '') &&
-                                              (currentPhoneNumber != null &&
-                                                  currentPhoneNumber != '') &&
+                                              (currentPhoneNumber != '') &&
                                               (valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.firstName,
-                                                          '') !=
-                                                      null &&
-                                                  valueOrDefault(
                                                           currentUserDocument
                                                               ?.firstName,
                                                           '') !=
                                                       '') &&
                                               (valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.lastName,
-                                                          '') !=
-                                                      null &&
-                                                  valueOrDefault(
                                                           currentUserDocument
                                                               ?.lastName,
                                                           '') !=
@@ -697,8 +675,11 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                                 context.mounted);
                                           }
                                         },
-                                        text: 'Se connecter avec Apple',
-                                        icon: Icon(
+                                        text:
+                                            FFLocalizations.of(context).getText(
+                                          'mvvp694k' /* Se connecter avec Apple */,
+                                        ),
+                                        icon: const Icon(
                                           Icons.apple,
                                           color: Colors.white,
                                           size: 24.0,
@@ -707,12 +688,12 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                           width: double.infinity,
                                           height: 60.0,
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 12.0, 0.0),
-                                          color: Color(0xFF101213),
+                                          color: const Color(0xFF101213),
                                           textStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodyMedium
@@ -733,7 +714,7 @@ class _ConnexionWidgetState extends State<ConnexionWidget> {
                                                             .bodyMediumFamily),
                                               ),
                                           elevation: 0.0,
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFF101213),
                                             width: 2.0,
                                           ),

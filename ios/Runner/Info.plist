@@ -16,6 +16,11 @@
 	<string>NourriShare</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>fr</string>
+		<string>en</string>
+	</array>
 
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
@@ -58,7 +63,7 @@
 	<key>NSCameraUsageDescription</key>
     <string>In order to take a picture or video, this app requires permission to access the camera.</string>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>In order to record audio for video, this app requires permission to access the microphone.</string>
+    <string>Pour vous aider à communiquer plus rapidement.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>In order to upload data, this app requires permission to access the photo library.</string>
 	<key>PermissionGroupNotification</key>

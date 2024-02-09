@@ -1,23 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
 import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -82,35 +74,35 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? AccueilWidget() : OnboardingWidget(),
+          appStateNotifier.loggedIn ? const AccueilWidget() : const OnboardingWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? AccueilWidget() : OnboardingWidget(),
+              appStateNotifier.loggedIn ? const AccueilWidget() : const OnboardingWidget(),
         ),
         FFRoute(
           name: 'Connexion',
           path: '/connexion',
-          builder: (context, params) => ConnexionWidget(),
+          builder: (context, params) => const ConnexionWidget(),
         ),
         FFRoute(
           name: 'Onboarding',
           path: '/onboarding',
-          builder: (context, params) => OnboardingWidget(),
+          builder: (context, params) => const OnboardingWidget(),
         ),
         FFRoute(
           name: 'Profilpage',
           path: '/profilPage',
           requireAuth: true,
-          builder: (context, params) => ProfilpageWidget(),
+          builder: (context, params) => const ProfilpageWidget(),
         ),
         FFRoute(
           name: 'Accueil',
           path: '/accueil',
           requireAuth: true,
-          builder: (context, params) => AccueilWidget(),
+          builder: (context, params) => const AccueilWidget(),
         ),
         FFRoute(
           name: 'Plats_details',
@@ -143,13 +135,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Profilcompletion',
           path: '/profilcompletion',
           requireAuth: true,
-          builder: (context, params) => ProfilcompletionWidget(),
+          builder: (context, params) => const ProfilcompletionWidget(),
         ),
         FFRoute(
           name: 'messageList',
           path: '/messageList',
           requireAuth: true,
-          builder: (context, params) => MessageListWidget(),
+          builder: (context, params) => const MessageListWidget(),
         ),
         FFRoute(
           name: 'chatPage',
@@ -164,32 +156,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'rechercheMessage',
           path: '/rechercheMessage',
           requireAuth: true,
-          builder: (context, params) => RechercheMessageWidget(),
+          builder: (context, params) => const RechercheMessageWidget(),
         ),
         FFRoute(
           name: 'Inscription',
           path: '/Inscription',
-          builder: (context, params) => InscriptionWidget(),
+          builder: (context, params) => const InscriptionWidget(),
         ),
         FFRoute(
           name: 'stripeCompletion',
           path: '/stripeCompletion',
           requireAuth: true,
-          builder: (context, params) => StripeCompletionWidget(),
+          builder: (context, params) => const StripeCompletionWidget(),
         ),
         FFRoute(
           name: 'Profilsettings',
           path: '/profilsettings',
           requireAuth: true,
-          builder: (context, params) => ProfilsettingsWidget(),
+          builder: (context, params) => const ProfilsettingsWidget(),
         ),
         FFRoute(
           name: 'chatGroupPage',
           path: '/chatGroupPage',
           requireAuth: true,
           builder: (context, params) => ChatGroupPageWidget(
-            othersUser: params.getParam<DocumentReference>(
-                'othersUser', ParamType.DocumentReference, true, ['Users']),
             chat: params.getParam(
                 'chat', ParamType.DocumentReference, false, ['Chats']),
             group: params.getParam(
@@ -244,7 +234,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ConnexionInscription',
           path: '/connexionInscription',
-          builder: (context, params) => ConnexionInscriptionWidget(),
+          builder: (context, params) => const ConnexionInscriptionWidget(),
         ),
         FFRoute(
           name: 'Livraison',
@@ -258,7 +248,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Notifications',
           path: '/Notifications',
           requireAuth: true,
-          builder: (context, params) => NotificationsWidget(),
+          builder: (context, params) => const NotificationsWidget(),
         ),
         FFRoute(
           name: 'modifierPlat',
@@ -499,7 +489,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(
+  static TransitionInfo appDefault() => const TransitionInfo(
         hasTransition: true,
         transitionType: PageTransitionType.fade,
         duration: Duration(milliseconds: 0),

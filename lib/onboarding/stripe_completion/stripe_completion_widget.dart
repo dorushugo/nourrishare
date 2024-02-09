@@ -5,8 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -35,8 +33,7 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if ((valueOrDefault(currentUserDocument?.stripeAccountID, '') != null &&
-              valueOrDefault(currentUserDocument?.stripeAccountID, '') != '') &&
+      if ((valueOrDefault(currentUserDocument?.stripeAccountID, '') != '') &&
           !valueOrDefault<bool>(
               currentUserDocument?.stripChargesEnabled, false)) {
         _model.checkOnboardingOnLoad =
@@ -84,11 +81,11 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, 0.0),
             child: Stack(
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -107,7 +104,7 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 40.0),
                               child: RichText(
                                 textScaleFactor:
@@ -116,11 +113,6 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                   children: [
                                     TextSpan(
                                       text: (valueOrDefault(
-                                                          currentUserDocument
-                                                              ?.stripeAccountID,
-                                                          '') !=
-                                                      null &&
-                                                  valueOrDefault(
                                                           currentUserDocument
                                                               ?.stripeAccountID,
                                                           '') !=
@@ -141,16 +133,12 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                          ].divide(SizedBox(height: 24.0)),
+                          ].divide(const SizedBox(height: 24.0)),
                         ),
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             if (valueOrDefault(
-                                        currentUserDocument?.stripeAccountID,
-                                        '') ==
-                                    null ||
-                                valueOrDefault(
                                         currentUserDocument?.stripeAccountID,
                                         '') ==
                                     '')
@@ -162,11 +150,6 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                       stripChargesEnabled: false,
                                     ));
                                     if (valueOrDefault(
-                                                currentUserDocument
-                                                    ?.stripeAccountID,
-                                                '') ==
-                                            null ||
-                                        valueOrDefault(
                                                 currentUserDocument
                                                     ?.stripeAccountID,
                                                 '') ==
@@ -265,7 +248,7 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  Duration(milliseconds: 4000),
+                                                  const Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
@@ -277,17 +260,19 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
 
                                     setState(() {});
                                   },
-                                  text: 'Activer les paiements',
-                                  icon: Icon(
+                                  text: FFLocalizations.of(context).getText(
+                                    'q6dxdn05' /* Activer les paiements */,
+                                  ),
+                                  icon: const Icon(
                                     FFIcons.klock,
                                     size: 15.0,
                                   ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 56.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 8.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
@@ -304,7 +289,7 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -316,40 +301,27 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                             currentUserDocument
                                                 ?.stripeAccountID,
                                             '') !=
-                                        null &&
-                                    valueOrDefault(
-                                            currentUserDocument
-                                                ?.stripeAccountID,
-                                            '') !=
                                         '') &&
-                                !valueOrDefault<bool>(
-                                    currentUserDocument?.stripChargesEnabled,
-                                    false))
+                                ((valueOrDefault<bool>(
+                                            currentUserDocument
+                                                ?.stripChargesEnabled,
+                                            false) ==
+                                        null) ||
+                                    (valueOrDefault<bool>(
+                                            currentUserDocument
+                                                ?.stripChargesEnabled,
+                                            false) ==
+                                        false)))
                               Align(
-                                alignment: AlignmentDirectional(1.0, 0.0),
+                                alignment: const AlignmentDirectional(1.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => FFButtonWidget(
                                     onPressed: () async {
-                                      if ((valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.createStripeAccountUrl,
-                                                      '') ==
-                                                  null ||
-                                              valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.createStripeAccountUrl,
-                                                      '') ==
-                                                  '') &&
-                                          (valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.stripeAccountID,
-                                                      '') !=
-                                                  null &&
-                                              valueOrDefault(
-                                                      currentUserDocument
-                                                          ?.stripeAccountID,
-                                                      '') !=
-                                                  '')) {
+                                      if (valueOrDefault(
+                                                  currentUserDocument
+                                                      ?.createStripeAccountUrl,
+                                                  '') ==
+                                              '') {
                                         _model.createdAccountLink2 =
                                             await StripeGroup
                                                 .createAccountLinkCall
@@ -397,7 +369,7 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  Duration(milliseconds: 4000),
+                                                  const Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
@@ -437,30 +409,83 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                                 ),
                                               ),
                                               duration:
-                                                  Duration(milliseconds: 4000),
+                                                  const Duration(milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
                                             ),
                                           );
                                         } else {
-                                          await launchURL(valueOrDefault(
-                                              currentUserDocument
-                                                  ?.createStripeAccountUrl,
-                                              ''));
+                                          _model.createdAccountLink3 =
+                                              await StripeGroup
+                                                  .createAccountLinkCall
+                                                  .call(
+                                            account: valueOrDefault(
+                                                currentUserDocument
+                                                    ?.stripeAccountID,
+                                                ''),
+                                            type: 'account_onboarding',
+                                            refreshUrl:
+                                                'https://nourrishare.com/erreur-creation-de-compte/',
+                                            returnUrl:
+                                                'https://nourrishare.com/sucess-account-link/',
+                                          );
+                                          if ((_model.createdAccountLink3
+                                                  ?.succeeded ??
+                                              true)) {
+                                            await currentUserReference!
+                                                .update(createUsersRecordData(
+                                              createStripeAccountUrl:
+                                                  StripeGroup
+                                                      .createAccountLinkCall
+                                                      .url(
+                                                (_model.createdAccountLink3
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              ),
+                                            ));
+                                            await launchURL(StripeGroup
+                                                .createAccountLinkCall
+                                                .url(
+                                              (_model.createdAccountLink3
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            )!);
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Erreur lors du lien avec votre compte Stripe',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                  ),
+                                                ),
+                                                duration: const Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                              ),
+                                            );
+                                          }
                                         }
                                       }
 
                                       setState(() {});
                                     },
-                                    text: 'Valider mon compte',
+                                    text: FFLocalizations.of(context).getText(
+                                      'jleahain' /* Valider mon compte */,
+                                    ),
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 56.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 8.0, 0.0),
                                       color: FlutterFlowTheme.of(context)
                                           .secondary,
@@ -477,7 +502,7 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                                         .titleSmallFamily),
                                           ),
                                       elevation: 3.0,
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),
@@ -487,11 +512,6 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                 ),
                               ),
                             if ((valueOrDefault(
-                                            currentUserDocument
-                                                ?.stripeAccountID,
-                                            '') !=
-                                        null &&
-                                    valueOrDefault(
                                             currentUserDocument
                                                 ?.stripeAccountID,
                                             '') !=
@@ -500,20 +520,22 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                     currentUserDocument?.stripChargesEnabled,
                                     false))
                               Align(
-                                alignment: AlignmentDirectional(1.0, 0.0),
+                                alignment: const AlignmentDirectional(1.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => FFButtonWidget(
                                     onPressed: () async {
                                       context.goNamed('Profilpage');
                                     },
-                                    text: 'Continuer',
+                                    text: FFLocalizations.of(context).getText(
+                                      'c4cuy1n3' /* Continuer */,
+                                    ),
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 56.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 8.0, 0.0),
                                       color: FlutterFlowTheme.of(context)
                                           .secondary,
@@ -530,7 +552,7 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                                         .titleSmallFamily),
                                           ),
                                       elevation: 3.0,
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),
@@ -540,11 +562,6 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                 ),
                               ),
                             if ((valueOrDefault(
-                                            currentUserDocument
-                                                ?.stripeAccountID,
-                                            '') ==
-                                        null ||
-                                    valueOrDefault(
                                             currentUserDocument
                                                 ?.stripeAccountID,
                                             '') ==
@@ -567,7 +584,9 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                     context.pushNamed('Accueil');
                                   },
                                   child: Text(
-                                    'Plus tard',
+                                    FFLocalizations.of(context).getText(
+                                      'z4d7ne6t' /* Plus tard */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -584,9 +603,9 @@ class _StripeCompletionWidgetState extends State<StripeCompletionWidget> {
                                   ),
                                 ),
                               ),
-                          ].divide(SizedBox(height: 24.0)),
+                          ].divide(const SizedBox(height: 24.0)),
                         ),
-                      ].divide(SizedBox(height: 24.0)),
+                      ].divide(const SizedBox(height: 24.0)),
                     ),
                   ),
                 ),

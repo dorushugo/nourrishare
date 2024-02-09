@@ -1,22 +1,10 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components_general/aucunelement/aucunelement_widget.dart';
 import '/components_general/group_card/group_card_widget.dart';
-import '/components_general/plats_voisins/plats_voisins_widget.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'group_detail_widget.dart' show GroupDetailWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
-import 'package:provider/provider.dart';
 
 class GroupDetailModel extends FlutterFlowModel<GroupDetailWidget> {
   ///  Local state fields for this page.
@@ -45,14 +33,18 @@ class GroupDetailModel extends FlutterFlowModel<GroupDetailWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     groupCardModel = createModel(context, () => GroupCardModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     groupCardModel.dispose();
-    listViewStreamSubscriptions2.forEach((s) => s?.cancel());
+    for (var s in listViewStreamSubscriptions2) {
+      s?.cancel();
+    }
     listViewPagingController2?.dispose();
   }
 

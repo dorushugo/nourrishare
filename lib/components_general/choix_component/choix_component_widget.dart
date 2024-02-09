@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'choix_component_model.dart';
@@ -17,10 +16,10 @@ class ChoixComponentWidget extends StatefulWidget {
     String? ctaRefus,
     required this.boolChoice,
     required this.actionAccept,
-  })  : this.titre = titre ?? 'Titre',
-        this.message = message ?? 'Message',
-        this.ctaAccept = ctaAccept ?? 'Accepter',
-        this.ctaRefus = ctaRefus ?? 'Annuler';
+  })  : titre = titre ?? 'Titre',
+        message = message ?? 'Message',
+        ctaAccept = ctaAccept ?? 'Accepter',
+        ctaRefus = ctaRefus ?? 'Annuler';
 
   final String titre;
   final String message;
@@ -66,7 +65,7 @@ class _ChoixComponentWidgetState extends State<ChoixComponentWidget> {
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Container(
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 570.0,
         ),
         decoration: BoxDecoration(
@@ -75,7 +74,7 @@ class _ChoixComponentWidgetState extends State<ChoixComponentWidget> {
             BoxShadow(
               blurRadius: 24.0,
               color: FlutterFlowTheme.of(context).boxShadow,
-              offset: Offset(0.0, 2.0),
+              offset: const Offset(0.0, 2.0),
               spreadRadius: 24.0,
             )
           ],
@@ -86,13 +85,13 @@ class _ChoixComponentWidgetState extends State<ChoixComponentWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -103,18 +102,18 @@ class _ChoixComponentWidgetState extends State<ChoixComponentWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       child: Text(
                         widget.message,
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).labelMedium,
                       ),
                     ),
-                  ].divide(SizedBox(height: 24.0)),
+                  ].divide(const SizedBox(height: 24.0)),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -126,10 +125,10 @@ class _ChoixComponentWidgetState extends State<ChoixComponentWidget> {
                       text: widget.ctaRefus,
                       options: FFButtonOptions(
                         height: 56.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primaryBackground,
                         textStyle: FlutterFlowTheme.of(context)
                             .bodyMedium
@@ -157,24 +156,24 @@ class _ChoixComponentWidgetState extends State<ChoixComponentWidget> {
                       text: widget.ctaAccept,
                       options: FFButtonOptions(
                         height: 56.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).secondary,
                         textStyle: FlutterFlowTheme.of(context).titleSmall,
                         elevation: 3.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
-                  ].divide(SizedBox(width: 16.0)),
+                  ].divide(const SizedBox(width: 16.0)),
                 ),
               ),
-            ].divide(SizedBox(height: 24.0)).addToEnd(SizedBox(height: 12.0)),
+            ].divide(const SizedBox(height: 24.0)).addToEnd(const SizedBox(height: 12.0)),
           ),
         ),
       ),

@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -43,15 +42,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -70,15 +69,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -97,15 +96,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -124,15 +123,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -151,15 +150,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -178,15 +177,15 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -231,19 +230,19 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fitWidth,
-                alignment: AlignmentDirectional(0.0, -1.4),
+                alignment: const AlignmentDirectional(0.0, -1.4),
                 image: Image.asset(
                   'assets/images/Pattern_2.png',
                 ).image,
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: MediaQuery.sizeOf(context).height * 0.75,
                     child: Stack(
@@ -254,7 +253,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                           scrollDirection: Axis.horizontal,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   20.0, 0.0, 20.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -270,10 +269,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 40.0, 0.0, 0.0),
                                     child: Text(
-                                      'Vendez vos plats à vos voisins et vos collègues',
+                                      FFLocalizations.of(context).getText(
+                                        '49lxxxk8' /* Vendez vos plats à vos voisins... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .displayMedium
@@ -292,10 +293,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                         'textOnPageLoadAnimation1']!),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      'En quelques clics, vendez des portions de ce que vous avez cuisiné !',
+                                      FFLocalizations.of(context).getText(
+                                        'k03iab1u' /* En quelques clics, vendez des ... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
@@ -315,7 +318,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   20.0, 0.0, 20.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -331,10 +334,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
                                     child: Text(
-                                      'Remboursez vos courses et mangez gratuitement',
+                                      FFLocalizations.of(context).getText(
+                                        '7ogouj21' /* Remboursez vos courses et mang... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .displayMedium
@@ -353,10 +358,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                         'textOnPageLoadAnimation3']!),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      'En cuisinant en plus grande quantité et en vendant le surplus.',
+                                      FFLocalizations.of(context).getText(
+                                        '63bl8eng' /* En cuisinant en plus grande qu... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
@@ -376,7 +383,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   20.0, 0.0, 20.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -392,10 +399,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 24.0, 0.0, 0.0),
                                     child: Text(
-                                      'Mangez plus sain en dépensant moins',
+                                      FFLocalizations.of(context).getText(
+                                        'ox0l4nyt' /* Mangez plus sain en dépensant ... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .displayMedium
@@ -414,10 +423,12 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                         'textOnPageLoadAnimation5']!),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 16.0, 0.0, 0.0),
                                     child: Text(
-                                      'Économisez grâce à des repas plus abordables fait maison.',
+                                      FFLocalizations.of(context).getText(
+                                        '9vsupxxi' /* Économisez grâce à des repas p... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .labelLarge
@@ -439,9 +450,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                           ],
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
+                          alignment: const AlignmentDirectional(0.0, 1.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 0.0),
                             child: smooth_page_indicator.SmoothPageIndicator(
                               controller: _model.pageViewController ??=
@@ -451,7 +462,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                               onDotClicked: (i) async {
                                 await _model.pageViewController!.animateToPage(
                                   i,
-                                  duration: Duration(milliseconds: 500),
+                                  duration: const Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 );
                               },
@@ -475,14 +486,14 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                   ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 24.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 24.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.pageViewCurrentIndex.toString() == '2') {
                           context.pushNamed('ConnexionInscription');
                         } else {
                           await _model.pageViewController?.nextPage(
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             curve: Curves.ease,
                           );
                         }
@@ -494,9 +505,9 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                         width: double.infinity,
                         height: 60.0,
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).secondary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleMedium.override(
@@ -507,7 +518,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                           .titleMediumFamily),
                                 ),
                         elevation: 4.0,
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
                         ),

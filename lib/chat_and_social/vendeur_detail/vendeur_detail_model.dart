@@ -1,16 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components_general/plats_voisins/plats_voisins_widget.dart';
 import '/components_general/user_card_back/user_card_back_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'vendeur_detail_widget.dart' show VendeurDetailWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class VendeurDetailModel extends FlutterFlowModel<VendeurDetailWidget> {
   ///  State fields for stateful widgets in this page.
@@ -25,10 +17,12 @@ class VendeurDetailModel extends FlutterFlowModel<VendeurDetailWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     userCardBackModel = createModel(context, () => UserCardBackModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     userCardBackModel.dispose();

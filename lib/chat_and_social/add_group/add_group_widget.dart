@@ -8,10 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,7 +83,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 54.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Color(0xFF57636C),
               size: 24.0,
@@ -96,7 +93,9 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
             },
           ),
           title: Text(
-            'Créer un groupe',
+            FFLocalizations.of(context).getText(
+              'kdk6n9iz' /* Créer un groupe */,
+            ),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'Avenir',
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -106,22 +105,22 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                       FlutterFlowTheme.of(context).headlineSmallFamily),
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Stack(
               children: [
                 Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 40.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 40.0, 24.0, 0.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -158,7 +157,9 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                     try {
                                       showUploadMessage(
                                         context,
-                                        'Uploading file...',
+                                        FFLocalizations.of(context).getText(
+                                          'a05hq3iz' /* Téléchargement du fichier */,
+                                        ),
                                         showLoading: true,
                                       );
                                       selectedUploadedFiles = selectedMedia
@@ -197,11 +198,18 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                         _model.uploadedFileUrl =
                                             downloadUrls.first;
                                       });
-                                      showUploadMessage(context, 'Success!');
+                                      showUploadMessage(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'yjwesk6d' /* Fichier téléchargé !  */,
+                                          ));
                                     } else {
                                       setState(() {});
                                       showUploadMessage(
-                                          context, 'Failed to upload data');
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'pbrnslxi' /* Le téléchargement a échoué. */,
+                                          ));
                                       return;
                                     }
                                   }
@@ -221,13 +229,12 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                   ),
                                   child: Stack(
                                     children: [
-                                      if (_model.uploadedFileUrl != null &&
-                                          _model.uploadedFileUrl != '')
+                                      if (_model.uploadedFileUrl != '')
                                         Container(
                                           width: 120.0,
                                           height: 120.0,
                                           clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                           ),
                                           child: Image.network(
@@ -235,11 +242,10 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                             fit: BoxFit.cover,
                                           ),
                                         ),
-                                      if (_model.uploadedFileUrl == null ||
-                                          _model.uploadedFileUrl == '')
+                                      if (_model.uploadedFileUrl == '')
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Icon(
                                             FFIcons.kimage3,
                                             color: FlutterFlowTheme.of(context)
@@ -263,7 +269,10 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                       textInputAction: TextInputAction.next,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText: 'Nom du groupe',
+                                        labelText:
+                                            FFLocalizations.of(context).getText(
+                                          'd899t0ut' /* Nom du groupe */,
+                                        ),
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelSmall
                                             .override(
@@ -289,7 +298,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMediumFamily,
-                                              color: Color(0xFFEAF4F1),
+                                              color: const Color(0xFFEAF4F1),
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.normal,
                                               useGoogleFonts: GoogleFonts
@@ -300,7 +309,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                                           .labelMediumFamily),
                                             ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFFEAF4F1),
                                             width: 1.0,
                                           ),
@@ -334,7 +343,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                           borderRadius:
                                               BorderRadius.circular(16.0),
                                         ),
-                                        contentPadding: EdgeInsets.all(20.0),
+                                        contentPadding: const EdgeInsets.all(20.0),
                                         prefixIcon: Icon(
                                           FFIcons.kaccountIcon2,
                                           color: FlutterFlowTheme.of(context)
@@ -364,7 +373,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                           .asValidator(context),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 24.0)),
+                                ].divide(const SizedBox(width: 24.0)),
                               ),
                               TextFormField(
                                 controller: _model.bioController,
@@ -373,7 +382,10 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                 textInputAction: TextInputAction.next,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'Description',
+                                  labelText:
+                                      FFLocalizations.of(context).getText(
+                                    'nf49jyxd' /* Description */,
+                                  ),
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelSmall
                                       .override(
@@ -400,7 +412,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                                     .labelMediumFamily),
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0xFFEAF4F1),
                                       width: 1.0,
                                     ),
@@ -428,7 +440,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                     ),
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                  contentPadding: EdgeInsets.all(20.0),
+                                  contentPadding: const EdgeInsets.all(20.0),
                                   prefixIcon: Icon(
                                     FFIcons.keditSquare,
                                     color: FlutterFlowTheme.of(context).primary,
@@ -463,7 +475,14 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                   _model.typedegroupeValue ??= false,
                                 ),
                                 options: List<bool>.from([false, true]),
-                                optionLabels: ['Groupe privé', 'Groupe public'],
+                                optionLabels: [
+                                  FFLocalizations.of(context).getText(
+                                    'hp35snq1' /* Groupe privé */,
+                                  ),
+                                  FFLocalizations.of(context).getText(
+                                    '6f20lqr4' /* Groupe public */,
+                                  )
+                                ],
                                 onChanged: (val) => setState(
                                     () => _model.typedegroupeValue = val),
                                 width: double.infinity,
@@ -480,7 +499,9 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .bodyMediumFamily),
                                     ),
-                                hintText: 'Confidentialité du groupe',
+                                hintText: FFLocalizations.of(context).getText(
+                                  'pp1xncd7' /* Confidentialité du groupe */,
+                                ),
                                 icon: Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: FlutterFlowTheme.of(context)
@@ -491,13 +512,13 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                 borderColor: FlutterFlowTheme.of(context).grey4,
                                 borderWidth: 2.0,
                                 borderRadius: 20.0,
-                                margin: EdgeInsets.all(20.0),
+                                margin: const EdgeInsets.all(20.0),
                                 hidesUnderline: true,
                                 isSearchable: false,
                                 isMultiSelect: false,
                               ),
                               Container(
-                                decoration: BoxDecoration(),
+                                decoration: const BoxDecoration(),
                                 child: Visibility(
                                   visible: !valueOrDefault<bool>(
                                     _model.typedegroupeValue,
@@ -510,7 +531,10 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                     textInputAction: TextInputAction.next,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText: 'Code de connexion',
+                                      labelText:
+                                          FFLocalizations.of(context).getText(
+                                        'kxhtjoae' /* Code de connexion */,
+                                      ),
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelSmall
                                           .override(
@@ -533,7 +557,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                             fontFamily:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMediumFamily,
-                                            color: Color(0xFFEAF4F1),
+                                            color: const Color(0xFFEAF4F1),
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.normal,
                                             useGoogleFonts: GoogleFonts.asMap()
@@ -542,7 +566,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                                         .labelMediumFamily),
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFFEAF4F1),
                                           width: 1.0,
                                         ),
@@ -576,7 +600,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
-                                      contentPadding: EdgeInsets.all(20.0),
+                                      contentPadding: const EdgeInsets.all(20.0),
                                       prefixIcon: Icon(
                                         FFIcons.klock,
                                         color: FlutterFlowTheme.of(context)
@@ -609,9 +633,11 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(-1.0, 0.0),
+                                alignment: const AlignmentDirectional(-1.0, 0.0),
                                 child: Text(
-                                  'Code à partager pour rejoindre votre groupe sans invitation.',
+                                  FFLocalizations.of(context).getText(
+                                    'r6pm49zd' /* Code à partager pour rejoindre... */,
+                                  ),
                                   textAlign: TextAlign.start,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -638,7 +664,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, 1.0),
+                                alignment: const AlignmentDirectional(0.0, 1.0),
                                 child: FlutterFlowPlacePicker(
                                   iOSGoogleMapsApiKey:
                                       'AIzaSyApJ9kk7bYiShcUpRkQtpXgGILrkTFYcH0',
@@ -650,7 +676,10 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                     setState(() =>
                                         _model.addresspickerValue = place);
                                   },
-                                  defaultText: 'Rechercher l\'adresse',
+                                  defaultText:
+                                      FFLocalizations.of(context).getText(
+                                    'kvnp3s80' /* Rechercher l'adresse */,
+                                  ),
                                   icon: Icon(
                                     Icons.place,
                                     color: FlutterFlowTheme.of(context)
@@ -685,7 +714,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 40.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -740,8 +769,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                         },
                                       ),
                                     }, groupesRecordReference);
-                                    if (_model.uploadedFileUrl != null &&
-                                        _model.uploadedFileUrl != '') {
+                                    if (_model.uploadedFileUrl != '') {
                                       await _model.groupeCree2!.reference
                                           .update(createGroupesRecordData(
                                         photoUrl: _model.uploadedFileUrl,
@@ -763,14 +791,14 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                       builder: (alertDialogContext) {
                                         return AlertDialog(
                                           title:
-                                              Text('Groupe crée avec succès'),
+                                              const Text('Groupe crée avec succès'),
                                           content: Text(
                                               'Le groupe ${_model.groupeCree2?.displayName} a été crée avec succès !'),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
                                                   alertDialogContext),
-                                              child: Text('Ok'),
+                                              child: const Text('Ok'),
                                             ),
                                           ],
                                         );
@@ -779,13 +807,15 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
 
                                     setState(() {});
                                   },
-                                  text: 'Créer le groupe',
+                                  text: FFLocalizations.of(context).getText(
+                                    'mjj3n07a' /* Créer le groupe */,
+                                  ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 56.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
@@ -802,7 +832,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
@@ -810,9 +840,9 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(height: 24.0)),
+                            ].divide(const SizedBox(height: 24.0)),
                           ),
-                        ].divide(SizedBox(height: 24.0)),
+                        ].divide(const SizedBox(height: 24.0)),
                       ),
                     ),
                   ),

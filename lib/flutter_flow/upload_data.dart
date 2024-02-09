@@ -58,8 +58,7 @@ Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
   bool includeDimensions = false,
   bool includeBlurHash = false,
 }) async {
-  final createUploadMediaListTile =
-      (String label, MediaSource mediaSource) => ListTile(
+  createUploadMediaListTile(String label, MediaSource mediaSource) => ListTile(
             title: Text(
               label,
               textAlign: TextAlign.center,
@@ -86,10 +85,12 @@ Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
           children: [
             if (!kIsWeb) ...[
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 8, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                 child: ListTile(
                   title: Text(
-                    'Choose Source',
+                    FFLocalizations.of(context).getText(
+                      'sikikhwv' /* Choisissez la source */,
+                    ),
                     textAlign: TextAlign.center,
                     style: GoogleFonts.getFont(
                       pickerFontFamily,
@@ -106,27 +107,39 @@ Future<List<SelectedFile>?> selectMediaWithSourceBottomSheet({
             ],
             if (allowPhoto && allowVideo) ...[
               createUploadMediaListTile(
-                'Gallery (Photo)',
+                FFLocalizations.of(context).getText(
+                  'z9q41njy' /* Gallerie (Photo) */,
+                ),
                 MediaSource.photoGallery,
               ),
               const Divider(),
               createUploadMediaListTile(
-                'Gallery (Video)',
+                FFLocalizations.of(context).getText(
+                  '4o3fp1rc' /* Gallerie (Video) */,
+                ),
                 MediaSource.videoGallery,
               ),
             ] else if (allowPhoto)
               createUploadMediaListTile(
-                'Gallery',
+                FFLocalizations.of(context).getText(
+                  'mi5vfvmo' /* Gallerie */,
+                ),
                 MediaSource.photoGallery,
               )
             else
               createUploadMediaListTile(
-                'Gallery',
+                FFLocalizations.of(context).getText(
+                  'mi5vfvmo' /* Gallerie */,
+                ),
                 MediaSource.videoGallery,
               ),
             if (!kIsWeb) ...[
               const Divider(),
-              createUploadMediaListTile('Camera', MediaSource.camera),
+              createUploadMediaListTile(
+                  FFLocalizations.of(context).getText(
+                    'ea7cgt6o' /* Camera */,
+                  ),
+                  MediaSource.camera),
               const Divider(),
             ],
             const SizedBox(height: 10),
@@ -232,7 +245,9 @@ bool validateFileFormat(String filePath, BuildContext context) {
   ScaffoldMessenger.of(context)
     ..hideCurrentSnackBar()
     ..showSnackBar(SnackBar(
-      content: Text('Invalid file format: ${mime(filePath)}'),
+      content: Text(FFLocalizations.of(context).getText(
+        'jctqrkwv' /* Vous utilisez un format de fic... */,
+      )),
     ));
   return false;
 }
@@ -299,7 +314,7 @@ List<SelectedFile> selectedFilesFromUploadedFiles(
         final file = entry.value;
         return SelectedFile(
             storagePath: _getStoragePath(
-              storageFolderPath != null ? storageFolderPath : null,
+              storageFolderPath,
               file.name!,
               false,
               isMultiData ? index : null,
@@ -360,7 +375,7 @@ void showUploadMessage(
           children: [
             if (showLoading)
               Padding(
-                padding: EdgeInsetsDirectional.only(end: 10.0),
+                padding: const EdgeInsetsDirectional.only(end: 10.0),
                 child: CircularProgressIndicator(
                   valueColor: Theme.of(context).brightness == Brightness.dark
                       ? AlwaysStoppedAnimation<Color>(
@@ -371,7 +386,7 @@ void showUploadMessage(
             Text(message),
           ],
         ),
-        duration: showLoading ? Duration(days: 1) : Duration(seconds: 4),
+        duration: showLoading ? const Duration(days: 1) : const Duration(seconds: 4),
       ),
     );
 }

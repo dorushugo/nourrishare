@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -8,10 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -85,7 +81,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 54.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Color(0xFF57636C),
               size: 24.0,
@@ -103,7 +99,9 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
             },
           ),
           title: Text(
-            'Modifier le groupe',
+            FFLocalizations.of(context).getText(
+              '6kkob2sm' /* Modifier le groupe */,
+            ),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'Avenir',
                   color: FlutterFlowTheme.of(context).primaryText,
@@ -113,7 +111,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                       FlutterFlowTheme.of(context).headlineSmallFamily),
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -137,15 +135,15 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                 );
               }
               final stackGroupesRecord = snapshot.data!;
-              return Container(
+              return SizedBox(
                 width: double.infinity,
                 child: Stack(
                   children: [
                     Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(),
+                      decoration: const BoxDecoration(),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 40.0, 24.0, 0.0),
                         child: SingleChildScrollView(
                           child: Column(
@@ -183,7 +181,9 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                         try {
                                           showUploadMessage(
                                             context,
-                                            'Uploading file...',
+                                            FFLocalizations.of(context).getText(
+                                              'a05hq3iz' /* Téléchargement du fichier */,
+                                            ),
                                             showLoading: true,
                                           );
                                           selectedUploadedFiles = selectedMedia
@@ -224,11 +224,19 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                 downloadUrls.first;
                                           });
                                           showUploadMessage(
-                                              context, 'Success!');
+                                              context,
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'yjwesk6d' /* Fichier téléchargé !  */,
+                                              ));
                                         } else {
                                           setState(() {});
                                           showUploadMessage(
-                                              context, 'Failed to upload data');
+                                              context,
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'pbrnslxi' /* Le téléchargement a échoué. */,
+                                              ));
                                           return;
                                         }
                                       }
@@ -254,18 +262,15 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                       ),
                                       child: Stack(
                                         children: [
-                                          if ((_model.uploadedFileUrl != null &&
-                                                  _model.uploadedFileUrl !=
+                                          if ((_model.uploadedFileUrl !=
                                                       '') &&
                                               (stackGroupesRecord.photoUrl ==
-                                                      null ||
-                                                  stackGroupesRecord.photoUrl ==
                                                       ''))
                                             Container(
                                               width: 120.0,
                                               height: 120.0,
                                               clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Image.network(
@@ -274,15 +279,11 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                               ),
                                             ),
                                           if (!((_model.uploadedFileUrl !=
-                                                      null &&
-                                                  _model.uploadedFileUrl !=
                                                       '') ||
                                               (stackGroupesRecord.photoUrl !=
-                                                      null &&
-                                                  stackGroupesRecord.photoUrl !=
                                                       '')))
                                             Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Icon(
                                                 FFIcons.kimage3,
@@ -312,7 +313,11 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                           textInputAction: TextInputAction.next,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'Nom du groupe',
+                                            labelText:
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                              'nk42odpr' /* Nom du groupe */,
+                                            ),
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
                                                 .labelSmall
@@ -342,7 +347,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .labelMediumFamily,
-                                                      color: Color(0xFFEAF4F1),
+                                                      color: const Color(0xFFEAF4F1),
                                                       fontSize: 16.0,
                                                       fontWeight:
                                                           FontWeight.normal,
@@ -354,7 +359,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                                   .labelMediumFamily),
                                                     ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
+                                              borderSide: const BorderSide(
                                                 color: Color(0xFFEAF4F1),
                                                 width: 1.0,
                                               ),
@@ -393,7 +398,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                   BorderRadius.circular(16.0),
                                             ),
                                             contentPadding:
-                                                EdgeInsets.all(20.0),
+                                                const EdgeInsets.all(20.0),
                                             prefixIcon: Icon(
                                               FFIcons.kaccountIcon2,
                                               color:
@@ -426,7 +431,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                               .asValidator(context),
                                         ),
                                       ),
-                                    ].divide(SizedBox(width: 24.0)),
+                                    ].divide(const SizedBox(width: 24.0)),
                                   ),
                                   TextFormField(
                                     controller: _model.bioController ??=
@@ -438,7 +443,10 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                     textInputAction: TextInputAction.next,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText: 'Description',
+                                      labelText:
+                                          FFLocalizations.of(context).getText(
+                                        'cf37qtbu' /* Description */,
+                                      ),
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelSmall
                                           .override(
@@ -467,7 +475,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                         .labelMediumFamily),
                                           ),
                                       enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFFEAF4F1),
                                           width: 1.0,
                                         ),
@@ -501,7 +509,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                         borderRadius:
                                             BorderRadius.circular(16.0),
                                       ),
-                                      contentPadding: EdgeInsets.all(20.0),
+                                      contentPadding: const EdgeInsets.all(20.0),
                                       prefixIcon: Icon(
                                         FFIcons.keditSquare,
                                         color: FlutterFlowTheme.of(context)
@@ -538,8 +546,12 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                     ),
                                     options: List<bool>.from([false, true]),
                                     optionLabels: [
-                                      'Groupe privé',
-                                      'Groupe public'
+                                      FFLocalizations.of(context).getText(
+                                        'j9qxxyj5' /* Groupe privé */,
+                                      ),
+                                      FFLocalizations.of(context).getText(
+                                        'r46mm83b' /* Groupe public */,
+                                      )
                                     ],
                                     onChanged: (val) => setState(
                                         () => _model.typedegroupeValue = val),
@@ -558,7 +570,10 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMediumFamily),
                                         ),
-                                    hintText: 'Confidentialité du groupe',
+                                    hintText:
+                                        FFLocalizations.of(context).getText(
+                                      'i7x2xyd7' /* Confidentialité du groupe */,
+                                    ),
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
                                       color: FlutterFlowTheme.of(context)
@@ -570,13 +585,13 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                         FlutterFlowTheme.of(context).grey4,
                                     borderWidth: 2.0,
                                     borderRadius: 20.0,
-                                    margin: EdgeInsets.all(20.0),
+                                    margin: const EdgeInsets.all(20.0),
                                     hidesUnderline: true,
                                     isSearchable: false,
                                     isMultiSelect: false,
                                   ),
                                   Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Visibility(
                                       visible: !_model.typedegroupeValue!,
                                       child: TextFormField(
@@ -593,7 +608,10 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: 'Code de connexion',
+                                          labelText: FFLocalizations.of(context)
+                                              .getText(
+                                            'w55wfc10' /* Code de connexion */,
+                                          ),
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelSmall
@@ -621,7 +639,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMediumFamily,
-                                                color: Color(0xFFEAF4F1),
+                                                color: const Color(0xFFEAF4F1),
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.normal,
                                                 useGoogleFonts: GoogleFonts
@@ -632,7 +650,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                             .labelMediumFamily),
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFFEAF4F1),
                                               width: 1.0,
                                             ),
@@ -670,7 +688,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(16.0),
                                           ),
-                                          contentPadding: EdgeInsets.all(20.0),
+                                          contentPadding: const EdgeInsets.all(20.0),
                                           prefixIcon: Icon(
                                             FFIcons.klock,
                                             color: FlutterFlowTheme.of(context)
@@ -704,9 +722,11 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: Text(
-                                      'Code à partager pour rejoindre votre groupe sans invitation.',
+                                      FFLocalizations.of(context).getText(
+                                        '770p4nqb' /* Code à partager pour rejoindre... */,
+                                      ),
                                       textAlign: TextAlign.start,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -734,7 +754,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                     ),
                                   ),
                                   Container(
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: TextFormField(
                                       controller: _model.addressController ??=
                                           TextEditingController(
@@ -747,7 +767,10 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                       readOnly: true,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText: 'Nom du groupe',
+                                        labelText:
+                                            FFLocalizations.of(context).getText(
+                                          'a2m0g7qr' /* Nom du groupe */,
+                                        ),
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelSmall
                                             .override(
@@ -773,7 +796,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMediumFamily,
-                                              color: Color(0xFFEAF4F1),
+                                              color: const Color(0xFFEAF4F1),
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.normal,
                                               useGoogleFonts: GoogleFonts
@@ -784,7 +807,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                           .labelMediumFamily),
                                             ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFFEAF4F1),
                                             width: 1.0,
                                           ),
@@ -818,7 +841,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                           borderRadius:
                                               BorderRadius.circular(16.0),
                                         ),
-                                        contentPadding: EdgeInsets.all(20.0),
+                                        contentPadding: const EdgeInsets.all(20.0),
                                         prefixIcon: Icon(
                                           FFIcons.kaccountIcon2,
                                           color: FlutterFlowTheme.of(context)
@@ -848,7 +871,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    alignment: const AlignmentDirectional(0.0, 1.0),
                                     child: FlutterFlowPlacePicker(
                                       iOSGoogleMapsApiKey:
                                           'AIzaSyApJ9kk7bYiShcUpRkQtpXgGILrkTFYcH0',
@@ -860,7 +883,10 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                         setState(() =>
                                             _model.addresspickerValue = place);
                                       },
-                                      defaultText: 'Modifier l\'adresse',
+                                      defaultText:
+                                          FFLocalizations.of(context).getText(
+                                        'sk72a9os' /* Modifier l'adresse */,
+                                      ),
                                       icon: Icon(
                                         Icons.place,
                                         color: FlutterFlowTheme.of(context)
@@ -900,7 +926,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 40.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
@@ -914,17 +940,13 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                             groupepublic:
                                                 _model.typedegroupeValue,
                                           ));
-                                          if (_model.uploadedFileUrl != null &&
-                                              _model.uploadedFileUrl != '') {
+                                          if (_model.uploadedFileUrl != '') {
                                             await widget.group!
                                                 .update(createGroupesRecordData(
                                               photoUrl: _model.uploadedFileUrl,
                                             ));
                                           }
                                           if (_model.addresspickerValue
-                                                      .address !=
-                                                  null &&
-                                              _model.addresspickerValue
                                                       .address !=
                                                   '') {
                                             await widget.group!
@@ -937,14 +959,16 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                           }
                                         }
                                       },
-                                      text: 'Modifier le groupe',
+                                      text: FFLocalizations.of(context).getText(
+                                        'oyfuw7k0' /* Modifier le groupe */,
+                                      ),
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 56.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
+                                            const EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 12.0, 0.0, 0.0),
                                         color: FlutterFlowTheme.of(context)
                                             .secondary,
@@ -963,7 +987,7 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                                           .titleSmallFamily),
                                             ),
                                         elevation: 3.0,
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.transparent,
                                           width: 1.0,
                                         ),
@@ -972,9 +996,9 @@ class _ModifGroupWidgetState extends State<ModifGroupWidget> {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 24.0)),
+                                ].divide(const SizedBox(height: 24.0)),
                               ),
-                            ].divide(SizedBox(height: 24.0)),
+                            ].divide(const SizedBox(height: 24.0)),
                           ),
                         ),
                       ),

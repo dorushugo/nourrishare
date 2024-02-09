@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -66,15 +65,15 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 200.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -93,15 +92,15 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.0, 20.0),
-          end: Offset(0.0, 0.0),
+          begin: const Offset(0.0, 20.0),
+          end: const Offset(0.0, 0.0),
         ),
         ScaleEffect(
           curve: Curves.easeInOut,
           delay: 300.ms,
           duration: 300.ms,
-          begin: Offset(0.9, 0.9),
-          end: Offset(1.0, 1.0),
+          begin: const Offset(0.9, 0.9),
+          end: const Offset(1.0, 1.0),
         ),
       ],
     ),
@@ -143,20 +142,20 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, 1.0),
+            alignment: const AlignmentDirectional(0.0, 1.0),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 100),
               curve: Curves.easeIn,
               width: double.infinity,
               height: MediaQuery.sizeOf(context).height * 1.0,
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: double.infinity,
               ),
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).primaryBackground,
                 image: DecorationImage(
                   fit: BoxFit.fitWidth,
-                  alignment: AlignmentDirectional(0.0, -1.2),
+                  alignment: const AlignmentDirectional(0.0, -1.2),
                   image: Image.asset(
                     'assets/images/Pattern_2.png',
                   ).image,
@@ -164,21 +163,21 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
                 borderRadius: BorderRadius.circular(20.0),
                 shape: BoxShape.rectangle,
               ),
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 40.0, 24.0, 0.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
@@ -192,10 +191,12 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
                                 animationsMap['imageOnPageLoadAnimation']!),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 0.0, 24.0, 0.0),
                             child: Text(
-                              'Prêt(e) à vous lancer en deux minutes ?',
+                              FFLocalizations.of(context).getText(
+                                'omh40k5x' /* Prêt(e) à vous lancer en deux ... */,
+                              ),
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .displayMedium
@@ -213,10 +214,12 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
                                 animationsMap['textOnPageLoadAnimation1']!),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 16.0, 0.0, 0.0),
                             child: Text(
-                              'C’est entièrement gratuit en plus !',
+                              FFLocalizations.of(context).getText(
+                                'rpp63vhh' /* C’est entièrement gratuit en p... */,
+                              ),
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
@@ -239,19 +242,21 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 24.0, 16.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
                               context.pushNamed('Connexion');
                             },
-                            text: 'Connexion',
+                            text: FFLocalizations.of(context).getText(
+                              '2x5jr423' /* Connexion */,
+                            ),
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 60.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).secondary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -265,7 +270,7 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
                                                 .titleMediumFamily),
                                   ),
                               elevation: 4.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -274,7 +279,7 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 24.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -285,7 +290,9 @@ class _ConnexionInscriptionWidgetState extends State<ConnexionInscriptionWidget>
                               context.pushNamed('Inscription');
                             },
                             child: Text(
-                              'Créer un nouveau compte',
+                              FFLocalizations.of(context).getText(
+                                '49v7bclt' /* Créer un nouveau compte */,
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

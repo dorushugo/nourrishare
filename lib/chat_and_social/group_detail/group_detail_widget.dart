@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -90,12 +89,12 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                 );
               }
               final stackGroupesRecord = snapshot.data!;
-              return Container(
+              return SizedBox(
                 height: MediaQuery.sizeOf(context).height * 1.0,
                 child: Stack(
                   children: [
                     Builder(builder: (context) {
-                      final _googleMapMarker = stackGroupesRecord.latlng;
+                      final googleMapMarker = stackGroupesRecord.latlng;
                       return FlutterFlowGoogleMap(
                         controller: _model.googleMapsController,
                         onCameraIdle: (latLng) =>
@@ -103,10 +102,10 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                         initialLocation: _model.googleMapsCenter ??=
                             stackGroupesRecord.latlng!,
                         markers: [
-                          if (_googleMapMarker != null)
+                          if (googleMapMarker != null)
                             FlutterFlowMarker(
-                              _googleMapMarker.serialize(),
-                              _googleMapMarker,
+                              googleMapMarker.serialize(),
+                              googleMapMarker,
                             ),
                         ],
                         markerColor: GoogleMarkerColor.green,
@@ -120,11 +119,11 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                         showCompass: false,
                         showMapToolbar: false,
                         showTraffic: false,
-                        centerMapOnMarkerTap: true,
+                        centerMapOnMarkerTap: false,
                       );
                     }),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
+                      alignment: const AlignmentDirectional(0.0, 1.0),
                       child: PointerInterceptor(
                         intercepting: isWeb,
                         child: Container(
@@ -133,7 +132,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                           decoration: BoxDecoration(
                             color:
                                 FlutterFlowTheme.of(context).primaryBackground,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(0.0),
                               bottomRight: Radius.circular(0.0),
                               topLeft: Radius.circular(32.0),
@@ -141,9 +140,9 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                             ),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 24.0, 0.0, 0.0),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -152,7 +151,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -163,7 +162,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.55,
-                                            decoration: BoxDecoration(),
+                                            decoration: const BoxDecoration(),
                                             child: Text(
                                               stackGroupesRecord.displayName,
                                               maxLines: 2,
@@ -218,14 +217,6 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                   context.goNamed(
                                                     'chatGroupPage',
                                                     queryParameters: {
-                                                      'othersUser':
-                                                          serializeParam(
-                                                        stackGroupesRecord
-                                                            .users,
-                                                        ParamType
-                                                            .DocumentReference,
-                                                        true,
-                                                      ),
                                                       'chat': serializeParam(
                                                         _model.chatDuGroupeItem
                                                             ?.reference,
@@ -318,14 +309,6 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                   context.goNamed(
                                                     'chatGroupPage',
                                                     queryParameters: {
-                                                      'othersUser':
-                                                          serializeParam(
-                                                        stackGroupesRecord
-                                                            .users,
-                                                        ParamType
-                                                            .DocumentReference,
-                                                        true,
-                                                      ),
                                                       'chat': serializeParam(
                                                         _model.chatGroupeCree
                                                             ?.reference,
@@ -344,18 +327,21 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
 
                                                 setState(() {});
                                               },
-                                              text: 'Chat',
-                                              icon: Icon(
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                '5tiu53zc' /* Chat */,
+                                              ),
+                                              icon: const Icon(
                                                 FFIcons.kcallmessage,
                                                 size: 15.0,
                                               ),
                                               options: FFButtonOptions(
                                                 height: 48.0,
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         24.0, 0.0, 24.0, 0.0),
                                                 iconPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 4.0, 0.0),
                                                 color:
@@ -378,7 +364,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                       .titleSmallFamily),
                                                         ),
                                                 elevation: 3.0,
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -390,7 +376,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -476,14 +462,14 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                               .titleLargeFamily),
                                                 ),
                                           ),
-                                        ].divide(SizedBox(width: 8.0)),
+                                        ].divide(const SizedBox(width: 8.0)),
                                       ),
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          const AlignmentDirectional(-1.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         child: Text(
                                           stackGroupesRecord.bio,
@@ -510,7 +496,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           24.0, 0.0, 24.0, 0.0),
                                       child: wrapWithModel(
                                         model: _model.groupCardModel,
@@ -522,12 +508,14 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                     ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          const AlignmentDirectional(-1.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 0.0, 0.0),
                                         child: Text(
-                                          'Plats proposés dans le groupe',
+                                          FFLocalizations.of(context).getText(
+                                            'h0blhuuc' /* Plats proposés dans le groupe */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
@@ -552,10 +540,10 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                       Container(
                                         width: double.infinity,
                                         height: 260.0,
-                                        decoration: BoxDecoration(),
+                                        decoration: const BoxDecoration(),
                                         child: Align(
                                           alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
+                                              const AlignmentDirectional(-1.0, 0.0),
                                           child:
                                               StreamBuilder<List<PlatsRecord>>(
                                             stream: queryPlatsRecord(
@@ -599,7 +587,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                   listViewPlatsRecordList =
                                                   snapshot.data!;
                                               return ListView.separated(
-                                                padding: EdgeInsets.fromLTRB(
+                                                padding: const EdgeInsets.fromLTRB(
                                                   24.0,
                                                   0,
                                                   0,
@@ -611,7 +599,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                     listViewPlatsRecordList
                                                         .length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(width: 16.0),
+                                                    const SizedBox(width: 16.0),
                                                 itemBuilder:
                                                     (context, listViewIndex) {
                                                   final listViewPlatsRecord =
@@ -619,13 +607,13 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                           listViewIndex];
                                                   return Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             -1.0, 0.0),
                                                     child: Container(
                                                       width: 200.0,
                                                       height: 240.0,
                                                       decoration:
-                                                          BoxDecoration(),
+                                                          const BoxDecoration(),
                                                       child: PlatsVoisinsWidget(
                                                         key: Key(
                                                             'Key4zg_${listViewIndex}_of_${listViewPlatsRecordList.length}'),
@@ -643,12 +631,14 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                       ),
                                     Align(
                                       alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
+                                          const AlignmentDirectional(-1.0, 0.0),
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 0.0, 0.0),
                                         child: Text(
-                                          'Membres du groupe',
+                                          FFLocalizations.of(context).getText(
+                                            'h0xztt5b' /* Membres du groupe */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
@@ -671,7 +661,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                             .contains(currentUserReference) ==
                                         true)
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         child: PagedListView<
                                             DocumentSnapshot<Object?>?,
@@ -726,7 +716,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                               ),
                                             ),
                                             noItemsFoundIndicatorBuilder: (_) =>
-                                                Center(
+                                                const Center(
                                               child: AucunelementWidget(),
                                             ),
                                             itemBuilder:
@@ -735,7 +725,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                   .listViewPagingController2!
                                                   .itemList![listViewIndex];
                                               return Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 4.0, 0.0, 8.0),
                                                 child: Container(
@@ -743,7 +733,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                   height: 60.0,
                                                   decoration: BoxDecoration(
                                                     color: Colors.white,
-                                                    boxShadow: [
+                                                    boxShadow: const [
                                                       BoxShadow(
                                                         blurRadius: 4.0,
                                                         color:
@@ -758,7 +748,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(8.0, 0.0,
                                                                 8.0, 0.0),
                                                     child: Row(
@@ -793,7 +783,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                         Expanded(
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         12.0,
                                                                         0.0,
@@ -819,7 +809,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                       .override(
                                                                         fontFamily:
                                                                             'Plus Jakarta Sans',
-                                                                        color: Color(
+                                                                        color: const Color(
                                                                             0xFF14181B),
                                                                         fontSize:
                                                                             14.0,
@@ -835,7 +825,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           4.0,
                                                                           0.0,
@@ -849,7 +839,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                             .labelMedium
                                                                             .override(
                                                                               fontFamily: 'Plus Jakarta Sans',
-                                                                              color: Color(0xFF57636C),
+                                                                              color: const Color(0xFF57636C),
                                                                               fontSize: 14.0,
                                                                               fontWeight: FontWeight.normal,
                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
@@ -878,7 +868,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                 currentUserReference))
                                                           Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         0.0,
@@ -896,16 +886,16 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                           builder:
                                                                               (alertDialogContext) {
                                                                             return AlertDialog(
-                                                                              title: Text('Êtes vous sur ?'),
-                                                                              content: Text('L\'utilisateur quittera le groupe automatiquement.'),
+                                                                              title: const Text('Êtes vous sur ?'),
+                                                                              content: const Text('L\'utilisateur quittera le groupe automatiquement.'),
                                                                               actions: [
                                                                                 TextButton(
                                                                                   onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                  child: Text('Conserver'),
+                                                                                  child: const Text('Conserver'),
                                                                                 ),
                                                                                 TextButton(
                                                                                   onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                  child: Text('Supprimer'),
+                                                                                  child: const Text('Supprimer'),
                                                                                 ),
                                                                               ],
                                                                             );
@@ -949,8 +939,12 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                       .safePop();
                                                                 }
                                                               },
-                                                              text: '',
-                                                              icon: Icon(
+                                                              text: FFLocalizations
+                                                                      .of(context)
+                                                                  .getText(
+                                                                't5ns8ti9' /*  */,
+                                                              ),
+                                                              icon: const Icon(
                                                                 FFIcons.kdelete,
                                                                 size: 15.0,
                                                               ),
@@ -959,11 +953,11 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                 width: 60.0,
                                                                 height: 40.0,
                                                                 padding:
-                                                                    EdgeInsets
+                                                                    const EdgeInsets
                                                                         .all(
                                                                             0.0),
                                                                 iconPadding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             4.0,
                                                                             0.0,
@@ -992,7 +986,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                     ),
                                                                 elevation: 2.0,
                                                                 borderSide:
-                                                                    BorderSide(
+                                                                    const BorderSide(
                                                                   color: Colors
                                                                       .transparent,
                                                                   width: 1.0,
@@ -1019,19 +1013,23 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                               }.withoutNulls,
                                                             );
                                                           },
-                                                          text: 'Voir',
+                                                          text: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            'h7sbbqn2' /* Voir */,
+                                                          ),
                                                           options:
                                                               FFButtonOptions(
                                                             height: 40.0,
                                                             padding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         16.0,
                                                                         0.0,
                                                                         16.0,
                                                                         0.0),
                                                             iconPadding:
-                                                                EdgeInsetsDirectional
+                                                                const EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         0.0,
                                                                         10.0,
@@ -1061,7 +1059,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                     ),
                                                             elevation: 2.0,
                                                             borderSide:
-                                                                BorderSide(
+                                                                const BorderSide(
                                                               color: Colors
                                                                   .transparent,
                                                               width: 1.0,
@@ -1084,7 +1082,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                     if (!stackGroupesRecord.users
                                         .contains(currentUserReference))
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -1098,15 +1096,18 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                               }.withoutNulls,
                                             );
                                           },
-                                          text: 'Rejoindre le groupe',
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'jjhy9y4m' /* Rejoindre le groupe */,
+                                          ),
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 60.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 8.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .secondary,
@@ -1127,7 +1128,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                   .titleSmallFamily),
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -1139,7 +1140,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                     if (stackGroupesRecord.users
                                         .contains(currentUserReference))
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -1153,15 +1154,18 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                               }.withoutNulls,
                                             );
                                           },
-                                          text: 'Inviter des utilisateurs',
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'el9r89mv' /* Inviter des utilisateurs */,
+                                          ),
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 60.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 8.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .secondary,
@@ -1182,7 +1186,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                   .titleSmallFamily),
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -1194,7 +1198,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                     if (stackGroupesRecord.administrateurs
                                         .contains(currentUserReference))
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             24.0, 0.0, 24.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -1204,9 +1208,9 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                       builder:
                                                           (alertDialogContext) {
                                                         return AlertDialog(
-                                                          title: Text(
+                                                          title: const Text(
                                                               'Êtes vous sur ?'),
-                                                          content: Text(
+                                                          content: const Text(
                                                               'Votre groupe et tous ses messages seront supprimés.'),
                                                           actions: [
                                                             TextButton(
@@ -1214,7 +1218,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                   Navigator.pop(
                                                                       alertDialogContext,
                                                                       false),
-                                                              child: Text(
+                                                              child: const Text(
                                                                   'Conserver'),
                                                             ),
                                                             TextButton(
@@ -1222,7 +1226,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                   Navigator.pop(
                                                                       alertDialogContext,
                                                                       true),
-                                                              child: Text(
+                                                              child: const Text(
                                                                   'Supprimer'),
                                                             ),
                                                           ],
@@ -1263,8 +1267,11 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                               context.pushNamed('messageList');
                                             }
                                           },
-                                          text: 'Supprimer le groupe',
-                                          icon: FaIcon(
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            'zopfx3z0' /* Supprimer le groupe */,
+                                          ),
+                                          icon: const FaIcon(
                                             FontAwesomeIcons.times,
                                             size: 20.0,
                                           ),
@@ -1272,9 +1279,9 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                             width: double.infinity,
                                             height: 60.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
-                                            iconPadding: EdgeInsets.all(0.0),
+                                            iconPadding: const EdgeInsets.all(0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .error,
                                             textStyle:
@@ -1294,7 +1301,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                   .titleSmallFamily),
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -1306,7 +1313,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                     if (stackGroupesRecord.users
                                         .contains(currentUserReference))
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 40.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
@@ -1320,9 +1327,9 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                       builder:
                                                           (alertDialogContext) {
                                                         return AlertDialog(
-                                                          title: Text(
+                                                          title: const Text(
                                                               'Êtes vous sur ?'),
-                                                          content: Text(
+                                                          content: const Text(
                                                               'Vous allez quitter le groupe.'),
                                                           actions: [
                                                             TextButton(
@@ -1330,7 +1337,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                   Navigator.pop(
                                                                       alertDialogContext,
                                                                       false),
-                                                              child: Text(
+                                                              child: const Text(
                                                                   'Rester'),
                                                             ),
                                                             TextButton(
@@ -1338,7 +1345,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                                   Navigator.pop(
                                                                       alertDialogContext,
                                                                       true),
-                                                              child: Text(
+                                                              child: const Text(
                                                                   'Quitter'),
                                                             ),
                                                           ],
@@ -1377,7 +1384,9 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                             }
                                           },
                                           child: Text(
-                                            'Quitter le groupe',
+                                            FFLocalizations.of(context).getText(
+                                              'ou92cxnd' /* Quitter le groupe */,
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -1396,7 +1405,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                           ),
                                         ),
                                       ),
-                                  ].divide(SizedBox(height: 24.0)),
+                                  ].divide(const SizedBox(height: 24.0)),
                                 ),
                               ),
                             ),
@@ -1405,11 +1414,11 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(-1.0, -1.0),
+                      alignment: const AlignmentDirectional(-1.0, -1.0),
                       child: PointerInterceptor(
                         intercepting: isWeb,
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               24.0, 24.0, 0.0, 0.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
@@ -1428,7 +1437,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Icon(
                                   FFIcons.kcloseSquare,
                                   color: FlutterFlowTheme.of(context).primary,

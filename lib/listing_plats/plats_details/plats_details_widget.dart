@@ -13,15 +13,12 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'plats_details_model.dart';
 export 'plats_details_model.dart';
@@ -50,7 +47,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if ((currentUserDocument?.platsFavoris?.toList() ?? [])
+      if ((currentUserDocument?.platsFavoris.toList() ?? [])
               .contains(widget.plats) ==
           true) {
         setState(() {
@@ -134,18 +131,18 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                       return Stack(
                         children: [
                           if (_model.commanderState == 1)
-                            Container(
+                            SizedBox(
                               height: MediaQuery.sizeOf(context).height * 1.0,
                               child: Stack(
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     height: MediaQuery.sizeOf(context).height *
                                         0.45,
                                     child: Stack(
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-1.0, 0.0),
+                                              const AlignmentDirectional(-1.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -194,10 +191,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-1.0, -1.0),
+                                              const AlignmentDirectional(-1.0, -1.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 24.0, 0.0, 0.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
@@ -221,7 +218,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                 ),
                                                 child: Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Icon(
                                                     FFIcons.kcloseSquare,
@@ -237,10 +234,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(1.0, -1.0),
+                                              const AlignmentDirectional(1.0, -1.0),
                                           child: Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 24.0, 24.0, 0.0),
                                             child: Container(
                                               width: 48.0,
@@ -252,10 +249,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(10.0),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: ToggleIcon(
                                                   onPressed: () async {
@@ -264,7 +261,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                             !_model.favoris);
                                                     if ((currentUserDocument
                                                                     ?.platsFavoris
-                                                                    ?.toList() ??
+                                                                    .toList() ??
                                                                 [])
                                                             .contains(
                                                                 widget.plats) ==
@@ -320,7 +317,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    alignment: const AlignmentDirectional(0.0, 1.0),
                                     child: Container(
                                       width: double.infinity,
                                       height:
@@ -334,10 +331,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                       ),
                                       child: Align(
                                         alignment:
-                                            AlignmentDirectional(-1.0, -1.0),
+                                            const AlignmentDirectional(-1.0, -1.0),
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 24.0, 24.0, 0.0),
                                           child: SingleChildScrollView(
                                             child: Column(
@@ -357,7 +354,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     Container(
                                                       width: 275.0,
                                                       decoration:
-                                                          BoxDecoration(),
+                                                          const BoxDecoration(),
                                                       child: Text(
                                                         platsDetailsPlatsRecord
                                                             .name,
@@ -417,8 +414,12 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                 ),
                                                           ),
                                                           TextSpan(
-                                                            text: ' €',
-                                                            style: TextStyle(
+                                                            text: FFLocalizations
+                                                                    .of(context)
+                                                                .getText(
+                                                              '12137qrb' /*  € */,
+                                                            ),
+                                                            style: const TextStyle(
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -548,7 +549,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                               ),
                                                     ),
                                                   ].divide(
-                                                      SizedBox(width: 8.0)),
+                                                      const SizedBox(width: 8.0)),
                                                 ),
                                                 Container(
                                                   width: double.infinity,
@@ -570,7 +571,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                   ),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsets.all(4.0),
+                                                        const EdgeInsets.all(4.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -603,7 +604,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                     valueOrDefault<
                                                                         Color>(
                                                                   _model.selecteur
-                                                                      ? Color(
+                                                                      ? const Color(
                                                                           0x00ECF4ED)
                                                                       : FlutterFlowTheme.of(
                                                                               context)
@@ -632,14 +633,18 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             4.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
                                                                     child: Text(
-                                                                      'Ingrédients',
+                                                                      FFLocalizations.of(
+                                                                              context)
+                                                                          .getText(
+                                                                        '7crs44s5' /* Ingrédients */,
+                                                                      ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .titleSmall
@@ -684,7 +689,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                     valueOrDefault<
                                                                         Color>(
                                                                   !_model.selecteur
-                                                                      ? Color(
+                                                                      ? const Color(
                                                                           0x00ECF4ED)
                                                                       : FlutterFlowTheme.of(
                                                                               context)
@@ -715,14 +720,18 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                         .center,
                                                                 children: [
                                                                   Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             4.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
                                                                     child: Text(
-                                                                      'Allergènes',
+                                                                      FFLocalizations.of(
+                                                                              context)
+                                                                          .getText(
+                                                                        'q7ybyfqo' /* Allergènes */,
+                                                                      ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -747,13 +756,13 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                           ),
                                                         ),
                                                       ].divide(
-                                                          SizedBox(width: 8.0)),
+                                                          const SizedBox(width: 8.0)),
                                                     ),
                                                   ),
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           -1.0, 0.0),
                                                   child: Text(
                                                     valueOrDefault<String>(
@@ -811,19 +820,23 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                             2;
                                                       });
                                                     },
-                                                    text: 'Commander',
+                                                    text: FFLocalizations.of(
+                                                            context)
+                                                        .getText(
+                                                      'vzw22tb1' /* Commander */,
+                                                    ),
                                                     options: FFButtonOptions(
                                                       width: double.infinity,
                                                       height: 60.0,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
                                                                   24.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -850,7 +863,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                             .titleSmallFamily),
                                                               ),
                                                       elevation: 3.0,
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1.0,
@@ -877,8 +890,12 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                         }.withoutNulls,
                                                       );
                                                     },
-                                                    text: 'Modifier le plat',
-                                                    icon: Icon(
+                                                    text: FFLocalizations.of(
+                                                            context)
+                                                        .getText(
+                                                      'w12vy2h2' /* Modifier le plat */,
+                                                    ),
+                                                    icon: const Icon(
                                                       FFIcons.keditSquare,
                                                       size: 15.0,
                                                     ),
@@ -886,14 +903,14 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                       width: double.infinity,
                                                       height: 60.0,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
                                                                   24.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -920,7 +937,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                             .titleSmallFamily),
                                                               ),
                                                       elevation: 3.0,
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1.0,
@@ -933,109 +950,119 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                 if (platsDetailsPlatsRecord
                                                         .seller ==
                                                     currentUserReference)
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      var confirmDialogResponse =
-                                                          await showDialog<
-                                                                  bool>(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (alertDialogContext) {
-                                                                  return AlertDialog(
-                                                                    title: Text(
-                                                                        'Êtes vous sur ?'),
-                                                                    content: Text(
-                                                                        'Votre plat sera retiré de la vente immédiatement, êtes vous sur de vouloir le supprimer ? '),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            false),
-                                                                        child: Text(
-                                                                            'Conserver'),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            true),
-                                                                        child: Text(
-                                                                            'Supprimer'),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              ) ??
-                                                              false;
-                                                      if (confirmDialogResponse) {
-                                                        await platsDetailsPlatsRecord
-                                                            .reference
-                                                            .delete();
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 40.0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        var confirmDialogResponse =
+                                                            await showDialog<
+                                                                    bool>(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (alertDialogContext) {
+                                                                    return AlertDialog(
+                                                                      title: const Text(
+                                                                          'Êtes vous sur ?'),
+                                                                      content: const Text(
+                                                                          'Votre plat sera retiré de la vente immédiatement, êtes vous sur de vouloir le supprimer ? '),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          onPressed: () => Navigator.pop(
+                                                                              alertDialogContext,
+                                                                              false),
+                                                                          child:
+                                                                              const Text('Conserver'),
+                                                                        ),
+                                                                        TextButton(
+                                                                          onPressed: () => Navigator.pop(
+                                                                              alertDialogContext,
+                                                                              true),
+                                                                          child:
+                                                                              const Text('Supprimer'),
+                                                                        ),
+                                                                      ],
+                                                                    );
+                                                                  },
+                                                                ) ??
+                                                                false;
+                                                        if (confirmDialogResponse) {
+                                                          await platsDetailsPlatsRecord
+                                                              .reference
+                                                              .delete();
 
-                                                        await stackUsersRecord
-                                                            .reference
-                                                            .update({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'plats': FieldValue
-                                                                  .arrayRemove([
-                                                                widget.plats
-                                                              ]),
-                                                            },
-                                                          ),
-                                                        });
-                                                        context.safePop();
-                                                      }
-                                                    },
-                                                    text: 'Supprimer le plat',
-                                                    icon: FaIcon(
-                                                      FontAwesomeIcons.times,
-                                                      size: 20.0,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      width: double.infinity,
-                                                      height: 60.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsets.all(0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                                color: Colors
-                                                                    .white,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .titleSmallFamily),
-                                                              ),
-                                                      elevation: 3.0,
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
+                                                          await stackUsersRecord
+                                                              .reference
+                                                              .update({
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'plats': FieldValue
+                                                                    .arrayRemove([
+                                                                  widget.plats
+                                                                ]),
+                                                              },
+                                                            ),
+                                                          });
+                                                          context.safePop();
+                                                        }
+                                                      },
+                                                      text: FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'ofjtgcbw' /* Supprimer le plat */,
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
+                                                      icon: const FaIcon(
+                                                        FontAwesomeIcons.times,
+                                                        size: 20.0,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: double.infinity,
+                                                        height: 60.0,
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            const EdgeInsets.all(0.0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily),
+                                                                ),
+                                                        elevation: 3.0,
+                                                        borderSide: const BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                      ),
                                                     ),
                                                   ),
-                                              ].divide(SizedBox(height: 24.0)),
+                                              ].divide(const SizedBox(height: 24.0)),
                                             ),
                                           ),
                                         ),
@@ -1046,7 +1073,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                               ),
                             ),
                           if (_model.commanderState == 2)
-                            Container(
+                            SizedBox(
                               height: MediaQuery.sizeOf(context).height * 1.0,
                               child: Stack(
                                 children: [
@@ -1058,7 +1085,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1066,7 +1093,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Commander un plat',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  '9tuzsrdy' /* Commander un plat */,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall,
@@ -1110,7 +1140,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
@@ -1118,7 +1148,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
-                                              boxShadow: [
+                                              boxShadow: const [
                                                 BoxShadow(
                                                   blurRadius: 4.0,
                                                   color: Color(0x33000000),
@@ -1129,7 +1159,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                   BorderRadius.circular(20.0),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 24.0, 0.0, 24.0),
                                               child: Column(
@@ -1149,18 +1179,25 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    'Commander pour maintenant',
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      '9zm78y73' /* Commander pour maintenant */,
+                                                    ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyLarge,
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     child: Text(
-                                                      'Vous serez servie dès que le plat sera prêt. (Ex : Service dans 30 minutes)',
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'n1o6wp6b' /* Vous serez servie dès que le p... */,
+                                                      ),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style:
@@ -1281,7 +1318,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                         notificationTitle:
                                                             'Vous avez reçu une commande',
                                                         notificationText:
-                                                            'Votre plat \"${platsDetailsPlatsRecord.name}\" a été commandé par ${currentUserDisplayName}',
+                                                            'Votre plat "${platsDetailsPlatsRecord.name}" a été commandé par $currentUserDisplayName',
                                                         notificationImageUrl:
                                                             platsDetailsPlatsRecord
                                                                 .images.first,
@@ -1307,7 +1344,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                           .set({
                                                         ...createNotificationRecordData(
                                                           text:
-                                                              'Votre plat \"${platsDetailsPlatsRecord.name}\" a été commandé par ${currentUserDisplayName}',
+                                                              'Votre plat "${platsDetailsPlatsRecord.name}" a été commandé par $currentUserDisplayName',
                                                           image:
                                                               platsDetailsPlatsRecord
                                                                   .images.first,
@@ -1353,18 +1390,22 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
 
                                                       setState(() {});
                                                     },
-                                                    text: 'Sélectionner',
+                                                    text: FFLocalizations.of(
+                                                            context)
+                                                        .getText(
+                                                      'w0u2lfph' /* Sélectionner */,
+                                                    ),
                                                     options: FFButtonOptions(
                                                       height: 40.0,
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
                                                                   24.0,
                                                                   0.0),
                                                       iconPadding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   0.0,
@@ -1391,7 +1432,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                             .titleSmallFamily),
                                                               ),
                                                       elevation: 3.0,
-                                                      borderSide: BorderSide(
+                                                      borderSide: const BorderSide(
                                                         color:
                                                             Colors.transparent,
                                                         width: 1.0,
@@ -1402,14 +1443,14 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     ),
                                                   ),
                                                 ].divide(
-                                                    SizedBox(height: 12.0)),
+                                                    const SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 40.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
@@ -1427,7 +1468,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryBackground,
-                                                boxShadow: [
+                                                boxShadow: const [
                                                   BoxShadow(
                                                     blurRadius: 4.0,
                                                     color: Color(0x33000000),
@@ -1438,7 +1479,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     BorderRadius.circular(20.0),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 24.0, 0.0, 24.0),
                                                 child: Column(
@@ -1459,7 +1500,11 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Commander pour plus tard',
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'ah4cwcb3' /* Commander pour plus tard */,
+                                                      ),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1467,14 +1512,18 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   24.0,
                                                                   0.0,
                                                                   24.0,
                                                                   0.0),
                                                       child: Text(
-                                                        'Votre plat sera prêt pour le jour souhaité.  \n(Ex : Service jeudi midi)',
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          't5gv4bag' /* Votre plat sera prêt pour le j... */,
+                                                        ),
                                                         textAlign:
                                                             TextAlign.center,
                                                         style:
@@ -1490,18 +1539,22 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                               3;
                                                         });
                                                       },
-                                                      text: 'Sélectionner',
+                                                      text: FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        't58po2fe' /* Sélectionner */,
+                                                      ),
                                                       options: FFButtonOptions(
                                                         height: 40.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     24.0,
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
@@ -1528,7 +1581,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                               .titleSmallFamily),
                                                                 ),
                                                         elevation: 3.0,
-                                                        borderSide: BorderSide(
+                                                        borderSide: const BorderSide(
                                                           color: Colors
                                                               .transparent,
                                                           width: 1.0,
@@ -1539,20 +1592,20 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                       ),
                                                     ),
                                                   ].divide(
-                                                      SizedBox(height: 12.0)),
+                                                      const SizedBox(height: 12.0)),
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ].divide(SizedBox(height: 24.0)),
+                                      ].divide(const SizedBox(height: 24.0)),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           if (_model.commanderState == 3)
-                            Container(
+                            SizedBox(
                               height: MediaQuery.sizeOf(context).height * 1.0,
                               child: Stack(
                                 children: [
@@ -1564,7 +1617,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -1572,7 +1625,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Commander un plat',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'qqwsupqa' /* Commander un plat */,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall,
@@ -1616,7 +1672,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
@@ -1624,7 +1680,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
-                                              boxShadow: [
+                                              boxShadow: const [
                                                 BoxShadow(
                                                   blurRadius: 4.0,
                                                   color: Color(0x33000000),
@@ -1635,7 +1691,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                   BorderRadius.circular(20.0),
                                             ),
                                             child: Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 24.0, 0.0, 24.0),
                                               child: Column(
@@ -1655,18 +1711,25 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    'Commander pour plus tard',
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      '3onrkbz4' /* Commander pour plus tard */,
+                                                    ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyLarge,
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(24.0, 0.0,
                                                                 24.0, 0.0),
                                                     child: Text(
-                                                      'Votre plat sera prêt pour le jour souhaité.  \n(Ex : Service jeudi midi)',
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'p9bs8wfc' /* Votre plat sera prêt pour le j... */,
+                                                      ),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style:
@@ -1676,14 +1739,14 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     ),
                                                   ),
                                                 ].divide(
-                                                    SizedBox(height: 12.0)),
+                                                    const SizedBox(height: 12.0)),
                                               ),
                                             ),
                                           ),
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: FlutterFlowCalendar(
                                             color: FlutterFlowTheme.of(context)
@@ -1734,7 +1797,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                         ),
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: FlutterFlowDropDown<String>(
                                             controller: _model
@@ -1744,9 +1807,18 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                             options: List<String>.from(
                                                 ['matin', 'midi', 'soir']),
                                             optionLabels: [
-                                              'Le matin',
-                                              'Le midi ',
-                                              'Le soir'
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                '2r9n2vsm' /* Le matin */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                's865kwcy' /* Le midi  */,
+                                              ),
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                                'v98hrt2h' /* Le soir */,
+                                              )
                                             ],
                                             onChanged: (val) => setState(() =>
                                                 _model.momentLivraisonValue =
@@ -1772,7 +1844,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                               .bodyMediumFamily),
                                                 ),
                                             hintText:
-                                                'Quand souhaitez-vous être servi(e) ? ',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                              '6p948i3m' /* Quand souhaitez-vous être serv... */,
+                                            ),
                                             icon: Icon(
                                               Icons.keyboard_arrow_down_rounded,
                                               color:
@@ -1786,7 +1861,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     .grey4,
                                             borderWidth: 2.0,
                                             borderRadius: 20.0,
-                                            margin: EdgeInsets.all(20.0),
+                                            margin: const EdgeInsets.all(20.0),
                                             hidesUnderline: true,
                                             isOverButton: true,
                                             isSearchable: false,
@@ -1798,7 +1873,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                             (platsDetailsPlatsRecord.etat < 5))
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
@@ -1860,13 +1935,8 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     )} ${_model.momentLivraisonValue}',
                                                     statusNumber: 1,
                                                     datetimeLivraison: _model
-                                                                .calendarSelectedDay
-                                                                ?.end !=
-                                                            null
-                                                        ? _model
                                                             .calendarSelectedDay
-                                                            ?.end
-                                                        : dateTimeFromSecondsSinceEpoch(
+                                                            ?.end ?? dateTimeFromSecondsSinceEpoch(
                                                             getCurrentTimestamp
                                                                 .secondsSinceEpoch),
                                                     isInstant: false,
@@ -1917,13 +1987,8 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     )} ${_model.momentLivraisonValue}',
                                                     statusNumber: 1,
                                                     datetimeLivraison: _model
-                                                                .calendarSelectedDay
-                                                                ?.end !=
-                                                            null
-                                                        ? _model
                                                             .calendarSelectedDay
-                                                            ?.end
-                                                        : dateTimeFromSecondsSinceEpoch(
+                                                            ?.end ?? dateTimeFromSecondsSinceEpoch(
                                                             getCurrentTimestamp
                                                                 .secondsSinceEpoch),
                                                     isInstant: false,
@@ -2004,7 +2069,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     builder:
                                                         (alertDialogContext) {
                                                       return AlertDialog(
-                                                        title: Text(
+                                                        title: const Text(
                                                             'Erreur session stripe'),
                                                         content: Text(
                                                             'Montant unit : ${_model.prixStripeValue?.toString()}Comission :${_model.comission?.toString()}'),
@@ -2013,7 +2078,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                             onPressed: () =>
                                                                 Navigator.pop(
                                                                     alertDialogContext),
-                                                            child: Text('Ok'),
+                                                            child: const Text('Ok'),
                                                           ),
                                                         ],
                                                       );
@@ -2023,15 +2088,18 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
 
                                                 setState(() {});
                                               },
-                                              text: 'Commander',
+                                              text: FFLocalizations.of(context)
+                                                  .getText(
+                                                'ntquk1np' /* Commander */,
+                                              ),
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 60.0,
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    EdgeInsetsDirectional
+                                                    const EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 8.0, 0.0),
                                                 color:
@@ -2054,7 +2122,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                       .titleSmallFamily),
                                                         ),
                                                 elevation: 3.0,
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -2063,7 +2131,7 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                               ),
                                             ),
                                           ),
-                                      ].divide(SizedBox(height: 24.0)),
+                                      ].divide(const SizedBox(height: 24.0)),
                                     ),
                                   ),
                                 ],

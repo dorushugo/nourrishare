@@ -3,9 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profil_card_model.dart';
@@ -84,14 +82,14 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
                 BoxShadow(
                   blurRadius: 16.0,
                   color: FlutterFlowTheme.of(context).boxShadow,
-                  offset: Offset(0.0, 2.0),
+                  offset: const Offset(0.0, 2.0),
                   spreadRadius: 0.0,
                 )
               ],
               borderRadius: BorderRadius.circular(16.0),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,8 +110,8 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(800.0),
                           child: CachedNetworkImage(
-                            fadeInDuration: Duration(milliseconds: 0),
-                            fadeOutDuration: Duration(milliseconds: 0),
+                            fadeInDuration: const Duration(milliseconds: 0),
+                            fadeOutDuration: const Duration(milliseconds: 0),
                             imageUrl: containerUsersRecord.photoUrl,
                             width: 300.0,
                             height: 200.0,
@@ -170,7 +168,7 @@ class _ProfilCardWidgetState extends State<ProfilCardWidget> {
                           ),
                         ],
                       ),
-                    ].divide(SizedBox(width: 16.0)),
+                    ].divide(const SizedBox(width: 16.0)),
                   ),
                   FlutterFlowIconButton(
                     borderRadius: 10.0,

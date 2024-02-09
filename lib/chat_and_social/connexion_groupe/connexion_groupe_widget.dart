@@ -3,8 +3,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -91,10 +89,10 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
               child: Stack(
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -109,7 +107,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                   width: 120.0,
                                   height: 120.0,
                                   clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
@@ -124,7 +122,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 24.0),
                                   child: RichText(
                                     textScaleFactor:
@@ -132,18 +130,24 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: 'Rejoindre le groupe',
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            '3jj2bf8i' /* Rejoindre le groupe */,
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .headlineLarge,
                                         ),
                                         TextSpan(
-                                          text: ' ',
-                                          style: TextStyle(),
+                                          text: FFLocalizations.of(context)
+                                              .getText(
+                                            '6jg9zv9f' /*   */,
+                                          ),
+                                          style: const TextStyle(),
                                         ),
                                         TextSpan(
                                           text: connexionGroupeGroupesRecord
                                               .displayName,
-                                          style: TextStyle(),
+                                          style: const TextStyle(),
                                         )
                                       ],
                                       style: FlutterFlowTheme.of(context)
@@ -153,7 +157,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                   ),
                                 ),
                                 Container(
-                                  decoration: BoxDecoration(),
+                                  decoration: const BoxDecoration(),
                                   child: Visibility(
                                     visible: connexionGroupeGroupesRecord
                                             .groupepublic !=
@@ -166,7 +170,10 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                       textInputAction: TextInputAction.next,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText: 'Code de connexion',
+                                        labelText:
+                                            FFLocalizations.of(context).getText(
+                                          'p7k63ohl' /* Code de connexion */,
+                                        ),
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelSmall
                                             .override(
@@ -192,7 +199,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMediumFamily,
-                                              color: Color(0xFFEAF4F1),
+                                              color: const Color(0xFFEAF4F1),
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.normal,
                                               useGoogleFonts: GoogleFonts
@@ -203,7 +210,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                                           .labelMediumFamily),
                                             ),
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                             color: Color(0xFFEAF4F1),
                                             width: 1.0,
                                           ),
@@ -237,7 +244,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                           borderRadius:
                                               BorderRadius.circular(16.0),
                                         ),
-                                        contentPadding: EdgeInsets.all(20.0),
+                                        contentPadding: const EdgeInsets.all(20.0),
                                         prefixIcon: Icon(
                                           FFIcons.klock,
                                           color: FlutterFlowTheme.of(context)
@@ -269,9 +276,11 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                 if (connexionGroupeGroupesRecord.groupepublic !=
                                     true)
                                   Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    alignment: const AlignmentDirectional(-1.0, 0.0),
                                     child: Text(
-                                      'Ce groupe est privé. Le code de connexion doit vous être communiqué par un membre.',
+                                      FFLocalizations.of(context).getText(
+                                        'mzmls4ae' /* Ce groupe est privé. Le code d... */,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
@@ -279,8 +288,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                   ),
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    if (_model.nomController.text == null ||
-                                        _model.nomController.text == '') {
+                                    if (_model.nomController.text == '') {
                                       await widget.groupe!.update({
                                         ...mapToFirestore(
                                           {
@@ -333,14 +341,14 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                         context: context,
                                         builder: (alertDialogContext) {
                                           return AlertDialog(
-                                            title: Text('Mauvais code'),
-                                            content: Text(
+                                            title: const Text('Mauvais code'),
+                                            content: const Text(
                                                 'Le code de connexion n\'est pas le bon.'),
                                             actions: [
                                               TextButton(
                                                 onPressed: () => Navigator.pop(
                                                     alertDialogContext),
-                                                child: Text('Ok'),
+                                                child: const Text('Ok'),
                                               ),
                                             ],
                                           );
@@ -348,13 +356,15 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                       );
                                     }
                                   },
-                                  text: 'Rejoindre le groupe',
+                                  text: FFLocalizations.of(context).getText(
+                                    'guwpkbxi' /* Rejoindre le groupe */,
+                                  ),
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 56.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 0.0),
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
@@ -371,25 +381,25 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                                                       .titleSmallFamily),
                                         ),
                                     elevation: 3.0,
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(20.0),
                                   ),
                                 ),
-                              ].divide(SizedBox(height: 24.0)),
+                              ].divide(const SizedBox(height: 24.0)),
                             ),
-                          ].divide(SizedBox(height: 24.0)),
+                          ].divide(const SizedBox(height: 24.0)),
                         ),
                       ),
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(-1.0, -1.0),
+                    alignment: const AlignmentDirectional(-1.0, -1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -404,7 +414,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                           decoration: BoxDecoration(
                             color:
                                 FlutterFlowTheme.of(context).primaryBackground,
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 blurRadius: 4.0,
                                 color: Color(0x33000000),
@@ -414,7 +424,7 @@ class _ConnexionGroupeWidgetState extends State<ConnexionGroupeWidget> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Icon(
                               FFIcons.kcloseSquare,
                               color: FlutterFlowTheme.of(context).primary,

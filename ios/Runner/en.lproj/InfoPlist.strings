@@ -1,0 +1,6 @@
+NSCameraUsageDescription = "For photos of your delicious dish!";
+NSPhotoLibraryUsageDescription = "For photos of your delicious dish!";
+NSLocationWhenInUseUsageDescription = "To find the best dishes near you!";
+NSMicrophoneUsageDescription = "To help you communicate faster.";
+PermissionGroupNotification = "To notify you of orders and deliveries!";
+NSContactsUsageDescription = "So you can invite your friends and colleagues!";

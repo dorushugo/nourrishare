@@ -8,12 +8,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:io';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -90,7 +87,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
             borderRadius: 30.0,
             borderWidth: 1.0,
             buttonSize: 54.0,
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_rounded,
               color: Color(0xFF57636C),
               size: 24.0,
@@ -99,12 +96,14 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
               context.pushNamed('ConnexionInscription');
             },
           ),
-          actions: [],
+          actions: const [],
           flexibleSpace: FlexibleSpaceBar(
             title: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
               child: Text(
-                'Compléter votre profil',
+                FFLocalizations.of(context).getText(
+                  'fv9yvaph' /* Compléter votre profil */,
+                ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                       fontSize: 24.0,
@@ -121,16 +120,16 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Stack(
               children: [
                 Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 40.0, 24.0, 0.0),
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 40.0, 24.0, 0.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -153,7 +152,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       allowPhoto: true,
                                       textColor:
                                           FlutterFlowTheme.of(context).primary,
-                                      pickerFontFamily: 'Avenir',
+                                      pickerFontFamily: 'Roboto',
                                     );
                                     if (selectedMedia != null &&
                                         selectedMedia.every((m) =>
@@ -168,7 +167,9 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       try {
                                         showUploadMessage(
                                           context,
-                                          'Uploading file...',
+                                          FFLocalizations.of(context).getText(
+                                            'a05hq3iz' /* Téléchargement du fichier */,
+                                          ),
                                           showLoading: true,
                                         );
                                         selectedUploadedFiles = selectedMedia
@@ -207,11 +208,18 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                           _model.uploadedFileUrl =
                                               downloadUrls.first;
                                         });
-                                        showUploadMessage(context, 'Success!');
+                                        showUploadMessage(
+                                            context,
+                                            FFLocalizations.of(context).getText(
+                                              'yjwesk6d' /* Fichier téléchargé !  */,
+                                            ));
                                       } else {
                                         setState(() {});
                                         showUploadMessage(
-                                            context, 'Failed to upload data');
+                                            context,
+                                            FFLocalizations.of(context).getText(
+                                              'pbrnslxi' /* Le téléchargement a échoué. */,
+                                            ));
                                         return;
                                       }
                                     }
@@ -237,13 +245,12 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                     ),
                                     child: Stack(
                                       children: [
-                                        if (_model.uploadedFileUrl != null &&
-                                            _model.uploadedFileUrl != '')
+                                        if (_model.uploadedFileUrl != '')
                                           Container(
                                             width: 120.0,
                                             height: 120.0,
                                             clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
                                             child: Image.network(
@@ -251,13 +258,11 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                               fit: BoxFit.cover,
                                             ),
                                           ),
-                                        if ((_model.uploadedFileUrl == null ||
-                                                _model.uploadedFileUrl == '') &&
-                                            (currentUserPhoto == null ||
-                                                currentUserPhoto == ''))
+                                        if ((_model.uploadedFileUrl == '') &&
+                                            (currentUserPhoto == ''))
                                           Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Icon(
                                               FFIcons.kimage3,
                                               color:
@@ -284,7 +289,10 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: 'Prenom',
+                                          labelText: FFLocalizations.of(context)
+                                              .getText(
+                                            'l5ccw9u6' /* Prenom */,
+                                          ),
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelSmall
@@ -309,7 +317,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMediumFamily,
-                                                color: Color(0xFFEAF4F1),
+                                                color: const Color(0xFFEAF4F1),
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.normal,
                                                 useGoogleFonts: GoogleFonts
@@ -320,7 +328,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                             .labelMediumFamily),
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFFEAF4F1),
                                               width: 1.0,
                                             ),
@@ -358,7 +366,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(16.0),
                                           ),
-                                          contentPadding: EdgeInsets.all(17.0),
+                                          contentPadding: const EdgeInsets.all(17.0),
                                           prefixIcon: Icon(
                                             FFIcons.kaccountIcon2,
                                             color: FlutterFlowTheme.of(context)
@@ -401,7 +409,10 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: 'Nom',
+                                          labelText: FFLocalizations.of(context)
+                                              .getText(
+                                            'xt8nf750' /* Nom */,
+                                          ),
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelSmall
@@ -429,7 +440,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                 fontFamily:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMediumFamily,
-                                                color: Color(0xFFEAF4F1),
+                                                color: const Color(0xFFEAF4F1),
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.normal,
                                                 useGoogleFonts: GoogleFonts
@@ -440,7 +451,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                             .labelMediumFamily),
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFFEAF4F1),
                                               width: 1.0,
                                             ),
@@ -478,7 +489,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                             borderRadius:
                                                 BorderRadius.circular(16.0),
                                           ),
-                                          contentPadding: EdgeInsets.all(16.0),
+                                          contentPadding: const EdgeInsets.all(16.0),
                                           prefixIcon: Icon(
                                             FFIcons.kaccountIcon2,
                                             color: FlutterFlowTheme.of(context)
@@ -510,7 +521,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 24.0)),
+                                ].divide(const SizedBox(width: 24.0)),
                               ),
                               TextFormField(
                                 controller: _model.mailController,
@@ -520,7 +531,10 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                 readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'Adresse email',
+                                  labelText:
+                                      FFLocalizations.of(context).getText(
+                                    'cjdrmk55' /* Adresse email */,
+                                  ),
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelSmall
                                       .override(
@@ -547,7 +561,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                     .labelMediumFamily),
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0xFFEAF4F1),
                                       width: 1.0,
                                     ),
@@ -575,7 +589,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                     ),
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                  contentPadding: EdgeInsets.all(16.0),
+                                  contentPadding: const EdgeInsets.all(16.0),
                                   prefixIcon: Icon(
                                     FFIcons.kmessage,
                                     color: FlutterFlowTheme.of(context).primary,
@@ -604,7 +618,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 8.0, 0.0),
                                     child: FlutterFlowDropDown<String>(
                                       controller:
@@ -614,8 +628,12 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       ),
                                       options: List<String>.from(['+33', '+1']),
                                       optionLabels: [
-                                        '🇫🇷  (+33) France ',
-                                        '🇺🇸  (+1) USA'
+                                        FFLocalizations.of(context).getText(
+                                          'zokk5smv' /* 🇫🇷  (+33) France  */,
+                                        ),
+                                        FFLocalizations.of(context).getText(
+                                          '5ve9mo3y' /* 🇺🇸  (+1) USA */,
+                                        )
                                       ],
                                       onChanged: (val) => setState(
                                           () => _model.dropDownValue = val),
@@ -649,8 +667,14 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMediumFamily),
                                           ),
-                                      hintText: 'Please select...',
-                                      searchHintText: 'Rechercher',
+                                      hintText:
+                                          FFLocalizations.of(context).getText(
+                                        'ngnehpom' /* Please select... */,
+                                      ),
+                                      searchHintText:
+                                          FFLocalizations.of(context).getText(
+                                        'lcd0w5z7' /* Rechercher */,
+                                      ),
                                       searchCursorColor:
                                           FlutterFlowTheme.of(context)
                                               .primaryText,
@@ -667,7 +691,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                           FlutterFlowTheme.of(context).grey4,
                                       borderWidth: 1.0,
                                       borderRadius: 16.0,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
+                                      margin: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       hidesUnderline: true,
                                       isOverButton: false,
@@ -686,7 +710,10 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: 'Numéro de téléphone',
+                                          labelText: FFLocalizations.of(context)
+                                              .getText(
+                                            'aohfag6y' /* Numéro de téléphone */,
+                                          ),
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelSmall
@@ -704,7 +731,10 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                             .labelSmallFamily),
                                               ),
                                           alignLabelWithHint: true,
-                                          hintText: '612345678',
+                                          hintText: FFLocalizations.of(context)
+                                              .getText(
+                                            '3xx2s5ju' /* 612345678 */,
+                                          ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
@@ -722,7 +752,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                             .labelMediumFamily),
                                               ),
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                               color: Color(0xFFEAF4F1),
                                               width: 1.0,
                                             ),
@@ -815,7 +845,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                   await showModalBottomSheet<bool>(
                                       context: context,
                                       builder: (context) {
-                                        return Container(
+                                        return SizedBox(
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height /
@@ -850,7 +880,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: Icon(
                                           FFIcons.kbirth,
@@ -860,7 +890,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             8.0, 0.0, 0.0, 0.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => Text(
@@ -960,7 +990,9 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                     ),
                                   ),
                                   Text(
-                                    'Je veux vendre des plats',
+                                    FFLocalizations.of(context).getText(
+                                      '0lewlph0' /* Je veux vendre des plats */,
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -988,7 +1020,10 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                   setState(
                                       () => _model.addresspickerValue = place);
                                 },
-                                defaultText: 'Ajouter mon adresse',
+                                defaultText:
+                                    FFLocalizations.of(context).getText(
+                                  'dv0qb794' /* Ajouter mon adresse */,
+                                ),
                                 icon: Icon(
                                   Icons.place,
                                   color: FlutterFlowTheme.of(context).primary,
@@ -997,7 +1032,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                 buttonOptions: FFButtonOptions(
                                   width: double.infinity,
                                   height: 56.0,
-                                  color: Color(0x00FFFFFF),
+                                  color: const Color(0x00FFFFFF),
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -1020,20 +1055,14 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                               ),
                               FFButtonWidget(
                                 onPressed: () async {
-                                  if ((_model.prenomController.text != null &&
-                                          _model.prenomController.text != '') &&
-                                      (_model.nomController.text != null &&
-                                          _model.nomController.text != '') &&
+                                  if ((_model.prenomController.text != '') &&
+                                      (_model.nomController.text != '') &&
                                       (_model.phoneNumberController.text !=
-                                              null &&
-                                          _model.phoneNumberController.text !=
                                               '') &&
                                       (_model.datePicked != null) &&
                                       (_model.addresspickerValue.address !=
-                                              null &&
-                                          _model.addresspickerValue.address !=
                                               '')) {
-                                    _model.geohash = await actions.geoHashMixed(
+                                    _model.geohash = actions.geoHashMixed(
                                       _model.addresspickerValue.latLng,
                                     );
 
@@ -1064,8 +1093,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         },
                                       ),
                                     });
-                                    if (_model.uploadedFileUrl != null &&
-                                        _model.uploadedFileUrl != '') {
+                                    if (_model.uploadedFileUrl != '') {
                                       await currentUserReference!
                                           .update(createUsersRecordData(
                                         photoUrl: _model.uploadedFileUrl,
@@ -1082,35 +1110,33 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       context.goNamed('Accueil');
                                     }
                                   } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title: Text(
-                                              'Veuillez compléter les informations demandées'),
-                                          content: Text(
-                                              'Pour garantir votre sécurité lors de l\'utilisation de l\'application, veillez à remplir correctement toutes les informations.'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('Ok'),
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Veuillez compléter toutes les informations demandées',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                          ),
+                                        ),
+                                        duration: const Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
                                     );
                                   }
 
                                   setState(() {});
                                 },
-                                text: 'Confirmer',
+                                text: FFLocalizations.of(context).getText(
+                                  't9qucslm' /* Confirmer */,
+                                ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 56.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       24.0, 0.0, 24.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).secondary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -1125,16 +1151,16 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                                     .titleSmallFamily),
                                       ),
                                   elevation: 0.0,
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.transparent,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
                               ),
-                            ].divide(SizedBox(height: 24.0)),
+                            ].divide(const SizedBox(height: 24.0)),
                           ),
-                        ].divide(SizedBox(height: 24.0)),
+                        ].divide(const SizedBox(height: 24.0)),
                       ),
                     ),
                   ),

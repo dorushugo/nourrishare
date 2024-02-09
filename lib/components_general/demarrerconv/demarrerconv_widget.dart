@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +44,7 @@ class _DemarrerconvWidgetState extends State<DemarrerconvWidget> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: SvgPicture.asset(
@@ -56,9 +55,11 @@ class _DemarrerconvWidgetState extends State<DemarrerconvWidget> {
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
           child: Text(
-            'Démarrez la conversation !',
+            FFLocalizations.of(context).getText(
+              'sdxxeie8' /* Démarrez la conversation ! */,
+            ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                   fontSize: 18.0,

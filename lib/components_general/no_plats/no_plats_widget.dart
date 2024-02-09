@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -46,9 +45,9 @@ class _NoPlatsWidgetState extends State<NoPlatsWidget> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SvgPicture.asset(
@@ -60,11 +59,13 @@ class _NoPlatsWidgetState extends State<NoPlatsWidget> {
           ),
         ),
         Align(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
             child: Text(
-              'Il n\'y a pas de plats autour de vous, invitez vos amis pour en voir plus !',
+              FFLocalizations.of(context).getText(
+                '2wschvmh' /* Il n'y a pas de plats autour d... */,
+              ),
               textAlign: TextAlign.center,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
@@ -78,17 +79,19 @@ class _NoPlatsWidgetState extends State<NoPlatsWidget> {
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
+          padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 24.0),
           child: FFButtonWidget(
             onPressed: () async {
               context.pushNamed('rechercheMessage');
             },
-            text: 'Ajouter mes amis',
+            text: FFLocalizations.of(context).getText(
+              'cyove2st' /* Ajouter mes amis */,
+            ),
             options: FFButtonOptions(
               width: double.infinity,
               height: 56.0,
-              padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-              iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+              iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
               color: FlutterFlowTheme.of(context).secondary,
               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                     fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
@@ -97,7 +100,7 @@ class _NoPlatsWidgetState extends State<NoPlatsWidget> {
                         FlutterFlowTheme.of(context).titleSmallFamily),
                   ),
               elevation: 3.0,
-              borderSide: BorderSide(
+              borderSide: const BorderSide(
                 color: Colors.transparent,
                 width: 1.0,
               ),

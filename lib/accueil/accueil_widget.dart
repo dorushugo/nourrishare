@@ -11,7 +11,6 @@ import '/components_general/profil_card/profil_card_widget.dart';
 import '/components_general/switchpage/switchpage_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +36,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
     super.initState();
     _model = createModel(context, () => AccueilModel());
 
-    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+    getCurrentUserLocation(defaultLocation: const LatLng(0.0, 0.0), cached: true)
         .then((loc) => setState(() => currentUserLocationValue = loc));
   }
 
@@ -80,7 +79,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
     return FutureBuilder<List<UsersRecord>>(
       future: UsersRecord.search(
         location: getCurrentUserLocation(
-            defaultLocation: LatLng(37.4298229, -122.1735655)),
+            defaultLocation: const LatLng(37.4298229, -122.1735655)),
         maxResults: 100,
         searchRadiusMeters: 10000.0,
       ),
@@ -116,13 +115,13 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 70.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 70.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 4.0, 24.0, 0.0),
                             child: wrapWithModel(
                               model: _model.profilCardModel,
@@ -133,24 +132,24 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 8.0, 24.0, 0.0),
                             child: wrapWithModel(
                               model: _model.switchpageModel,
                               updateCallback: () => setState(() {}),
-                              child: SwitchpageWidget(),
+                              child: const SwitchpageWidget(),
                             ),
                           ),
                           Container(
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Visibility(
                               visible: _model.switchpageModel.optionSelect,
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 0.0),
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 12.0, 0.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
@@ -160,7 +159,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   24.0, 0.0, 24.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -168,7 +167,10 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Plats proches de vous',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'u5jq0tzy' /* Plats proches de vous */,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .titleLarge
@@ -189,7 +191,10 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                                         ),
                                               ),
                                               Text(
-                                                'Voir tout',
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'xxqm8eoh' /* Voir tout */,
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -221,35 +226,451 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              height: 315.0,
-                                              decoration: BoxDecoration(),
-                                              alignment: AlignmentDirectional(
-                                                  0.0, -1.0),
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                child: StreamBuilder<
-                                                    List<PlatsRecord>>(
+                                            StreamBuilder<List<PlatsRecord>>(
+                                              stream: queryPlatsRecord(
+                                                queryBuilder: (platsRecord) =>
+                                                    platsRecord
+                                                        .whereIn(
+                                                            'Seller',
+                                                            accueilUsersRecordList
+                                                                .map((e) =>
+                                                                    e.reference)
+                                                                .toList())
+                                                        .where(
+                                                          'Etat',
+                                                          isGreaterThan: 0,
+                                                        )
+                                                        .where(
+                                                          'Etat',
+                                                          isLessThan: 3,
+                                                        )
+                                                        .where(
+                                                          'Ingredientstype',
+                                                          isEqualTo: false,
+                                                        ),
+                                                limit: 20,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<PlatsRecord>
+                                                    containerPlatsRecordList =
+                                                    snapshot.data!;
+                                                return Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  height: 315.0,
+                                                  decoration: const BoxDecoration(),
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, -1.0),
+                                                  child: Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, -1.0),
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        final containerVar =
+                                                            containerPlatsRecordList
+                                                                .where((e) =>
+                                                                    e.seller
+                                                                        ?.id !=
+                                                                    currentUserReference
+                                                                        ?.id)
+                                                                .toList();
+                                                        return ListView.builder(
+                                                          padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                            8.0,
+                                                            0,
+                                                            32.0,
+                                                            0,
+                                                          ),
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          itemCount:
+                                                              containerVar
+                                                                  .length,
+                                                          itemBuilder: (context,
+                                                              containerVarIndex) {
+                                                            final containerVarItem =
+                                                                containerVar[
+                                                                    containerVarIndex];
+                                                            return Align(
+                                                              alignment:
+                                                                  const AlignmentDirectional(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            16.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 200.0,
+                                                                  height: 250.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(),
+                                                                  child:
+                                                                      PlatsVoisinsWidget(
+                                                                    key: Key(
+                                                                        'Keyv4o_${containerVarIndex}_of_${containerVar.length}'),
+                                                                    plat: containerVarItem
+                                                                        .reference,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 100.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'ip94oal6' /* Ingrédients proches de vous */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleLargeFamily,
+                                                          fontSize: 20.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLargeFamily),
+                                                        ),
+                                              ),
+                                              Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'p5k18teh' /* Voir tout */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: StreamBuilder<
+                                                  List<PlatsRecord>>(
+                                                stream: queryPlatsRecord(
+                                                  queryBuilder: (platsRecord) =>
+                                                      platsRecord
+                                                          .whereIn(
+                                                              'Seller',
+                                                              accueilUsersRecordList
+                                                                  .map((e) => e
+                                                                      .reference)
+                                                                  .toList())
+                                                          .where(
+                                                            'Etat',
+                                                            isGreaterThan: 0,
+                                                          )
+                                                          .where(
+                                                            'Etat',
+                                                            isLessThan: 3,
+                                                          )
+                                                          .where(
+                                                            'Ingredientstype',
+                                                            isEqualTo: true,
+                                                          ),
+                                                  limit: 20,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<PlatsRecord>
+                                                      containerPlatsRecordList =
+                                                      snapshot.data!;
+                                                  return Container(
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        1.0,
+                                                    height: 235.0,
+                                                    decoration: const BoxDecoration(),
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, -1.0),
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        final containerVar =
+                                                            containerPlatsRecordList
+                                                                .where((e) =>
+                                                                    e.seller
+                                                                        ?.id !=
+                                                                    currentUserReference
+                                                                        ?.id)
+                                                                .toList();
+                                                        if (containerVar
+                                                            .isEmpty) {
+                                                          return const NoIngredientWidget();
+                                                        }
+                                                        return ListView
+                                                            .separated(
+                                                          padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                            8.0,
+                                                            0,
+                                                            32.0,
+                                                            0,
+                                                          ),
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          itemCount:
+                                                              containerVar
+                                                                  .length,
+                                                          separatorBuilder: (_,
+                                                                  __) =>
+                                                              const SizedBox(
+                                                                  width: 0.0),
+                                                          itemBuilder: (context,
+                                                              containerVarIndex) {
+                                                            final containerVarItem =
+                                                                containerVar[
+                                                                    containerVarIndex];
+                                                            return Align(
+                                                              alignment:
+                                                                  const AlignmentDirectional(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            16.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child:
+                                                                    Container(
+                                                                  width: 156.0,
+                                                                  height: 200.0,
+                                                                  decoration:
+                                                                      const BoxDecoration(),
+                                                                  child:
+                                                                      PlatsPetitsWidget(
+                                                                    key: Key(
+                                                                        'Keyumz_${containerVarIndex}_of_${containerVar.length}'),
+                                                                    plat: containerVarItem
+                                                                        .reference,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          if (!_model.switchpageModel.optionSelect)
+                            Container(
+                              decoration: const BoxDecoration(),
+                              child: Container(
+                                decoration: const BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'ybsdhvfj' /* Plats de vos collègues */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleLargeFamily,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLargeFamily),
+                                                        ),
+                                              ),
+                                              Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'rzay7440' /* Voir tout */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily),
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: AuthUserStreamWidget(
+                                                builder: (context) =>
+                                                    StreamBuilder<
+                                                        List<PlatsRecord>>(
                                                   stream: queryPlatsRecord(
                                                     queryBuilder: (platsRecord) =>
                                                         platsRecord
-                                                            .whereIn(
-                                                                'Seller',
-                                                                accueilUsersRecordList
-                                                                    .map((e) =>
-                                                                        e.reference)
-                                                                    .toList())
+                                                            .whereArrayContainsAny(
+                                                                'groupe_destine',
+                                                                (currentUserDocument
+                                                                        ?.groupes
+                                                                        .toList() ??
+                                                                    []))
                                                             .where(
                                                               'Etat',
-                                                              isGreaterThan: 0,
+                                                              isGreaterThan: 1,
                                                             )
                                                             .where(
                                                               'Etat',
-                                                              isLessThan: 3,
+                                                              isLessThan: 4,
                                                             )
                                                             .where(
                                                               'Ingredientstype',
@@ -278,472 +699,83 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                                       );
                                                     }
                                                     List<PlatsRecord>
-                                                        listViewPlatsRecordList =
+                                                        containerPlatsRecordList =
                                                         snapshot.data!;
-                                                    if (listViewPlatsRecordList
-                                                        .isEmpty) {
-                                                      return Center(
-                                                        child: Container(
-                                                          height: 320.0,
-                                                          child:
-                                                              NoPlatsWidget(),
-                                                        ),
-                                                      );
-                                                    }
-                                                    return ListView.builder(
-                                                      padding:
-                                                          EdgeInsets.fromLTRB(
-                                                        8.0,
-                                                        0,
-                                                        32.0,
-                                                        0,
-                                                      ),
-                                                      shrinkWrap: true,
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      itemCount:
-                                                          listViewPlatsRecordList
-                                                              .length,
-                                                      itemBuilder: (context,
-                                                          listViewIndex) {
-                                                        final listViewPlatsRecord =
-                                                            listViewPlatsRecordList[
-                                                                listViewIndex];
-                                                        return Visibility(
-                                                          visible:
-                                                              listViewPlatsRecord
-                                                                      .seller !=
-                                                                  currentUserReference,
-                                                          child: Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    -1.0, 0.0),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
+                                                    return Container(
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          1.0,
+                                                      height: 315.0,
+                                                      decoration:
+                                                          const BoxDecoration(),
+                                                      child: Builder(
+                                                        builder: (context) {
+                                                          final containerVar =
+                                                              containerPlatsRecordList
+                                                                  .where((e) =>
+                                                                      e.seller !=
+                                                                      currentUserReference)
+                                                                  .toList();
+                                                          if (containerVar
+                                                              .isEmpty) {
+                                                            return const NoPlatsWidget();
+                                                          }
+                                                          return ListView
+                                                              .builder(
+                                                            padding: const EdgeInsets
+                                                                .fromLTRB(
+                                                              8.0,
+                                                              0,
+                                                              32.0,
+                                                              0,
+                                                            ),
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            itemCount:
+                                                                containerVar
+                                                                    .length,
+                                                            itemBuilder: (context,
+                                                                containerVarIndex) {
+                                                              final containerVarItem =
+                                                                  containerVar[
+                                                                      containerVarIndex];
+                                                              return Align(
+                                                                alignment:
+                                                                    const AlignmentDirectional(
+                                                                        -1.0,
+                                                                        0.0),
+                                                                child: Padding(
+                                                                  padding: const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           16.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                              child: Container(
-                                                                width: 200.0,
-                                                                height: 250.0,
-                                                                decoration:
-                                                                    BoxDecoration(),
-                                                                child:
-                                                                    PlatsVoisinsWidget(
-                                                                  key: Key(
-                                                                      'Keyv4o_${listViewIndex}_of_${listViewPlatsRecordList.length}'),
-                                                                  plat: listViewPlatsRecord
-                                                                      .reference,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 100.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Ingrédients proches de vous',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleLargeFamily,
-                                                          fontSize: 20.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLargeFamily),
-                                                        ),
-                                              ),
-                                              Text(
-                                                'Voir tout',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        1.0,
-                                                height: 235.0,
-                                                decoration: BoxDecoration(),
-                                                alignment: AlignmentDirectional(
-                                                    0.0, -1.0),
-                                                child: StreamBuilder<
-                                                    List<PlatsRecord>>(
-                                                  stream: queryPlatsRecord(
-                                                    queryBuilder: (platsRecord) =>
-                                                        platsRecord
-                                                            .whereIn(
-                                                                'Seller',
-                                                                accueilUsersRecordList
-                                                                    .map((e) =>
-                                                                        e.reference)
-                                                                    .toList())
-                                                            .where(
-                                                              'Etat',
-                                                              isGreaterThan: 0,
-                                                            )
-                                                            .where(
-                                                              'Etat',
-                                                              isLessThan: 3,
-                                                            )
-                                                            .where(
-                                                              'Ingredientstype',
-                                                              isEqualTo: true,
-                                                            ),
-                                                    limit: 20,
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50.0,
-                                                          height: 50.0,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                    Color>(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .secondary,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    List<PlatsRecord>
-                                                        listViewPlatsRecordList =
-                                                        snapshot.data!;
-                                                    if (listViewPlatsRecordList
-                                                        .isEmpty) {
-                                                      return NoIngredientWidget();
-                                                    }
-                                                    return ListView.separated(
-                                                      padding:
-                                                          EdgeInsets.fromLTRB(
-                                                        8.0,
-                                                        0,
-                                                        32.0,
-                                                        0,
-                                                      ),
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      itemCount:
-                                                          listViewPlatsRecordList
-                                                              .length,
-                                                      separatorBuilder: (_,
-                                                              __) =>
-                                                          SizedBox(width: 0.0),
-                                                      itemBuilder: (context,
-                                                          listViewIndex) {
-                                                        final listViewPlatsRecord =
-                                                            listViewPlatsRecordList[
-                                                                listViewIndex];
-                                                        return Visibility(
-                                                          visible:
-                                                              listViewPlatsRecord
-                                                                      .seller !=
-                                                                  currentUserReference,
-                                                          child: Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    -1.0, 0.0),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Container(
-                                                                width: 156.0,
-                                                                height: 200.0,
-                                                                decoration:
-                                                                    BoxDecoration(),
-                                                                child:
-                                                                    PlatsPetitsWidget(
-                                                                  key: Key(
-                                                                      'Keyumz_${listViewIndex}_of_${listViewPlatsRecordList.length}'),
-                                                                  plat: listViewPlatsRecord
-                                                                      .reference,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          if (!_model.switchpageModel.optionSelect)
-                            Container(
-                              decoration: BoxDecoration(),
-                              child: Container(
-                                decoration: BoxDecoration(),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Plats de vos collègues',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLarge
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleLargeFamily,
-                                                          fontSize: 20.0,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLargeFamily),
-                                                        ),
-                                              ),
-                                              Text(
-                                                'Voir tout',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        1.0,
-                                                height: 315.0,
-                                                decoration: BoxDecoration(),
-                                                child: AuthUserStreamWidget(
-                                                  builder: (context) =>
-                                                      StreamBuilder<
-                                                          List<PlatsRecord>>(
-                                                    stream: queryPlatsRecord(
-                                                      queryBuilder: (platsRecord) =>
-                                                          platsRecord
-                                                              .whereArrayContainsAny(
-                                                                  'groupe_destine',
-                                                                  (currentUserDocument
-                                                                          ?.groupes
-                                                                          ?.toList() ??
-                                                                      []))
-                                                              .where(
-                                                                'Etat',
-                                                                isGreaterThan:
-                                                                    1,
-                                                              )
-                                                              .where(
-                                                                'Etat',
-                                                                isLessThan: 4,
-                                                              )
-                                                              .where(
-                                                                'Ingredientstype',
-                                                                isEqualTo:
-                                                                    false,
-                                                              ),
-                                                      limit: 20,
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondary,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      List<PlatsRecord>
-                                                          listViewPlatsRecordList =
-                                                          snapshot.data!;
-                                                      if (listViewPlatsRecordList
-                                                          .isEmpty) {
-                                                        return NoPlatsWidget();
-                                                      }
-                                                      return ListView.builder(
-                                                        padding:
-                                                            EdgeInsets.fromLTRB(
-                                                          8.0,
-                                                          0,
-                                                          32.0,
-                                                          0,
-                                                        ),
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount:
-                                                            listViewPlatsRecordList
-                                                                .length,
-                                                        itemBuilder: (context,
-                                                            listViewIndex) {
-                                                          final listViewPlatsRecord =
-                                                              listViewPlatsRecordList[
-                                                                  listViewIndex];
-                                                          return Visibility(
-                                                            visible: listViewPlatsRecord
-                                                                    .seller !=
-                                                                currentUserReference,
-                                                            child: Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      -1.0,
-                                                                      0.0),
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            16.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child:
-                                                                    Container(
-                                                                  width: 200.0,
-                                                                  height: 240.0,
-                                                                  decoration:
-                                                                      BoxDecoration(),
                                                                   child:
-                                                                      PlatsColleguesWidget(
-                                                                    key: Key(
-                                                                        'Key9oe_${listViewIndex}_of_${listViewPlatsRecordList.length}'),
-                                                                    plat: listViewPlatsRecord
-                                                                        .reference,
+                                                                      Container(
+                                                                    width:
+                                                                        200.0,
+                                                                    height:
+                                                                        240.0,
+                                                                    decoration:
+                                                                        const BoxDecoration(),
+                                                                    child:
+                                                                        PlatsColleguesWidget(
+                                                                      key: Key(
+                                                                          'Key9oe_${containerVarIndex}_of_${containerVar.length}'),
+                                                                      plat: containerVarItem
+                                                                          .reference,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ),
+                                                              );
+                                                            },
                                                           );
                                                         },
-                                                      );
-                                                    },
-                                                  ),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ),
@@ -752,14 +784,14 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 100.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
@@ -768,7 +800,10 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Ingrédients de vos collègues',
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'tg72k2oa' /* Ingrédients de vos collègues */,
+                                                  ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .titleLarge
@@ -787,7 +822,10 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                                       ),
                                                 ),
                                                 Text(
-                                                  'Voir tout',
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'yfe6rumj' /* Voir tout */,
+                                                  ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -819,135 +857,146 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Expanded(
-                                                child: Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          1.0,
-                                                  height: 235.0,
-                                                  decoration: BoxDecoration(),
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, -1.0),
-                                                  child: AuthUserStreamWidget(
-                                                    builder: (context) =>
-                                                        StreamBuilder<
-                                                            List<PlatsRecord>>(
-                                                      stream: queryPlatsRecord(
-                                                        queryBuilder: (platsRecord) =>
-                                                            platsRecord
-                                                                .whereArrayContainsAny(
-                                                                    'groupe_destine',
-                                                                    (currentUserDocument
-                                                                            ?.groupes
-                                                                            ?.toList() ??
-                                                                        []))
-                                                                .where(
-                                                                  'Etat',
-                                                                  isGreaterThan:
-                                                                      1,
-                                                                )
-                                                                .where(
-                                                                  'Etat',
-                                                                  isLessThan: 4,
-                                                                )
-                                                                .where(
-                                                                  'Ingredientstype',
-                                                                  isEqualTo:
-                                                                      true,
-                                                                ),
-                                                        limit: 20,
-                                                      ),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                valueColor:
-                                                                    AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondary,
-                                                                ),
+                                                child: AuthUserStreamWidget(
+                                                  builder: (context) =>
+                                                      StreamBuilder<
+                                                          List<PlatsRecord>>(
+                                                    stream: queryPlatsRecord(
+                                                      queryBuilder: (platsRecord) =>
+                                                          platsRecord
+                                                              .whereArrayContainsAny(
+                                                                  'groupe_destine',
+                                                                  (currentUserDocument
+                                                                          ?.groupes
+                                                                          .toList() ??
+                                                                      []))
+                                                              .where(
+                                                                'Etat',
+                                                                isGreaterThan:
+                                                                    1,
+                                                              )
+                                                              .where(
+                                                                'Etat',
+                                                                isLessThan: 4,
+                                                              )
+                                                              .where(
+                                                                'Ingredientstype',
+                                                                isEqualTo: true,
+                                                              ),
+                                                      limit: 20,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                               ),
                                                             ),
-                                                          );
-                                                        }
-                                                        List<PlatsRecord>
-                                                            listViewPlatsRecordList =
-                                                            snapshot.data!;
-                                                        if (listViewPlatsRecordList
-                                                            .isEmpty) {
-                                                          return NoIngredientWidget();
-                                                        }
-                                                        return ListView
-                                                            .separated(
-                                                          padding: EdgeInsets
-                                                              .fromLTRB(
-                                                            8.0,
-                                                            0,
-                                                            32.0,
-                                                            0,
                                                           ),
-                                                          scrollDirection:
-                                                              Axis.horizontal,
-                                                          itemCount:
-                                                              listViewPlatsRecordList
-                                                                  .length,
-                                                          separatorBuilder: (_,
-                                                                  __) =>
-                                                              SizedBox(
-                                                                  width: 0.0),
-                                                          itemBuilder: (context,
-                                                              listViewIndex) {
-                                                            final listViewPlatsRecord =
-                                                                listViewPlatsRecordList[
-                                                                    listViewIndex];
-                                                            return Visibility(
-                                                              visible: listViewPlatsRecord
-                                                                      .seller !=
-                                                                  currentUserReference,
-                                                              child: Align(
-                                                                alignment:
-                                                                    AlignmentDirectional(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          0.0,
-                                                                          0.0,
+                                                        );
+                                                      }
+                                                      List<PlatsRecord>
+                                                          containerPlatsRecordList =
+                                                          snapshot.data!;
+                                                      return Container(
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                1.0,
+                                                        height: 235.0,
+                                                        decoration:
+                                                            const BoxDecoration(),
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                0.0, -1.0),
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            final containerVar =
+                                                                containerPlatsRecordList
+                                                                    .where((e) =>
+                                                                        e.seller
+                                                                            ?.id !=
+                                                                        currentUserReference
+                                                                            ?.id)
+                                                                    .toList();
+                                                            if (containerVar
+                                                                .isEmpty) {
+                                                              return const NoIngredientWidget();
+                                                            }
+                                                            return ListView
+                                                                .separated(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .fromLTRB(
+                                                                8.0,
+                                                                0,
+                                                                32.0,
+                                                                0,
+                                                              ),
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              itemCount:
+                                                                  containerVar
+                                                                      .length,
+                                                              separatorBuilder:
+                                                                  (_, __) =>
+                                                                      const SizedBox(
+                                                                          width:
+                                                                              0.0),
+                                                              itemBuilder: (context,
+                                                                  containerVarIndex) {
+                                                                final containerVarItem =
+                                                                    containerVar[
+                                                                        containerVarIndex];
+                                                                return Align(
+                                                                  alignment:
+                                                                      const AlignmentDirectional(
+                                                                          -1.0,
                                                                           0.0),
                                                                   child:
-                                                                      Container(
-                                                                    width:
-                                                                        156.0,
-                                                                    height:
-                                                                        200.0,
-                                                                    decoration:
-                                                                        BoxDecoration(),
+                                                                      Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            16.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                     child:
-                                                                        PlatsPetitsColleguesWidget(
-                                                                      key: Key(
-                                                                          'Keyibp_${listViewIndex}_of_${listViewPlatsRecordList.length}'),
-                                                                      plat: listViewPlatsRecord
-                                                                          .reference,
+                                                                        Container(
+                                                                      width:
+                                                                          156.0,
+                                                                      height:
+                                                                          200.0,
+                                                                      decoration:
+                                                                          const BoxDecoration(),
+                                                                      child:
+                                                                          PlatsPetitsColleguesWidget(
+                                                                        key: Key(
+                                                                            'Keyibp_${containerVarIndex}_of_${containerVar.length}'),
+                                                                        plat: containerVarItem
+                                                                            .reference,
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ),
+                                                                );
+                                                              },
                                                             );
                                                           },
-                                                        );
-                                                      },
-                                                    ),
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
                                                 ),
                                               ),
@@ -960,19 +1009,19 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                 ),
                               ),
                             ),
-                        ].divide(SizedBox(height: 16.0)),
+                        ].divide(const SizedBox(height: 16.0)),
                       ),
                     ),
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0.0, 1.0),
+                    alignment: const AlignmentDirectional(0.0, 1.0),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 650.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 650.0, 0.0, 0.0),
                       child: wrapWithModel(
                         model: _model.navBar1Model,
                         updateCallback: () => setState(() {}),
-                        child: NavBar1Widget(),
+                        child: const NavBar1Widget(),
                       ),
                     ),
                   ),
