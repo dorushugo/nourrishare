@@ -129,8 +129,8 @@ class _PlatsVoisinsWidgetState extends State<PlatsVoisinsWidget> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
                             child: CachedNetworkImage(
-                              fadeInDuration: const Duration(milliseconds: 100),
-                              fadeOutDuration: const Duration(milliseconds: 100),
+                              fadeInDuration: const Duration(milliseconds: 0),
+                              fadeOutDuration: const Duration(milliseconds: 0),
                               imageUrl: containerPlatsRecord.images.first,
                               width: 168.0,
                               height: 128.0,

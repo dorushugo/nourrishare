@@ -179,6 +179,16 @@ class UsersRecord extends FirestoreRecord {
   String get createStripeAccountUrl => _createStripeAccountUrl ?? '';
   bool hasCreateStripeAccountUrl() => _createStripeAccountUrl != null;
 
+  // "phone_prefix" field.
+  String? _phonePrefix;
+  String get phonePrefix => _phonePrefix ?? '';
+  bool hasPhonePrefix() => _phonePrefix != null;
+
+  // "gpsLocalisation" field.
+  LatLng? _gpsLocalisation;
+  LatLng? get gpsLocalisation => _gpsLocalisation;
+  bool hasGpsLocalisation() => _gpsLocalisation != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _photoUrl = snapshotData['photo_url'] as String?;
@@ -212,6 +222,8 @@ class UsersRecord extends FirestoreRecord {
     _stripeAccountID = snapshotData['stripeAccountID'] as String?;
     _stripChargesEnabled = snapshotData['stripChargesEnabled'] as bool?;
     _createStripeAccountUrl = snapshotData['createStripeAccountUrl'] as String?;
+    _phonePrefix = snapshotData['phone_prefix'] as String?;
+    _gpsLocalisation = snapshotData['gpsLocalisation'] as LatLng?;
   }
 
   static CollectionReference get collection =>
@@ -341,6 +353,12 @@ class UsersRecord extends FirestoreRecord {
           'stripeAccountID': snapshot.data['stripeAccountID'],
           'stripChargesEnabled': snapshot.data['stripChargesEnabled'],
           'createStripeAccountUrl': snapshot.data['createStripeAccountUrl'],
+          'phone_prefix': snapshot.data['phone_prefix'],
+          'gpsLocalisation': convertAlgoliaParam(
+            snapshot.data,
+            ParamType.LatLng,
+            false,
+          ),
         },
         UsersRecord.collection.doc(snapshot.objectID),
       );
@@ -401,6 +419,8 @@ Map<String, dynamic> createUsersRecordData({
   String? stripeAccountID,
   bool? stripChargesEnabled,
   String? createStripeAccountUrl,
+  String? phonePrefix,
+  LatLng? gpsLocalisation,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -428,6 +448,8 @@ Map<String, dynamic> createUsersRecordData({
       'stripeAccountID': stripeAccountID,
       'stripChargesEnabled': stripChargesEnabled,
       'createStripeAccountUrl': createStripeAccountUrl,
+      'phone_prefix': phonePrefix,
+      'gpsLocalisation': gpsLocalisation,
     }.withoutNulls,
   );
 
@@ -471,7 +493,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         listEquality.equals(e1?.commandes, e2?.commandes) &&
         e1?.stripeAccountID == e2?.stripeAccountID &&
         e1?.stripChargesEnabled == e2?.stripChargesEnabled &&
-        e1?.createStripeAccountUrl == e2?.createStripeAccountUrl;
+        e1?.createStripeAccountUrl == e2?.createStripeAccountUrl &&
+        e1?.phonePrefix == e2?.phonePrefix &&
+        e1?.gpsLocalisation == e2?.gpsLocalisation;
   }
 
   @override
@@ -507,7 +531,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.commandes,
         e?.stripeAccountID,
         e?.stripChargesEnabled,
-        e?.createStripeAccountUrl
+        e?.createStripeAccountUrl,
+        e?.phonePrefix,
+        e?.gpsLocalisation
       ]);
 
   @override

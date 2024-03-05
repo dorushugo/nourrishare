@@ -5,5 +5,4 @@ export 'prix_stripe.dart' show prixStripe;
 export 'array_two_user.dart' show arrayTwoUser;
 export 'convert_stringto_ref.dart' show convertStringtoRef;
 export 'calculate_comission.dart' show calculateComission;
-export 'show_stripe_payment_sheet.dart' show showStripePaymentSheet;
 export 'decode_json_a_p_i.dart' show decodeJsonAPI;

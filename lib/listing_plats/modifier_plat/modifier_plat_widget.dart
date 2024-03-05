@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -55,15 +54,6 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -270,8 +260,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                               .override(
                                 fontFamily: FlutterFlowTheme.of(context)
                                     .bodyMediumFamily,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                color: FlutterFlowTheme.of(context).primaryText,
                                 fontWeight: FontWeight.w900,
                                 useGoogleFonts: GoogleFonts.asMap().containsKey(
                                     FlutterFlowTheme.of(context)
@@ -473,7 +462,8 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                     FlutterFlowTheme.of(context)
                                         .labelSmallFamily),
                               ),
-                          maxLines: 3,
+                          maxLines: 5,
+                          minLines: 1,
                           keyboardType: TextInputType.multiline,
                           validator: _model.ingredientsControllerValidator
                               .asValidator(context),
@@ -565,7 +555,8 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                     FlutterFlowTheme.of(context)
                                         .labelSmallFamily),
                               ),
-                          maxLines: 3,
+                          maxLines: 5,
+                          minLines: 1,
                           keyboardType: TextInputType.multiline,
                           validator: _model.allergenesControllerValidator
                               .asValidator(context),
@@ -704,7 +695,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                     fontFamily: FlutterFlowTheme.of(context)
                                         .bodyMediumFamily,
                                     color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
+                                        .primaryText,
                                     fontWeight: FontWeight.w900,
                                     useGoogleFonts: GoogleFonts.asMap()
                                         .containsKey(
@@ -922,7 +913,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                                         fontWeight:
                                                                             FontWeight.normal,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                            GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                       ),
                                                                 ),
                                                                 Row(
@@ -946,7 +937,7 @@ class _ModifierPlatWidgetState extends State<ModifierPlatWidget> {
                                                                               color: const Color(0xFF57636C),
                                                                               fontSize: 14.0,
                                                                               fontWeight: FontWeight.normal,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                             ),
                                                                       ),
                                                                     ),

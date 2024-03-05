@@ -257,6 +257,7 @@ class SessionsCall {
     String? productName = '',
     int? unitAmout,
     int? quantity,
+    int? fee,
   }) async {
     final response = await makeCloudCall(
       _kPrivateApiFunctionName,
@@ -270,6 +271,7 @@ class SessionsCall {
           'productName': productName,
           'unitAmout': unitAmout,
           'quantity': quantity,
+          'fee': fee,
         },
       },
     );
@@ -305,8 +307,13 @@ class SessionsCall {
 class OpenAIAPIGroup {
   static CreateChatCompletionTextCall createChatCompletionTextCall =
       CreateChatCompletionTextCall();
+  static JsonIngredientsCompletionTexteCall jsonIngredientsCompletionTexteCall =
+      JsonIngredientsCompletionTexteCall();
   static CreateChatCompletionImageCall createChatCompletionImageCall =
       CreateChatCompletionImageCall();
+  static CreateChatCompletionImageFridgeCall
+      createChatCompletionImageFridgeCall =
+      CreateChatCompletionImageFridgeCall();
   static CreateCompletionCall createCompletionCall = CreateCompletionCall();
   static CreateImageCall createImageCall = CreateImageCall();
   static CreateImageEditCall createImageEditCall = CreateImageEditCall();
@@ -393,6 +400,30 @@ class CreateChatCompletionTextCall {
       );
 }
 
+class JsonIngredientsCompletionTexteCall {
+  Future<ApiCallResponse> call({
+    String? listIngredients1 = '',
+    String? listIngredients2 = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'JsonIngredientsCompletionTexteCall',
+        'variables': {
+          'listIngredients1': listIngredients1,
+          'listIngredients2': listIngredients2,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+
+  dynamic messageJson(dynamic response) => getJsonField(
+        response,
+        r'''$.choices[:].message.content''',
+      );
+}
+
 class CreateChatCompletionImageCall {
   Future<ApiCallResponse> call({
     String? imageUrl = '',
@@ -401,6 +432,28 @@ class CreateChatCompletionImageCall {
       _kPrivateApiFunctionName,
       {
         'callName': 'CreateChatCompletionImageCall',
+        'variables': {
+          'imageUrl': imageUrl,
+        },
+      },
+    );
+    return ApiCallResponse.fromCloudCallResponse(response);
+  }
+
+  String? descriptionPlat(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.choices[:].message.content''',
+      ));
+}
+
+class CreateChatCompletionImageFridgeCall {
+  Future<ApiCallResponse> call({
+    String? imageUrl = '',
+  }) async {
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'CreateChatCompletionImageFridgeCall',
         'variables': {
           'imageUrl': imageUrl,
         },
@@ -1480,7 +1533,7 @@ class SearchCityAndPostalCodeCall {
     );
   }
 
-  dynamic location(dynamic response) => getJsonField(
+  dynamic latLng(dynamic response) => getJsonField(
         response,
         r'''$.results[:].geometry.location''',
       );
@@ -1500,9 +1553,73 @@ class SearchCityAndPostalCodeCall {
         response,
         r'''$.results[:].geometry.location.lng''',
       ));
+  String? address(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.results[:].formatted_address''',
+      ));
 }
 
 /// End Google Maps Group Code
+
+/// Start Google Geolocalisation Group Code
+
+class GoogleGeolocalisationGroup {
+  static String baseUrl = 'https://www.googleapis.com/geolocation/';
+  static Map<String, String> headers = {};
+  static GeolocationUserCall geolocationUserCall = GeolocationUserCall();
+}
+
+class GeolocationUserCall {
+  Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'geolocationUser',
+      apiUrl: '${GoogleGeolocalisationGroup.baseUrl}v1/geolocate',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {
+        'key': "AIzaSyC9lduemygUWHmGX2Dr9qC2LoveDM_xxX8",
+        'radioType': "gsm",
+        'considerIp': true,
+        'carrier': "Vodafone",
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  dynamic latLng(dynamic response) => getJsonField(
+        response,
+        r'''$.location''',
+      );
+  double? lat(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.location.lat''',
+      ));
+  double? lng(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.location.lng''',
+      ));
+  double? accuracy(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.accuracy''',
+      ));
+}
+
+/// End Google Geolocalisation Group Code
+
+/// Start Gemini API Group Code
+
+class GeminiAPIGroup {
+  static String baseUrl =
+      'https://us-central1-aiplatform.googleapis.com/v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/gemini-pro-vision:streamGenerateContent';
+  static Map<String, String> headers = {};
+}
+
+/// End Gemini API Group Code
 
 class ApiPagingParams {
   int nextPageNumber = 0;

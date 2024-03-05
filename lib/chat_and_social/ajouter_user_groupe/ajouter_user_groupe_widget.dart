@@ -10,7 +10,6 @@ import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -70,15 +69,6 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -118,12 +108,11 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
               '91uub8jk' /* Ajouter au groupe */,
             ),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Avenir',
                   color: const Color(0xFF14181B),
                   fontSize: 24.0,
-                  fontWeight: FontWeight.w500,
-                  useGoogleFonts: GoogleFonts.asMap().containsKey(
-                      FlutterFlowTheme.of(context).headlineSmallFamily),
+                  fontWeight: FontWeight.w900,
+                  useGoogleFonts: GoogleFonts.asMap().containsKey('Avenir'),
                 ),
           ),
           actions: const [],
@@ -184,14 +173,13 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: const Color(0xFF57636C),
+                                          fontFamily: 'Avenir',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
                                           useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMediumFamily),
+                                              .containsKey('Avenir'),
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -229,14 +217,13 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        color: const Color(0xFF14181B),
+                                        fontFamily: 'Avenir',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.normal,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily),
+                                            .containsKey('Avenir'),
                                       ),
                                   validator: _model.textControllerValidator
                                       .asValidator(context),
@@ -251,7 +238,7 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                   borderWidth: 1.0,
                                   buttonSize: 44.0,
                                   icon: const Icon(
-                                    Icons.search_rounded,
+                                    FFIcons.kmenuIcon2,
                                     color: Color(0xFF14181B),
                                     size: 24.0,
                                   ),
@@ -274,13 +261,12 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                           style: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: const Color(0xFF57636C),
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.normal,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
+                                fontFamily: 'Avenir',
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w900,
+                                useGoogleFonts:
+                                    GoogleFonts.asMap().containsKey('Avenir'),
                               ),
                         ),
                       ),
@@ -419,69 +405,59 @@ class _AjouterUserGroupeWidgetState extends State<AjouterUserGroupeWidget> {
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'Plus Jakarta Sans',
+                                                                    'Avenir',
                                                                 color: const Color(
                                                                     0xFF14181B),
                                                                 fontSize: 14.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .normal,
+                                                                        .w900,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
+                                                                        'Avenir'),
                                                               ),
                                                         ),
                                                         Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  functions.calculateDistance(
-                                                                      listViewUsersRecord
-                                                                          .latitude,
-                                                                      listViewUsersRecord
-                                                                          .longitude,
-                                                                      valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.latitude,
-                                                                          0.0),
-                                                                      valueOrDefault(
-                                                                          currentUserDocument
-                                                                              ?.longitude,
-                                                                          0.0)),
-                                                                  'Inconnue',
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Plus Jakarta Sans',
-                                                                      color: const Color(
-                                                                          0xFF57636C),
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).labelMediumFamily),
-                                                                    ),
+                                                            Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                functions.calculateDistance(
+                                                                    listViewUsersRecord
+                                                                        .latitude,
+                                                                    listViewUsersRecord
+                                                                        .longitude,
+                                                                    valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.latitude,
+                                                                        0.0),
+                                                                    valueOrDefault(
+                                                                        currentUserDocument
+                                                                            ?.longitude,
+                                                                        0.0)),
+                                                                'Inconnue',
                                                               ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Avenir',
+                                                                    color: const Color(
+                                                                        0xFF57636C),
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .normal,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            'Avenir'),
+                                                                  ),
                                                             ),
                                                           ],
                                                         ),

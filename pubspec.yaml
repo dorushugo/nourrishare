@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.1.2+5
+version: 1.1.2+20
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -29,6 +29,7 @@ dependencies:
   auto_size_text: 3.0.0
   badges: 2.0.2
   cached_network_image: 3.2.1
+  carousel_slider: 4.2.1
   cloud_firestore: 4.13.1
   cloud_firestore_platform_interface: 6.0.5
   cloud_firestore_web: 3.8.5
@@ -36,6 +37,7 @@ dependencies:
   cloud_functions_platform_interface: 5.5.11
   cloud_functions_web: 4.6.11
   collection: 1.17.2
+  csv: 5.0.1
   dropdown_button2: 2.3.9
   easy_debounce: 2.0.1
   equatable: 2.0.5
@@ -64,6 +66,7 @@ dependencies:
   flutter_keyboard_visibility: 5.2.0
   flutter_native_splash: 2.3.1
   flutter_plugin_android_lifecycle: 2.0.17
+  flutter_secure_storage: 8.0.0
   flutter_stripe: 9.4.0
   flutter_stripe_web: 4.4.0
   flutter_svg: 2.0.9
@@ -92,9 +95,7 @@ dependencies:
   image_picker_platform_interface: 2.9.1
   infinite_scroll_pagination: 4.0.0
   intl: 0.18.1
-  intl_phone_field: ^3.1.0
   json_path: 0.6.2
-  lottie: 2.7.0
   map_launcher: 2.5.0+1
   mime_type: 1.0.0
   package_info_plus: 4.2.0
@@ -126,6 +127,7 @@ dependencies:
   stripe_js: 3.2.0
   stripe_platform_interface: 9.4.0
   substring_highlight: 1.0.33
+  synchronized: 3.1.0
   table_calendar: 3.0.9
   timeago: 3.2.2
   universal_io: 2.2.2

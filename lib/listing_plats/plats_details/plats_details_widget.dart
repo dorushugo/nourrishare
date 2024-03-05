@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/push_notifications/push_notifications_util.dart';
 import '/components_general/user_card/user_card_widget.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -15,7 +14,6 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -66,15 +64,6 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return StreamBuilder<PlatsRecord>(
@@ -332,19 +321,19 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                       child: Align(
                                         alignment:
                                             const AlignmentDirectional(-1.0, -1.0),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 24.0, 24.0, 0.0),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 24.0, 0.0, 0.0),
+                                                child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   mainAxisAlignment:
@@ -355,101 +344,119 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                       width: 275.0,
                                                       decoration:
                                                           const BoxDecoration(),
-                                                      child: Text(
-                                                        platsDetailsPlatsRecord
-                                                            .name,
-                                                        maxLines: 2,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleLarge
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLargeFamily,
-                                                                  fontSize:
-                                                                      24.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w900,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleLargeFamily),
-                                                                ),
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          platsDetailsPlatsRecord
+                                                              .name,
+                                                          maxLines: 2,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLargeFamily,
+                                                                fontSize: 24.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleLargeFamily),
+                                                              ),
+                                                        ),
                                                       ),
                                                     ),
-                                                    RichText(
-                                                      textScaleFactor:
-                                                          MediaQuery.of(context)
-                                                              .textScaleFactor,
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(
-                                                            text:
-                                                                platsDetailsPlatsRecord
-                                                                    .prix
-                                                                    .toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w900,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
-                                                          ),
-                                                          TextSpan(
-                                                            text: FFLocalizations
-                                                                    .of(context)
-                                                                .getText(
-                                                              '12137qrb' /*  € */,
-                                                            ),
-                                                            style: const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          )
-                                                        ],
-                                                        style:
-                                                            FlutterFlowTheme.of(
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: RichText(
+                                                        textScaleFactor:
+                                                            MediaQuery.of(
                                                                     context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w900,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
+                                                                .textScaleFactor,
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(
+                                                              text: platsDetailsPlatsRecord
+                                                                  .prix
+                                                                  .toString(),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    fontSize:
+                                                                        20.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w900,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                  ),
+                                                            ),
+                                                            TextSpan(
+                                                              text: FFLocalizations
+                                                                      .of(context)
+                                                                  .getText(
+                                                                '12137qrb' /*  € */,
+                                                              ),
+                                                              style: const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            )
+                                                          ],
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily,
+                                                                fontSize: 20.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily),
+                                                              ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 0.0, 0.0),
+                                                child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   mainAxisAlignment:
@@ -551,7 +558,12 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                   ].divide(
                                                       const SizedBox(width: 8.0)),
                                                 ),
-                                                Container(
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                child: Container(
                                                   width: double.infinity,
                                                   height: 54.0,
                                                   decoration: BoxDecoration(
@@ -760,10 +772,14 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          -1.0, 0.0),
+                                              ),
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    -1.0, 0.0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          24.0, 0.0, 0.0, 0.0),
                                                   child: Text(
                                                     valueOrDefault<String>(
                                                       _model.selecteur == false
@@ -797,7 +813,12 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                         ),
                                                   ),
                                                 ),
-                                                wrapWithModel(
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                child: wrapWithModel(
                                                   model: _model.userCardModel,
                                                   updateCallback: () =>
                                                       setState(() {}),
@@ -807,220 +828,22 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                             .seller!,
                                                   ),
                                                 ),
-                                                if ((platsDetailsPlatsRecord
-                                                            .seller !=
-                                                        currentUserReference) &&
-                                                    (platsDetailsPlatsRecord
-                                                            .etat <
-                                                        5))
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      setState(() {
-                                                        _model.commanderState =
-                                                            2;
-                                                      });
-                                                    },
-                                                    text: FFLocalizations.of(
-                                                            context)
-                                                        .getText(
-                                                      'vzw22tb1' /* Commander */,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      width: double.infinity,
-                                                      height: 60.0,
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                                color: Colors
-                                                                    .white,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .titleSmallFamily),
-                                                              ),
-                                                      elevation: 3.0,
-                                                      borderSide: const BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                  ),
-                                                if (platsDetailsPlatsRecord
-                                                        .seller ==
-                                                    currentUserReference)
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      context.pushNamed(
-                                                        'modifierPlat',
-                                                        queryParameters: {
-                                                          'plat':
-                                                              serializeParam(
-                                                            widget.plats,
-                                                            ParamType
-                                                                .DocumentReference,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    },
-                                                    text: FFLocalizations.of(
-                                                            context)
-                                                        .getText(
-                                                      'w12vy2h2' /* Modifier le plat */,
-                                                    ),
-                                                    icon: const Icon(
-                                                      FFIcons.keditSquare,
-                                                      size: 15.0,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      width: double.infinity,
-                                                      height: 60.0,
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  4.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                                color: Colors
-                                                                    .white,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .titleSmallFamily),
-                                                              ),
-                                                      elevation: 3.0,
-                                                      borderSide: const BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                    ),
-                                                  ),
-                                                if (platsDetailsPlatsRecord
-                                                        .seller ==
-                                                    currentUserReference)
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 40.0),
-                                                    child: FFButtonWidget(
-                                                      onPressed: () async {
-                                                        var confirmDialogResponse =
-                                                            await showDialog<
-                                                                    bool>(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (alertDialogContext) {
-                                                                    return AlertDialog(
-                                                                      title: const Text(
-                                                                          'Êtes vous sur ?'),
-                                                                      content: const Text(
-                                                                          'Votre plat sera retiré de la vente immédiatement, êtes vous sur de vouloir le supprimer ? '),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              false),
-                                                                          child:
-                                                                              const Text('Conserver'),
-                                                                        ),
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              true),
-                                                                          child:
-                                                                              const Text('Supprimer'),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  },
-                                                                ) ??
-                                                                false;
-                                                        if (confirmDialogResponse) {
-                                                          await platsDetailsPlatsRecord
-                                                              .reference
-                                                              .delete();
-
-                                                          await stackUsersRecord
-                                                              .reference
-                                                              .update({
-                                                            ...mapToFirestore(
-                                                              {
-                                                                'plats': FieldValue
-                                                                    .arrayRemove([
-                                                                  widget.plats
-                                                                ]),
-                                                              },
-                                                            ),
-                                                          });
-                                                          context.safePop();
-                                                        }
-                                                      },
-                                                      text: FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'ofjtgcbw' /* Supprimer le plat */,
-                                                      ),
-                                                      icon: const FaIcon(
-                                                        FontAwesomeIcons.times,
-                                                        size: 20.0,
-                                                      ),
-                                                      options: FFButtonOptions(
-                                                        width: double.infinity,
-                                                        height: 60.0,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 40.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    if ((platsDetailsPlatsRecord
+                                                                .seller !=
+                                                            currentUserReference) &&
+                                                        (platsDetailsPlatsRecord
+                                                                .etat <
+                                                            5))
+                                                      Padding(
                                                         padding:
                                                             const EdgeInsetsDirectional
                                                                 .fromSTEB(
@@ -1028,42 +851,426 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                                     0.0,
                                                                     24.0,
                                                                     0.0),
-                                                        iconPadding:
-                                                            const EdgeInsets.all(0.0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
+                                                        child: FFButtonWidget(
+                                                          onPressed: () async {
+                                                            setState(() {
+                                                              _model.commanderState =
+                                                                  2;
+                                                            });
+                                                          },
+                                                          text: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            'vzw22tb1' /* Commander */,
+                                                          ),
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 60.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        8.0,
+                                                                        0.0),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondary,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
                                                                           FlutterFlowTheme.of(context)
-                                                                              .titleSmallFamily),
-                                                                ),
-                                                        elevation: 3.0,
-                                                        borderSide: const BorderSide(
-                                                          color: Colors
-                                                              .transparent,
-                                                          width: 1.0,
+                                                                              .titleSmallFamily,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                    ),
+                                                            elevation: 3.0,
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                          ),
                                                         ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20.0),
                                                       ),
-                                                    ),
-                                                  ),
-                                              ].divide(const SizedBox(height: 24.0)),
-                                            ),
+                                                    if ((platsDetailsPlatsRecord
+                                                                .seller ==
+                                                            currentUserReference) &&
+                                                        (platsDetailsPlatsRecord
+                                                                .etat <
+                                                            5))
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () async {
+                                                            context.pushNamed(
+                                                              'modifierPlat',
+                                                              queryParameters: {
+                                                                'plat':
+                                                                    serializeParam(
+                                                                  widget.plats,
+                                                                  ParamType
+                                                                      .DocumentReference,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          },
+                                                          text: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            'w12vy2h2' /* Modifier le plat */,
+                                                          ),
+                                                          icon: const Icon(
+                                                            FFIcons.keditSquare,
+                                                            size: 15.0,
+                                                          ),
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 60.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        4.0,
+                                                                        0.0),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondary,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                    ),
+                                                            elevation: 3.0,
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    if ((platsDetailsPlatsRecord
+                                                                .seller ==
+                                                            currentUserReference) &&
+                                                        (platsDetailsPlatsRecord
+                                                                .etat >=
+                                                            5))
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        child: StreamBuilder<
+                                                            List<
+                                                                CommandesRecord>>(
+                                                          stream:
+                                                              queryCommandesRecord(
+                                                            queryBuilder:
+                                                                (commandesRecord) =>
+                                                                    commandesRecord
+                                                                        .where(
+                                                              'plats',
+                                                              arrayContains:
+                                                                  widget.plats,
+                                                            ),
+                                                            singleRecord: true,
+                                                          ),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 50.0,
+                                                                  height: 50.0,
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                            List<CommandesRecord>
+                                                                buttonCommandesRecordList =
+                                                                snapshot.data!;
+                                                            // Return an empty Container when the item does not exist.
+                                                            if (snapshot.data!
+                                                                .isEmpty) {
+                                                              return Container();
+                                                            }
+                                                            final buttonCommandesRecord =
+                                                                buttonCommandesRecordList
+                                                                        .isNotEmpty
+                                                                    ? buttonCommandesRecordList
+                                                                        .first
+                                                                    : null;
+                                                            return FFButtonWidget(
+                                                              onPressed:
+                                                                  () async {
+                                                                context
+                                                                    .pushNamed(
+                                                                  'Livraison',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'commandeRef':
+                                                                        serializeParam(
+                                                                      buttonCommandesRecord
+                                                                          ?.reference,
+                                                                      ParamType
+                                                                          .DocumentReference,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              text: FFLocalizations
+                                                                      .of(context)
+                                                                  .getText(
+                                                                'dlriu696' /* Gérer la commande */,
+                                                              ),
+                                                              icon: const Icon(
+                                                                FFIcons.kcook,
+                                                                size: 15.0,
+                                                              ),
+                                                              options:
+                                                                  FFButtonOptions(
+                                                                width: double
+                                                                    .infinity,
+                                                                height: 60.0,
+                                                                padding: const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                                iconPadding:
+                                                                    const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                                textStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                    ),
+                                                                elevation: 3.0,
+                                                                borderSide:
+                                                                    const BorderSide(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                  width: 1.0,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20.0),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    if ((platsDetailsPlatsRecord
+                                                                .seller ==
+                                                            currentUserReference) &&
+                                                        (platsDetailsPlatsRecord
+                                                                .etat <
+                                                            5))
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        child: FFButtonWidget(
+                                                          onPressed: () async {
+                                                            var confirmDialogResponse =
+                                                                await showDialog<
+                                                                        bool>(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (alertDialogContext) {
+                                                                        return AlertDialog(
+                                                                          title:
+                                                                              const Text('Êtes vous sur ?'),
+                                                                          content:
+                                                                              const Text('Votre plat sera retiré de la vente immédiatement, êtes vous sur de vouloir le supprimer ? '),
+                                                                          actions: [
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                              child: const Text('Conserver'),
+                                                                            ),
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                              child: const Text('Supprimer'),
+                                                                            ),
+                                                                          ],
+                                                                        );
+                                                                      },
+                                                                    ) ??
+                                                                    false;
+                                                            if (confirmDialogResponse) {
+                                                              await platsDetailsPlatsRecord
+                                                                  .reference
+                                                                  .delete();
+
+                                                              await stackUsersRecord
+                                                                  .reference
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'plats':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      widget
+                                                                          .plats
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              context.safePop();
+                                                            }
+                                                          },
+                                                          text: FFLocalizations
+                                                                  .of(context)
+                                                              .getText(
+                                                            'ofjtgcbw' /* Supprimer le plat */,
+                                                          ),
+                                                          icon: const FaIcon(
+                                                            FontAwesomeIcons
+                                                                .times,
+                                                            size: 20.0,
+                                                          ),
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 60.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        24.0,
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsets.all(
+                                                                    0.0),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleSmallFamily,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                    ),
+                                                            elevation: 3.0,
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ].divide(
+                                                      const SizedBox(height: 24.0)),
+                                                ),
+                                              ),
+                                            ].divide(const SizedBox(height: 24.0)),
                                           ),
                                         ),
                                       ),
@@ -1073,538 +1280,6 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                               ),
                             ),
                           if (_model.commanderState == 2)
-                            SizedBox(
-                              height: MediaQuery.sizeOf(context).height * 1.0,
-                              child: Stack(
-                                children: [
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  '9tuzsrdy' /* Commander un plat */,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall,
-                                              ),
-                                              Container(
-                                                width: 48.0,
-                                                height: 48.0,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
-                                                  border: Border.all(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .grey4,
-                                                  ),
-                                                ),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    context.safePop();
-                                                  },
-                                                  child: Icon(
-                                                    Icons.close_sharp,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
-                                                    size: 24.0,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          child: Container(
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  blurRadius: 4.0,
-                                                  color: Color(0x33000000),
-                                                  offset: Offset(0.0, 2.0),
-                                                )
-                                              ],
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 24.0, 0.0, 24.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0),
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/Online_delivery.svg',
-                                                      width: double.infinity,
-                                                      height: 160.0,
-                                                      fit: BoxFit.fitHeight,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      '9zm78y73' /* Commander pour maintenant */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyLarge,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(24.0, 0.0,
-                                                                24.0, 0.0),
-                                                    child: Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'n1o6wp6b' /* Vous serez servie dès que le p... */,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium,
-                                                    ),
-                                                  ),
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      _model.prixStripeValueCopy =
-                                                          await actions
-                                                              .prixStripe(
-                                                        platsDetailsPlatsRecord
-                                                            .prix,
-                                                      );
-
-                                                      var commandesRecordReference =
-                                                          CommandesRecord
-                                                              .collection
-                                                              .doc();
-                                                      await commandesRecordReference
-                                                          .set({
-                                                        ...createCommandesRecordData(
-                                                          name:
-                                                              platsDetailsPlatsRecord
-                                                                  .name,
-                                                          amount:
-                                                              platsDetailsPlatsRecord
-                                                                  .prix,
-                                                          status: 'Commandé',
-                                                          vendorName:
-                                                              stackUsersRecord
-                                                                  .displayName,
-                                                          vendorRef:
-                                                              platsDetailsPlatsRecord
-                                                                  .seller,
-                                                          isVoisins: false,
-                                                          buyer:
-                                                              currentUserReference,
-                                                          latlngLivraison:
-                                                              currentUserDocument
-                                                                  ?.latlong,
-                                                          adresseLivraison:
-                                                              valueOrDefault(
-                                                                  currentUserDocument
-                                                                      ?.address,
-                                                                  ''),
-                                                          dateLivraison:
-                                                              'Maintenant',
-                                                          delaiMinutes:
-                                                              platsDetailsPlatsRecord
-                                                                  .tempsPreparationMin,
-                                                          statusNumber: 1,
-                                                          datetimeLivraison:
-                                                              getCurrentTimestamp,
-                                                          isInstant: true,
-                                                        ),
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'created_at': FieldValue
-                                                                .serverTimestamp(),
-                                                            'plats': [
-                                                              widget.plats
-                                                            ],
-                                                          },
-                                                        ),
-                                                      });
-                                                      _model.commandeCreeCopy =
-                                                          CommandesRecord
-                                                              .getDocumentFromData({
-                                                        ...createCommandesRecordData(
-                                                          name:
-                                                              platsDetailsPlatsRecord
-                                                                  .name,
-                                                          amount:
-                                                              platsDetailsPlatsRecord
-                                                                  .prix,
-                                                          status: 'Commandé',
-                                                          vendorName:
-                                                              stackUsersRecord
-                                                                  .displayName,
-                                                          vendorRef:
-                                                              platsDetailsPlatsRecord
-                                                                  .seller,
-                                                          isVoisins: false,
-                                                          buyer:
-                                                              currentUserReference,
-                                                          latlngLivraison:
-                                                              currentUserDocument
-                                                                  ?.latlong,
-                                                          adresseLivraison:
-                                                              valueOrDefault(
-                                                                  currentUserDocument
-                                                                      ?.address,
-                                                                  ''),
-                                                          dateLivraison:
-                                                              'Maintenant',
-                                                          delaiMinutes:
-                                                              platsDetailsPlatsRecord
-                                                                  .tempsPreparationMin,
-                                                          statusNumber: 1,
-                                                          datetimeLivraison:
-                                                              getCurrentTimestamp,
-                                                          isInstant: true,
-                                                        ),
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'created_at':
-                                                                DateTime.now(),
-                                                            'plats': [
-                                                              widget.plats
-                                                            ],
-                                                          },
-                                                        ),
-                                                      }, commandesRecordReference);
-                                                      triggerPushNotification(
-                                                        notificationTitle:
-                                                            'Vous avez reçu une commande',
-                                                        notificationText:
-                                                            'Votre plat "${platsDetailsPlatsRecord.name}" a été commandé par $currentUserDisplayName',
-                                                        notificationImageUrl:
-                                                            platsDetailsPlatsRecord
-                                                                .images.first,
-                                                        notificationSound:
-                                                            'default',
-                                                        userRefs: [
-                                                          stackUsersRecord
-                                                              .reference
-                                                        ],
-                                                        initialPageName:
-                                                            'Livraison',
-                                                        parameterData: {
-                                                          'commandeRef': _model
-                                                              .commandeCreeCopy
-                                                              ?.reference,
-                                                        },
-                                                      );
-
-                                                      await NotificationRecord
-                                                              .createDoc(
-                                                                  stackUsersRecord
-                                                                      .reference)
-                                                          .set({
-                                                        ...createNotificationRecordData(
-                                                          text:
-                                                              'Votre plat "${platsDetailsPlatsRecord.name}" a été commandé par $currentUserDisplayName',
-                                                          image:
-                                                              platsDetailsPlatsRecord
-                                                                  .images.first,
-                                                          seenBool: false,
-                                                          isCommande: true,
-                                                          isChat: false,
-                                                          isFriendRequest:
-                                                              false,
-                                                          commandeRef: _model
-                                                              .commandeCreeCopy
-                                                              ?.reference,
-                                                        ),
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'userRef': [
-                                                              stackUsersRecord
-                                                                  .reference
-                                                            ],
-                                                            'timestamp': FieldValue
-                                                                .serverTimestamp(),
-                                                          },
-                                                        ),
-                                                      });
-
-                                                      await widget.plats!.update(
-                                                          createPlatsRecordData(
-                                                        etat: 5,
-                                                      ));
-
-                                                      context.pushNamed(
-                                                        'Livraison',
-                                                        queryParameters: {
-                                                          'commandeRef':
-                                                              serializeParam(
-                                                            _model
-                                                                .commandeCreeCopy
-                                                                ?.reference,
-                                                            ParamType
-                                                                .DocumentReference,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-
-                                                      setState(() {});
-                                                    },
-                                                    text: FFLocalizations.of(
-                                                            context)
-                                                        .getText(
-                                                      'w0u2lfph' /* Sélectionner */,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      height: 40.0,
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondary,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                                color: Colors
-                                                                    .white,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .titleSmallFamily),
-                                                              ),
-                                                      elevation: 3.0,
-                                                      borderSide: const BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16.0),
-                                                    ),
-                                                  ),
-                                                ].divide(
-                                                    const SizedBox(height: 12.0)),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 40.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              setState(() {
-                                                _model.commanderState = 3;
-                                              });
-                                            },
-                                            child: Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                    blurRadius: 4.0,
-                                                    color: Color(0x33000000),
-                                                    offset: Offset(0.0, 2.0),
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 24.0, 0.0, 24.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20.0),
-                                                      child: SvgPicture.asset(
-                                                        'assets/images/Woman_making_a_video_call.svg',
-                                                        width: double.infinity,
-                                                        height: 160.0,
-                                                        fit: BoxFit.fitHeight,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'ah4cwcb3' /* Commander pour plus tard */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyLarge,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          't5gv4bag' /* Votre plat sera prêt pour le j... */,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium,
-                                                      ),
-                                                    ),
-                                                    FFButtonWidget(
-                                                      onPressed: () async {
-                                                        setState(() {
-                                                          _model.commanderState =
-                                                              3;
-                                                        });
-                                                      },
-                                                      text: FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        't58po2fe' /* Sélectionner */,
-                                                      ),
-                                                      options: FFButtonOptions(
-                                                        height: 40.0,
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    24.0,
-                                                                    0.0,
-                                                                    24.0,
-                                                                    0.0),
-                                                        iconPadding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleSmallFamily),
-                                                                ),
-                                                        elevation: 3.0,
-                                                        borderSide: const BorderSide(
-                                                          color: Colors
-                                                              .transparent,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                      ),
-                                                    ),
-                                                  ].divide(
-                                                      const SizedBox(height: 12.0)),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ].divide(const SizedBox(height: 24.0)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (_model.commanderState == 3)
                             SizedBox(
                               height: MediaQuery.sizeOf(context).height * 1.0,
                               child: Stack(
@@ -1756,6 +1431,10 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                                     .secondaryText,
                                             weekFormat: true,
                                             weekStartsMonday: true,
+                                            initialDate:
+                                                dateTimeFromSecondsSinceEpoch(
+                                                    getCurrentTimestamp
+                                                        .secondsSinceEpoch),
                                             rowHeight: 64.0,
                                             onChange: (DateTimeRange?
                                                 newSelectedDate) {
@@ -1874,215 +1553,281 @@ class _PlatsDetailsWidgetState extends State<PlatsDetailsWidget> {
                                           Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
+                                                    24.0, 0.0, 24.0, 40.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                _model.prixStripeValue =
-                                                    await actions.prixStripe(
-                                                  platsDetailsPlatsRecord.prix,
-                                                );
-                                                _model.comission = await actions
-                                                    .calculateComission(
-                                                  _model.prixStripeValue!,
-                                                  platsDetailsPlatsRecord
-                                                      .quantite,
-                                                );
-                                                _model.prixTotalResult =
-                                                    await actions
-                                                        .calculateTotal(
-                                                  _model.prixStripeValue!,
-                                                  platsDetailsPlatsRecord
-                                                      .quantite,
-                                                );
+                                                if (_model.momentLivraisonValue !=
+                                                        null &&
+                                                    _model.momentLivraisonValue !=
+                                                        '') {
+                                                  _model.prixStripeValue =
+                                                      await actions.prixStripe(
+                                                    platsDetailsPlatsRecord
+                                                        .prix,
+                                                  );
+                                                  _model.comission =
+                                                      await actions
+                                                          .calculateComission(
+                                                    _model.prixStripeValue!,
+                                                    platsDetailsPlatsRecord
+                                                        .quantite,
+                                                  );
+                                                  _model.prixTotalResult =
+                                                      await actions
+                                                          .calculateTotal(
+                                                    _model.prixStripeValue!,
+                                                    platsDetailsPlatsRecord
+                                                        .quantite,
+                                                  );
+                                                  _model.sessionCree =
+                                                      await StripeGroup
+                                                          .sessionsCall
+                                                          .call(
+                                                    connectedAccount:
+                                                        stackUsersRecord
+                                                            .stripeAccountID,
+                                                    cancelurl:
+                                                        'https://nourrishare.com/cancel/',
+                                                    successurl:
+                                                        'https://nourrishare.com/success-payment/',
+                                                    currency: 'EUR',
+                                                    productName:
+                                                        platsDetailsPlatsRecord
+                                                            .name,
+                                                    unitAmout:
+                                                        _model.prixStripeValue,
+                                                    quantity:
+                                                        platsDetailsPlatsRecord
+                                                            .quantite,
+                                                    fee: _model.comission,
+                                                  );
+                                                  if ((_model.sessionCree
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    var commandesRecordReference =
+                                                        CommandesRecord
+                                                            .collection
+                                                            .doc();
+                                                    await commandesRecordReference
+                                                        .set({
+                                                      ...createCommandesRecordData(
+                                                        name:
+                                                            platsDetailsPlatsRecord
+                                                                .name,
+                                                        amount:
+                                                            platsDetailsPlatsRecord
+                                                                .prix,
+                                                        status: 'Commandé',
+                                                        vendorName:
+                                                            stackUsersRecord
+                                                                .displayName,
+                                                        vendorRef:
+                                                            platsDetailsPlatsRecord
+                                                                .seller,
+                                                        isVoisins: false,
+                                                        buyer:
+                                                            currentUserReference,
+                                                        latlngLivraison:
+                                                            currentUserDocument
+                                                                ?.latlong,
+                                                        adresseLivraison:
+                                                            valueOrDefault(
+                                                                currentUserDocument
+                                                                    ?.address,
+                                                                ''),
+                                                        dateLivraison:
+                                                            '${dateTimeFormat(
+                                                          'EEEE',
+                                                          _model
+                                                              .calendarSelectedDay
+                                                              ?.start,
+                                                          locale:
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .languageCode,
+                                                        )} ${_model.momentLivraisonValue}',
+                                                        statusNumber: 1,
+                                                        datetimeLivraison: _model
+                                                                .calendarSelectedDay
+                                                                ?.end ?? dateTimeFromSecondsSinceEpoch(
+                                                                getCurrentTimestamp
+                                                                    .secondsSinceEpoch),
+                                                        isInstant: false,
+                                                      ),
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'created_at': FieldValue
+                                                              .serverTimestamp(),
+                                                          'plats': [
+                                                            widget.plats
+                                                          ],
+                                                        },
+                                                      ),
+                                                    });
+                                                    _model.commandeCree =
+                                                        CommandesRecord
+                                                            .getDocumentFromData({
+                                                      ...createCommandesRecordData(
+                                                        name:
+                                                            platsDetailsPlatsRecord
+                                                                .name,
+                                                        amount:
+                                                            platsDetailsPlatsRecord
+                                                                .prix,
+                                                        status: 'Commandé',
+                                                        vendorName:
+                                                            stackUsersRecord
+                                                                .displayName,
+                                                        vendorRef:
+                                                            platsDetailsPlatsRecord
+                                                                .seller,
+                                                        isVoisins: false,
+                                                        buyer:
+                                                            currentUserReference,
+                                                        latlngLivraison:
+                                                            currentUserDocument
+                                                                ?.latlong,
+                                                        adresseLivraison:
+                                                            valueOrDefault(
+                                                                currentUserDocument
+                                                                    ?.address,
+                                                                ''),
+                                                        dateLivraison:
+                                                            '${dateTimeFormat(
+                                                          'EEEE',
+                                                          _model
+                                                              .calendarSelectedDay
+                                                              ?.start,
+                                                          locale:
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .languageCode,
+                                                        )} ${_model.momentLivraisonValue}',
+                                                        statusNumber: 1,
+                                                        datetimeLivraison: _model
+                                                                .calendarSelectedDay
+                                                                ?.end ?? dateTimeFromSecondsSinceEpoch(
+                                                                getCurrentTimestamp
+                                                                    .secondsSinceEpoch),
+                                                        isInstant: false,
+                                                      ),
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'created_at':
+                                                              DateTime.now(),
+                                                          'plats': [
+                                                            widget.plats
+                                                          ],
+                                                        },
+                                                      ),
+                                                    }, commandesRecordReference);
 
-                                                var commandesRecordReference =
-                                                    CommandesRecord.collection
-                                                        .doc();
-                                                await commandesRecordReference
-                                                    .set({
-                                                  ...createCommandesRecordData(
-                                                    name:
-                                                        platsDetailsPlatsRecord
-                                                            .name,
-                                                    amount:
-                                                        platsDetailsPlatsRecord
-                                                            .prix,
-                                                    status: 'Commandé',
-                                                    vendorName: stackUsersRecord
-                                                        .displayName,
-                                                    vendorRef:
-                                                        platsDetailsPlatsRecord
-                                                            .seller,
-                                                    isVoisins: false,
-                                                    buyer: currentUserReference,
-                                                    latlngLivraison:
-                                                        currentUserDocument
-                                                            ?.latlong,
-                                                    adresseLivraison:
-                                                        valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.address,
+                                                    await _model
+                                                        .commandeCree!.reference
+                                                        .update(
+                                                            createCommandesRecordData(
+                                                      stripeSessionId:
+                                                          StripeGroup
+                                                              .sessionsCall
+                                                              .paymentIntendID(
+                                                        (_model.sessionCree
+                                                                ?.jsonBody ??
                                                             ''),
-                                                    dateLivraison:
-                                                        '${dateTimeFormat(
-                                                      'EEEE',
-                                                      _model.calendarSelectedDay
-                                                          ?.start,
-                                                      locale:
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .languageCode,
-                                                    )} ${_model.momentLivraisonValue}',
-                                                    statusNumber: 1,
-                                                    datetimeLivraison: _model
-                                                            .calendarSelectedDay
-                                                            ?.end ?? dateTimeFromSecondsSinceEpoch(
-                                                            getCurrentTimestamp
-                                                                .secondsSinceEpoch),
-                                                    isInstant: false,
-                                                  ),
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'created_at': FieldValue
-                                                          .serverTimestamp(),
-                                                      'plats': [widget.plats],
-                                                    },
-                                                  ),
-                                                });
-                                                _model.commandeCree =
-                                                    CommandesRecord
-                                                        .getDocumentFromData({
-                                                  ...createCommandesRecordData(
-                                                    name:
-                                                        platsDetailsPlatsRecord
-                                                            .name,
-                                                    amount:
-                                                        platsDetailsPlatsRecord
-                                                            .prix,
-                                                    status: 'Commandé',
-                                                    vendorName: stackUsersRecord
-                                                        .displayName,
-                                                    vendorRef:
-                                                        platsDetailsPlatsRecord
-                                                            .seller,
-                                                    isVoisins: false,
-                                                    buyer: currentUserReference,
-                                                    latlngLivraison:
-                                                        currentUserDocument
-                                                            ?.latlong,
-                                                    adresseLivraison:
-                                                        valueOrDefault(
-                                                            currentUserDocument
-                                                                ?.address,
+                                                      ),
+                                                      paymentUrl: StripeGroup
+                                                          .sessionsCall
+                                                          .paymentUrl(
+                                                        (_model.sessionCree
+                                                                ?.jsonBody ??
                                                             ''),
-                                                    dateLivraison:
-                                                        '${dateTimeFormat(
-                                                      'EEEE',
-                                                      _model.calendarSelectedDay
-                                                          ?.start,
-                                                      locale:
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .languageCode,
-                                                    )} ${_model.momentLivraisonValue}',
-                                                    statusNumber: 1,
-                                                    datetimeLivraison: _model
-                                                            .calendarSelectedDay
-                                                            ?.end ?? dateTimeFromSecondsSinceEpoch(
-                                                            getCurrentTimestamp
-                                                                .secondsSinceEpoch),
-                                                    isInstant: false,
-                                                  ),
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'created_at':
-                                                          DateTime.now(),
-                                                      'plats': [widget.plats],
-                                                    },
-                                                  ),
-                                                }, commandesRecordReference);
-                                                _model.sessionCree =
-                                                    await StripeGroup
-                                                        .sessionsCall
-                                                        .call(
-                                                  connectedAccount:
-                                                      stackUsersRecord
-                                                          .stripeAccountID,
-                                                  cancelurl:
-                                                      'https://testurl.net/cancel',
-                                                  successurl:
-                                                      'https://nourrishare.com/success-payment/',
-                                                  currency: 'eur',
-                                                  productName:
-                                                      _model.commandeCree?.name,
-                                                  unitAmout:
-                                                      _model.prixStripeValue,
-                                                  quantity:
-                                                      platsDetailsPlatsRecord
-                                                          .quantite,
-                                                );
-                                                if ((_model.sessionCree
-                                                        ?.succeeded ??
-                                                    true)) {
-                                                  await _model
-                                                      .commandeCree!.reference
-                                                      .update(
-                                                          createCommandesRecordData(
-                                                    stripeSessionId: StripeGroup
-                                                        .sessionsCall
-                                                        .paymentIntendID(
-                                                      (_model.sessionCree
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                    ),
-                                                    paymentUrl: StripeGroup
+                                                      ),
+                                                    ));
+                                                    await launchURL(StripeGroup
                                                         .sessionsCall
                                                         .paymentUrl(
                                                       (_model.sessionCree
                                                               ?.jsonBody ??
                                                           ''),
-                                                    ),
-                                                  ));
-                                                  await launchURL(StripeGroup
-                                                      .sessionsCall
-                                                      .paymentUrl(
-                                                    (_model.sessionCree
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                  )!);
+                                                    )!);
 
-                                                  context.pushNamed(
-                                                    'Livraison',
-                                                    queryParameters: {
-                                                      'commandeRef':
-                                                          serializeParam(
-                                                        _model.commandeCree
-                                                            ?.reference,
-                                                        ParamType
-                                                            .DocumentReference,
-                                                      ),
-                                                    }.withoutNulls,
-                                                  );
+                                                    context.pushNamed(
+                                                      'Livraison',
+                                                      queryParameters: {
+                                                        'commandeRef':
+                                                            serializeParam(
+                                                          _model.commandeCree
+                                                              ?.reference,
+                                                          ParamType
+                                                              .DocumentReference,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+
+                                                    await widget.plats!.update(
+                                                        createPlatsRecordData(
+                                                      etat: 5,
+                                                    ));
+                                                  } else {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Une erreur est survenue lors du paiement'),
+                                                          content: Text(
+                                                              (_model.sessionCree?.bodyText ?? '')),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          content: Text(
+                                                              'Account ID : ${stackUsersRecord.stripeAccountID} Prix : ${_model.prixStripeValue?.toString()} Quantité : ${platsDetailsPlatsRecord.quantite.toString()} Comission : ${_model.comission?.toString()} Product Name : ${platsDetailsPlatsRecord.name}'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: const Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }
                                                 } else {
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                            'Erreur session stripe'),
-                                                        content: Text(
-                                                            'Montant unit : ${_model.prixStripeValue?.toString()}Comission :${_model.comission?.toString()}'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext),
-                                                            child: const Text('Ok'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Veuillez choisir le moment de livraison que vous souhaitez.',
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                        ),
+                                                      ),
+                                                      duration: const Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                    ),
                                                   );
                                                 }
 

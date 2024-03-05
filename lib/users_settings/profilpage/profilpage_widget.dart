@@ -1,12 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components_general/mes_plats/mes_plats_widget.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
+import '/components_general/no_plats_favoris/no_plats_favoris_widget.dart';
 import '/components_general/plats_voisins/plats_voisins_widget.dart';
 import '/components_general/profil_settings_card/profil_settings_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profilpage_model.dart';
@@ -39,15 +40,6 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return Scaffold(
@@ -74,106 +66,103 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        if ((currentUserDocument?.platsFavoris.toList() ?? []).isNotEmpty)
-                          AuthUserStreamWidget(
-                            builder: (context) => Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 24.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'rod7jq2g' /* Plats favoris */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLargeFamily,
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w900,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleLargeFamily),
-                                              ),
-                                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 24.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 0.0, 0.0),
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        'rod7jq2g' /* Plats favoris */,
                                       ),
-                                    ],
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w900,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                    ),
                                   ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 272.0,
-                                        decoration: const BoxDecoration(),
-                                        child: Builder(
-                                          builder: (context) {
-                                            final platFavoris =
-                                                (currentUserDocument
-                                                            ?.platsFavoris
-                                                            .toList() ??
-                                                        [])
-                                                    .toList()
-                                                    .take(100)
-                                                    .toList();
-                                            return ListView.separated(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 24.0),
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount: platFavoris.length,
-                                              separatorBuilder: (_, __) =>
-                                                  const SizedBox(width: 24.0),
-                                              itemBuilder:
-                                                  (context, platFavorisIndex) {
-                                                final platFavorisItem =
-                                                    platFavoris[
-                                                        platFavorisIndex];
-                                                return Align(
-                                                  alignment:
-                                                      const AlignmentDirectional(
-                                                          -1.0, 0.0),
-                                                  child: Container(
-                                                    width: 200.0,
-                                                    height: 240.0,
-                                                    decoration: const BoxDecoration(),
-                                                    child: PlatsVoisinsWidget(
-                                                      key: Key(
-                                                          'Keyd7v_${platFavorisIndex}_of_${platFavoris.length}'),
-                                                      plat: platFavorisItem,
-                                                    ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 272.0,
+                                    decoration: const BoxDecoration(),
+                                    child: AuthUserStreamWidget(
+                                      builder: (context) => Builder(
+                                        builder: (context) {
+                                          final platFavoris =
+                                              (currentUserDocument?.platsFavoris
+                                                          .toList() ??
+                                                      [])
+                                                  .toList()
+                                                  .take(100)
+                                                  .toList();
+                                          if (platFavoris.isEmpty) {
+                                            return const NoPlatsFavorisWidget();
+                                          }
+                                          return ListView.separated(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 24.0),
+                                            primary: false,
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: platFavoris.length,
+                                            separatorBuilder: (_, __) =>
+                                                const SizedBox(width: 24.0),
+                                            itemBuilder:
+                                                (context, platFavorisIndex) {
+                                              final platFavorisItem =
+                                                  platFavoris[platFavorisIndex];
+                                              return Align(
+                                                alignment: const AlignmentDirectional(
+                                                    -1.0, 0.0),
+                                                child: Container(
+                                                  width: 200.0,
+                                                  height: 240.0,
+                                                  decoration: const BoxDecoration(),
+                                                  child: PlatsVoisinsWidget(
+                                                    key: Key(
+                                                        'Keyd7v_${platFavorisIndex}_of_${platFavoris.length}'),
+                                                    plat: platFavorisItem,
                                                   ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                        ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
+                          ],
+                        ),
                         if ((currentUserDocument?.plats.toList() ?? []).isNotEmpty)
                           AuthUserStreamWidget(
                             builder: (context) => Column(
@@ -233,11 +222,12 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                                             .toList() ??
                                                         [])
                                                     .toList()
-                                                    .take(10)
+                                                    .take(100)
                                                     .toList();
                                             return ListView.separated(
                                               padding: const EdgeInsets.symmetric(
                                                   horizontal: 24.0),
+                                              primary: false,
                                               scrollDirection: Axis.horizontal,
                                               itemCount: platUser.length,
                                               separatorBuilder: (_, __) =>
@@ -254,9 +244,9 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                                                     width: 200.0,
                                                     height: 240.0,
                                                     decoration: const BoxDecoration(),
-                                                    child: PlatsVoisinsWidget(
+                                                    child: MesPlatsWidget(
                                                       key: Key(
-                                                          'Keyp0w_${platUserIndex}_of_${platUser.length}'),
+                                                          'Key9dm_${platUserIndex}_of_${platUser.length}'),
                                                       plat: platUserItem,
                                                     ),
                                                   ),
@@ -284,8 +274,7 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                         await authManager.signOut();
                         GoRouter.of(context).clearRedirectLocation();
 
-                        context.pushNamedAuth(
-                            'ConnexionInscription', context.mounted);
+                        context.goNamedAuth('Onboarding', context.mounted);
                       },
                       text: FFLocalizations.of(context).getText(
                         't569y3uk' /* Déconnexion */,
@@ -405,16 +394,12 @@ class _ProfilpageWidgetState extends State<ProfilpageWidget> {
                             false;
                         if (confirmDialogResponse) {
                           await authManager.deleteUser(context);
-                          GoRouter.of(context).prepareAuthEvent(true);
+                          GoRouter.of(context).prepareAuthEvent();
                           await authManager.signOut();
                           GoRouter.of(context).clearRedirectLocation();
-
-                          context.goNamedAuth(
-                            'ConnexionInscription',
-                            context.mounted,
-                            ignoreRedirect: true,
-                          );
                         }
+
+                        context.goNamedAuth('Onboarding', context.mounted);
                       },
                       child: Text(
                         FFLocalizations.of(context).getText(

@@ -11,7 +11,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -85,15 +84,6 @@ class _MessageListWidgetState extends State<MessageListWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -210,6 +200,7 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                             .labelLargeFamily,
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
+                                        fontSize: 18.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
@@ -361,9 +352,10 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Plus Jakarta Sans',
-                                                                  color: const Color(
-                                                                      0xFF14181B),
+                                                                      'Avenir',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
                                                                   fontSize:
                                                                       14.0,
                                                                   fontWeight:
@@ -372,8 +364,7 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
+                                                                          'Avenir'),
                                                                 ),
                                                       ),
                                                       FFButtonWidget(
@@ -569,18 +560,18 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                                                   .bodyMedium
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Outfit',
+                                                                        'Avenir',
                                                                     color: Colors
                                                                         .white,
                                                                     fontSize:
                                                                         14.0,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .normal,
+                                                                            .w900,
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                            'Avenir'),
                                                                   ),
                                                           elevation: 2.0,
                                                           borderSide:
@@ -623,6 +614,7 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                             .labelLargeFamily,
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
+                                        fontSize: 18.0,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
@@ -864,11 +856,11 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
-                                                                                fontFamily: 'Plus Jakarta Sans',
-                                                                                color: const Color(0xFF14181B),
+                                                                                fontFamily: 'Avenir',
+                                                                                color: FlutterFlowTheme.of(context).primary,
                                                                                 fontSize: 14.0,
-                                                                                fontWeight: FontWeight.normal,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                fontWeight: FontWeight.w900,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey('Avenir'),
                                                                               ),
                                                                         ),
                                                                         Row(
@@ -883,11 +875,11 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                                                                   replacement: '…',
                                                                                 ),
                                                                                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                      fontFamily: 'Plus Jakarta Sans',
-                                                                                      color: const Color(0xFF57636C),
+                                                                                      fontFamily: 'Avenir',
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
                                                                                       fontSize: 14.0,
                                                                                       fontWeight: FontWeight.normal,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey('Avenir'),
                                                                                     ),
                                                                               ),
                                                                             ),
@@ -946,15 +938,15 @@ class _MessageListWidgetState extends State<MessageListWidget>
                                                                         .bodyMedium
                                                                         .override(
                                                                           fontFamily:
-                                                                              'Outfit',
+                                                                              'Avenir',
                                                                           color:
                                                                               Colors.white,
                                                                           fontSize:
                                                                               14.0,
                                                                           fontWeight:
-                                                                              FontWeight.normal,
+                                                                              FontWeight.w900,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              GoogleFonts.asMap().containsKey('Avenir'),
                                                                         ),
                                                                     elevation:
                                                                         2.0,

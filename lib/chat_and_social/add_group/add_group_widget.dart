@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'add_group_model.dart';
@@ -57,15 +56,6 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -101,8 +91,7 @@ class _AddGroupWidgetState extends State<AddGroupWidget> {
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: 22.0,
                   fontWeight: FontWeight.w900,
-                  useGoogleFonts: GoogleFonts.asMap().containsKey(
-                      FlutterFlowTheme.of(context).headlineSmallFamily),
+                  useGoogleFonts: GoogleFonts.asMap().containsKey('Avenir'),
                 ),
           ),
           actions: const [],

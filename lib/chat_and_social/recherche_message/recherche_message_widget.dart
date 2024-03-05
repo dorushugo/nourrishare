@@ -1,6 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
+import '/components_general/no_groups/no_groups_widget.dart';
+import '/components_general/no_users_found/no_users_found_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,7 +13,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -65,15 +66,6 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -109,8 +101,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                   color: const Color(0xFF14181B),
                   fontSize: 24.0,
                   fontWeight: FontWeight.w500,
-                  useGoogleFonts: GoogleFonts.asMap().containsKey(
-                      FlutterFlowTheme.of(context).headlineSmallFamily),
+                  useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
                 ),
           ),
           actions: const [],
@@ -177,14 +168,13 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: const Color(0xFF57636C),
+                                            fontFamily: 'Avenir',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.normal,
                                             useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily),
+                                                .containsKey('Avenir'),
                                           ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -226,14 +216,13 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: const Color(0xFF14181B),
+                                          fontFamily: 'Avenir',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.normal,
                                           useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily),
+                                              .containsKey('Avenir'),
                                         ),
                                     validator: _model.textControllerValidator
                                         .asValidator(context),
@@ -248,7 +237,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                     borderWidth: 1.0,
                                     buttonSize: 44.0,
                                     icon: const Icon(
-                                      Icons.search_rounded,
+                                      FFIcons.kmenuIcon2,
                                       color: Color(0xFF14181B),
                                       size: 24.0,
                                     ),
@@ -276,14 +265,13 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: const Color(0xFF57636C),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Avenir',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w900,
                                     useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .labelMediumFamily),
+                                        .containsKey('Avenir'),
                                   ),
                             ),
                           ),
@@ -422,6 +410,11 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                       currentUserReference) ==
                                                   false)
                                               .toList();
+                                      if (containerVar.isEmpty) {
+                                        return const Center(
+                                          child: NoGroupsWidget(),
+                                        );
+                                      }
                                       return ListView.builder(
                                         padding: const EdgeInsets.fromLTRB(
                                           24.0,
@@ -543,7 +536,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Plus Jakarta Sans',
+                                                                      'Avenir',
                                                                   color: const Color(
                                                                       0xFF14181B),
                                                                   fontSize:
@@ -554,8 +547,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
+                                                                          'Avenir'),
                                                                 ),
                                                           ),
                                                         ),
@@ -601,18 +593,18 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
-                                                                          'Outfit',
+                                                                          'Avenir',
                                                                       color: Colors
                                                                           .white,
                                                                       fontSize:
                                                                           14.0,
                                                                       fontWeight:
                                                                           FontWeight
-                                                                              .normal,
+                                                                              .w900,
                                                                       useGoogleFonts: GoogleFonts
                                                                               .asMap()
                                                                           .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              'Avenir'),
                                                                     ),
                                                             elevation: 2.0,
                                                             borderSide:
@@ -624,7 +616,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        200.0),
+                                                                        16.0),
                                                           ),
                                                         ),
                                                       ],
@@ -658,14 +650,13 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: const Color(0xFF57636C),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Avenir',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w900,
                                     useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .labelMediumFamily),
+                                        .containsKey('Avenir'),
                                   ),
                             ),
                           ),
@@ -759,14 +750,8 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                   }
                                   List<UsersRecord> listViewUsersRecordList =
                                       snapshot.data!;
-                                  // Customize what your widget looks like with no search results.
-                                  if (snapshot.data!.isEmpty) {
-                                    return const SizedBox(
-                                      height: 100,
-                                      child: Center(
-                                        child: Text('No results.'),
-                                      ),
-                                    );
+                                  if (listViewUsersRecordList.isEmpty) {
+                                    return const NoUsersFoundWidget();
                                   }
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
@@ -815,7 +800,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                   ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            26.0),
+                                                            13.0),
                                                     child: CachedNetworkImage(
                                                       fadeInDuration: const Duration(
                                                           milliseconds: 200),
@@ -824,16 +809,16 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                       imageUrl:
                                                           listViewUsersRecord
                                                               .photoUrl,
-                                                      width: 36.0,
-                                                      height: 36.0,
+                                                      width: 60.0,
+                                                      height: 48.0,
                                                       fit: BoxFit.cover,
                                                       errorWidget: (context,
                                                               error,
                                                               stackTrace) =>
                                                           Image.asset(
                                                         'assets/images/error_image.png',
-                                                        width: 36.0,
-                                                        height: 36.0,
+                                                        width: 60.0,
+                                                        height: 48.0,
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
@@ -865,19 +850,18 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
-                                                                      'Plus Jakarta Sans',
+                                                                      'Avenir',
                                                                   color: const Color(
                                                                       0xFF14181B),
                                                                   fontSize:
                                                                       14.0,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .normal,
+                                                                          .w900,
                                                                   useGoogleFonts: GoogleFonts
                                                                           .asMap()
                                                                       .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
+                                                                          'Avenir'),
                                                                 ),
                                                           ),
                                                           Row(
@@ -920,7 +904,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                                       .labelMedium
                                                                       .override(
                                                                         fontFamily:
-                                                                            'Plus Jakarta Sans',
+                                                                            'Avenir',
                                                                         color: const Color(
                                                                             0xFF57636C),
                                                                         fontSize:
@@ -928,7 +912,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                                         fontWeight:
                                                                             FontWeight.normal,
                                                                         useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                            GoogleFonts.asMap().containsKey('Avenir'),
                                                                       ),
                                                                 ),
                                                               ),
@@ -984,18 +968,17 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
-                                                                    'Outfit',
+                                                                    'Avenir',
                                                                 color: Colors
                                                                     .white,
                                                                 fontSize: 14.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .normal,
+                                                                        .w900,
                                                                 useGoogleFonts: GoogleFonts
                                                                         .asMap()
                                                                     .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
+                                                                        'Avenir'),
                                                               ),
                                                       elevation: 2.0,
                                                       borderSide: const BorderSide(
@@ -1005,7 +988,7 @@ class _RechercheMessageWidgetState extends State<RechercheMessageWidget> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              200.0),
+                                                              16.0),
                                                     ),
                                                   ),
                                                 ],

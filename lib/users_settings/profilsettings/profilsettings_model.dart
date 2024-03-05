@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'profilsettings_widget.dart' show ProfilsettingsWidget;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,9 @@ class ProfilsettingsModel extends FlutterFlowModel<ProfilsettingsWidget> {
   FocusNode? mailFocusNode;
   TextEditingController? mailController;
   String? Function(BuildContext, String?)? mailControllerValidator;
+  // State field(s) for phonePrefix widget.
+  String? phonePrefixValue;
+  FormFieldController<String>? phonePrefixValueController;
   // State field(s) for PhoneNumber widget.
   FocusNode? phoneNumberFocusNode;
   TextEditingController? phoneNumberController;
@@ -64,17 +68,15 @@ class ProfilsettingsModel extends FlutterFlowModel<ProfilsettingsWidget> {
   // Stores action output result for [Backend Call - API (SearchCityAndPostalCode)] action in Adresse widget.
   ApiCallResponse? searchCity2;
   // State field(s) for city widget.
-  final cityKey = GlobalKey();
   FocusNode? cityFocusNode;
   TextEditingController? cityController;
-  String? citySelectedOption;
   String? Function(BuildContext, String?)? cityControllerValidator;
   // State field(s) for postal_code widget.
-  final postalCodeKey = GlobalKey();
   FocusNode? postalCodeFocusNode;
   TextEditingController? postalCodeController;
-  String? postalCodeSelectedOption;
   String? Function(BuildContext, String?)? postalCodeControllerValidator;
+  // Stores action output result for [Backend Call - API (SearchCityAndPostalCode)] action in Button widget.
+  ApiCallResponse? searchCity3;
 
   /// Initialization and disposal methods.
 
@@ -99,8 +101,10 @@ class ProfilsettingsModel extends FlutterFlowModel<ProfilsettingsWidget> {
     adresseFocusNode?.dispose();
 
     cityFocusNode?.dispose();
+    cityController?.dispose();
 
     postalCodeFocusNode?.dispose();
+    postalCodeController?.dispose();
   }
 
   /// Action blocks are added here.

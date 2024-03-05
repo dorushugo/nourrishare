@@ -3,7 +3,7 @@ import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/push_notifications/push_notifications_util.dart';
 import '/components_general/demarrerconv/demarrerconv_widget.dart';
-import '/components_general/group_card/group_card_widget.dart';
+import '/components_general/group_card_back/group_card_back_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -15,7 +15,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -106,15 +105,6 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return StreamBuilder<ChatsRecord>(
@@ -164,528 +154,134 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                             width: double.infinity,
                             height: MediaQuery.sizeOf(context).height * 1.0,
                             decoration: const BoxDecoration(),
-                            child: SingleChildScrollView(
-                              controller: _model.columnController,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 24.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, -1.0),
-                                          child: StreamBuilder<
-                                              List<ChatMessagesRecord>>(
-                                            stream: queryChatMessagesRecord(
-                                              queryBuilder:
-                                                  (chatMessagesRecord) =>
-                                                      chatMessagesRecord
-                                                          .where(
-                                                            'chat',
-                                                            isEqualTo:
-                                                                widget.chat,
-                                                          )
-                                                          .orderBy('time',
-                                                              descending: true),
-                                              limit: 100,
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
+                            child: Align(
+                              alignment: const AlignmentDirectional(0.0, 1.0),
+                              child: SingleChildScrollView(
+                                controller: _model.columnController,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 24.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                const AlignmentDirectional(0.0, -1.0),
+                                            child: StreamBuilder<
+                                                List<ChatMessagesRecord>>(
+                                              stream: queryChatMessagesRecord(
+                                                queryBuilder:
+                                                    (chatMessagesRecord) =>
+                                                        chatMessagesRecord
+                                                            .where(
+                                                              'chat',
+                                                              isEqualTo:
+                                                                  widget.chat,
+                                                            )
+                                                            .orderBy('time',
+                                                                descending:
+                                                                    true),
+                                                limit: 100,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                );
-                                              }
-                                              List<ChatMessagesRecord>
-                                                  listViewChatMessagesRecordList =
-                                                  snapshot.data!;
-                                              if (listViewChatMessagesRecordList
-                                                  .isEmpty) {
-                                                return const Center(
-                                                  child: DemarrerconvWidget(),
-                                                );
-                                              }
-                                              return ListView.separated(
-                                                padding: const EdgeInsets.symmetric(
-                                                    vertical: 8.0),
-                                                reverse: true,
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.vertical,
-                                                itemCount:
-                                                    listViewChatMessagesRecordList
-                                                        .length,
-                                                separatorBuilder: (_, __) =>
-                                                    const SizedBox(height: 8.0),
-                                                itemBuilder:
-                                                    (context, listViewIndex) {
-                                                  final listViewChatMessagesRecord =
-                                                      listViewChatMessagesRecordList[
-                                                          listViewIndex];
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(24.0, 0.0,
-                                                                24.0, 0.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        if ((listViewChatMessagesRecord
-                                                                    .user ==
-                                                                currentUserReference) &&
-                                                            (listViewChatMessagesRecord
-                                                                        .text !=
-                                                                    ''))
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            15.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onLongPress:
-                                                                      () async {
-                                                                    var confirmDialogResponse =
-                                                                        await showDialog<bool>(
-                                                                              context: context,
-                                                                              builder: (alertDialogContext) {
-                                                                                return AlertDialog(
-                                                                                  title: const Text('Voulez vous supprimer ce message ?'),
-                                                                                  content: const Text('Votre interlocuteur verra que vous avez supprimé votre message.'),
-                                                                                  actions: [
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                      child: const Text('Conserver'),
-                                                                                    ),
-                                                                                    TextButton(
-                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                      child: const Text('Supprimer'),
-                                                                                    ),
-                                                                                  ],
-                                                                                );
-                                                                              },
-                                                                            ) ??
-                                                                            false;
-                                                                    if (confirmDialogResponse) {
-                                                                      await listViewChatMessagesRecord
-                                                                          .reference
-                                                                          .update(
-                                                                              createChatMessagesRecordData(
-                                                                        text:
-                                                                            'Ce message a été retiré.',
-                                                                      ));
-                                                                    }
-                                                                  },
+                                                  );
+                                                }
+                                                List<ChatMessagesRecord>
+                                                    listViewChatMessagesRecordList =
+                                                    snapshot.data!;
+                                                if (listViewChatMessagesRecordList
+                                                    .isEmpty) {
+                                                  return const Center(
+                                                    child: DemarrerconvWidget(),
+                                                  );
+                                                }
+                                                return ListView.separated(
+                                                  padding: const EdgeInsets.symmetric(
+                                                      vertical: 8.0),
+                                                  reverse: true,
+                                                  primary: false,
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount:
+                                                      listViewChatMessagesRecordList
+                                                          .length,
+                                                  separatorBuilder: (_, __) =>
+                                                      const SizedBox(height: 8.0),
+                                                  itemBuilder:
+                                                      (context, listViewIndex) {
+                                                    final listViewChatMessagesRecord =
+                                                        listViewChatMessagesRecordList[
+                                                            listViewIndex];
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  24.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          if ((listViewChatMessagesRecord
+                                                                      .user ==
+                                                                  currentUserReference) &&
+                                                              (listViewChatMessagesRecord
+                                                                          .text !=
+                                                                      ''))
+                                                            Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          15.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
                                                                   child:
-                                                                      Container(
-                                                                    constraints:
-                                                                        BoxConstraints(
-                                                                      maxWidth:
-                                                                          MediaQuery.sizeOf(context).width *
-                                                                              0.7,
-                                                                    ),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                          blurRadius:
-                                                                              16.0,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).boxShadow,
-                                                                          offset: const Offset(
-                                                                              0.0,
-                                                                              2.0),
-                                                                        )
-                                                                      ],
-                                                                      borderRadius:
-                                                                          const BorderRadius
-                                                                              .only(
-                                                                        bottomLeft:
-                                                                            Radius.circular(20.0),
-                                                                        bottomRight:
-                                                                            Radius.circular(0.0),
-                                                                        topLeft:
-                                                                            Radius.circular(20.0),
-                                                                        topRight:
-                                                                            Radius.circular(20.0),
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                          16.0,
-                                                                          10.0,
-                                                                          16.0,
-                                                                          10.0),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.min,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.end,
-                                                                        children: [
-                                                                          Wrap(
-                                                                            spacing:
-                                                                                0.0,
-                                                                            runSpacing:
-                                                                                0.0,
-                                                                            alignment:
-                                                                                WrapAlignment.start,
-                                                                            crossAxisAlignment:
-                                                                                WrapCrossAlignment.start,
-                                                                            direction:
-                                                                                Axis.horizontal,
-                                                                            runAlignment:
-                                                                                WrapAlignment.start,
-                                                                            verticalDirection:
-                                                                                VerticalDirection.down,
-                                                                            clipBehavior:
-                                                                                Clip.none,
-                                                                            children: [
-                                                                              Text(
-                                                                                listViewChatMessagesRecord.text,
-                                                                                style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
-                                                                                      color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                      fontSize: 14.0,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          4.0),
-                                                                      child:
-                                                                          Text(
-                                                                        ((dateTimeFormat(
-                                                                                          'relative',
-                                                                                          listViewChatMessagesRecord.time,
-                                                                                          locale: FFLocalizations.of(context).languageCode,
-                                                                                        ) !=
-                                                                                        'il y a moins d\'une minute') &&
-                                                                                    (dateTimeFormat(
-                                                                                          'relative',
-                                                                                          listViewChatMessagesRecord.time,
-                                                                                          locale: FFLocalizations.of(context).languageCode,
-                                                                                        ) !=
-                                                                                        'd\'ici moins d\'une minute')) &&
-                                                                                true
-                                                                            ? dateTimeFormat(
-                                                                                'relative',
-                                                                                listViewChatMessagesRecord.time!,
-                                                                                locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
-                                                                              )
-                                                                            : 'à l\'instant',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodySmall
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                              color: FlutterFlowTheme.of(context).grey2,
-                                                                              fontSize: 12.0,
-                                                                              fontWeight: FontWeight.normal,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        if ((listViewChatMessagesRecord
-                                                                    .user !=
-                                                                currentUserReference) &&
-                                                            (listViewChatMessagesRecord
-                                                                        .text !=
-                                                                    ''))
-                                                          Align(
-                                                            alignment:
-                                                                const AlignmentDirectional(
-                                                                    -1.0, 0.0),
-                                                            child: StreamBuilder<
-                                                                UsersRecord>(
-                                                              stream: UsersRecord
-                                                                  .getDocument(
-                                                                      listViewChatMessagesRecord
-                                                                          .user!),
-                                                              builder: (context,
-                                                                  snapshot) {
-                                                                // Customize what your widget looks like when it's loading.
-                                                                if (!snapshot
-                                                                    .hasData) {
-                                                                  return Center(
-                                                                    child:
-                                                                        SizedBox(
-                                                                      width:
-                                                                          50.0,
-                                                                      height:
-                                                                          50.0,
-                                                                      child:
-                                                                          CircularProgressIndicator(
-                                                                        valueColor:
-                                                                            AlwaysStoppedAnimation<Color>(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .secondary,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                }
-                                                                final messageotherUsersRecord =
-                                                                    snapshot
-                                                                        .data!;
-                                                                return Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Container(
-                                                                      constraints:
-                                                                          BoxConstraints(
-                                                                        maxWidth:
-                                                                            MediaQuery.sizeOf(context).width *
-                                                                                0.7,
-                                                                      ),
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondary,
-                                                                        boxShadow: [
-                                                                          BoxShadow(
-                                                                            blurRadius:
-                                                                                16.0,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).boxShadow,
-                                                                            offset:
-                                                                                const Offset(0.0, 2.0),
-                                                                          )
-                                                                        ],
-                                                                        borderRadius:
-                                                                            const BorderRadius.only(
-                                                                          bottomLeft:
-                                                                              Radius.circular(0.0),
-                                                                          bottomRight:
-                                                                              Radius.circular(20.0),
-                                                                          topLeft:
-                                                                              Radius.circular(20.0),
-                                                                          topRight:
-                                                                              Radius.circular(20.0),
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                            16.0,
-                                                                            10.0,
-                                                                            16.0,
-                                                                            10.0),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.min,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Wrap(
-                                                                              spacing: 0.0,
-                                                                              runSpacing: 0.0,
-                                                                              alignment: WrapAlignment.start,
-                                                                              crossAxisAlignment: WrapCrossAlignment.start,
-                                                                              direction: Axis.horizontal,
-                                                                              runAlignment: WrapAlignment.start,
-                                                                              verticalDirection: VerticalDirection.down,
-                                                                              clipBehavior: Clip.none,
-                                                                              children: [
-                                                                                Text(
-                                                                                  listViewChatMessagesRecord.text,
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                        color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                        fontWeight: FontWeight.w900,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                      ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                              0.0,
-                                                                              8.0,
-                                                                              8.0,
-                                                                              4.0),
-                                                                          child:
-                                                                              Text(
-                                                                            messageotherUsersRecord.displayName,
-                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                                  color: FlutterFlowTheme.of(context).grey2,
-                                                                                  fontSize: 12.0,
-                                                                                  fontWeight: FontWeight.normal,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                        Icon(
-                                                                          Icons
-                                                                              .circle_rounded,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                          size:
-                                                                              5.0,
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              8.0,
-                                                                              0.0,
-                                                                              4.0),
-                                                                          child:
-                                                                              Text(
-                                                                            ((dateTimeFormat(
-                                                                                              'relative',
-                                                                                              listViewChatMessagesRecord.time,
-                                                                                              locale: FFLocalizations.of(context).languageCode,
-                                                                                            ) !=
-                                                                                            'il y a moins d\'une minute') &&
-                                                                                        (dateTimeFormat(
-                                                                                              'relative',
-                                                                                              listViewChatMessagesRecord.time,
-                                                                                              locale: FFLocalizations.of(context).languageCode,
-                                                                                            ) !=
-                                                                                            'd\'ici moins d\'une minute')) &&
-                                                                                    true
-                                                                                ? dateTimeFormat(
-                                                                                    'relative',
-                                                                                    listViewChatMessagesRecord.time!,
-                                                                                    locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
-                                                                                  )
-                                                                                : 'à l\'instant',
-                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                                  color: FlutterFlowTheme.of(context).grey2,
-                                                                                  fontSize: 12.0,
-                                                                                  fontWeight: FontWeight.normal,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            ),
-                                                          ),
-                                                        if ((listViewChatMessagesRecord
-                                                                    .user ==
-                                                                currentUserReference) &&
-                                                            (listViewChatMessagesRecord
-                                                                        .image !=
-                                                                    ''))
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .end,
-                                                                children: [
-                                                                  InkWell(
+                                                                      InkWell(
                                                                     splashColor:
                                                                         Colors
                                                                             .transparent,
@@ -726,176 +322,185 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                                                                       if (confirmDialogResponse) {
                                                                         await listViewChatMessagesRecord
                                                                             .reference
-                                                                            .update({
-                                                                          ...createChatMessagesRecordData(
-                                                                            text:
-                                                                                'Ce message a été retiré.',
-                                                                          ),
-                                                                          ...mapToFirestore(
-                                                                            {
-                                                                              'image': FieldValue.delete(),
-                                                                            },
-                                                                          ),
-                                                                        });
+                                                                            .update(createChatMessagesRecordData(
+                                                                          text:
+                                                                              'Ce message a été retiré.',
+                                                                        ));
                                                                       }
                                                                     },
                                                                     child:
                                                                         Container(
+                                                                      constraints:
+                                                                          BoxConstraints(
+                                                                        maxWidth:
+                                                                            MediaQuery.sizeOf(context).width *
+                                                                                0.7,
+                                                                      ),
                                                                       decoration:
                                                                           BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                16.0,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).boxShadow,
+                                                                            offset:
+                                                                                const Offset(0.0, 2.0),
+                                                                          )
+                                                                        ],
                                                                         borderRadius:
-                                                                            BorderRadius.circular(20.0),
+                                                                            const BorderRadius.only(
+                                                                          bottomLeft:
+                                                                              Radius.circular(20.0),
+                                                                          bottomRight:
+                                                                              Radius.circular(0.0),
+                                                                          topLeft:
+                                                                              Radius.circular(20.0),
+                                                                          topRight:
+                                                                              Radius.circular(20.0),
+                                                                        ),
                                                                       ),
                                                                       child:
-                                                                          InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {
-                                                                          await Navigator
-                                                                              .push(
-                                                                            context,
-                                                                            PageTransition(
-                                                                              type: PageTransitionType.fade,
-                                                                              child: FlutterFlowExpandedImageView(
-                                                                                image: CachedNetworkImage(
-                                                                                  fadeInDuration: const Duration(milliseconds: 500),
-                                                                                  fadeOutDuration: const Duration(milliseconds: 500),
-                                                                                  imageUrl: listViewChatMessagesRecord.image,
-                                                                                  fit: BoxFit.contain,
-                                                                                ),
-                                                                                allowRotation: false,
-                                                                                tag: listViewChatMessagesRecord.image,
-                                                                                useHeroAnimation: true,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
+                                                                          Padding(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            16.0,
+                                                                            10.0,
+                                                                            16.0,
+                                                                            10.0),
                                                                         child:
-                                                                            Hero(
-                                                                          tag: listViewChatMessagesRecord
-                                                                              .image,
-                                                                          transitionOnUserGestures:
-                                                                              true,
-                                                                          child:
-                                                                              ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(16.0),
-                                                                            child:
-                                                                                CachedNetworkImage(
-                                                                              fadeInDuration: const Duration(milliseconds: 500),
-                                                                              fadeOutDuration: const Duration(milliseconds: 500),
-                                                                              imageUrl: listViewChatMessagesRecord.image,
-                                                                              width: 300.0,
-                                                                              height: 200.0,
-                                                                              fit: BoxFit.cover,
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.end,
+                                                                          children: [
+                                                                            Wrap(
+                                                                              spacing: 0.0,
+                                                                              runSpacing: 0.0,
+                                                                              alignment: WrapAlignment.start,
+                                                                              crossAxisAlignment: WrapCrossAlignment.start,
+                                                                              direction: Axis.horizontal,
+                                                                              runAlignment: WrapAlignment.start,
+                                                                              verticalDirection: VerticalDirection.down,
+                                                                              clipBehavior: Clip.none,
+                                                                              children: [
+                                                                                Text(
+                                                                                  listViewChatMessagesRecord.text,
+                                                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
+                                                                                        color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                        fontSize: 14.0,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
+                                                                                      ),
+                                                                                ),
+                                                                              ],
                                                                             ),
-                                                                          ),
+                                                                          ],
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                ),
+                                                                Padding(
+                                                                  padding: const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .min,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
-                                                                            8.0,
+                                                                            0.0,
                                                                             0.0,
                                                                             4.0),
-                                                                    child: Text(
-                                                                      ((dateTimeFormat(
-                                                                                        'relative',
-                                                                                        listViewChatMessagesRecord.time,
-                                                                                        locale: FFLocalizations.of(context).languageCode,
-                                                                                      ) !=
-                                                                                      'il y a moins d\'une minute') &&
-                                                                                  (dateTimeFormat(
-                                                                                        'relative',
-                                                                                        listViewChatMessagesRecord.time,
-                                                                                        locale: FFLocalizations.of(context).languageCode,
-                                                                                      ) !=
-                                                                                      'd\'ici moins d\'une minute')) &&
-                                                                              true
-                                                                          ? dateTimeFormat(
-                                                                              'relative',
-                                                                              listViewChatMessagesRecord.time!,
-                                                                              locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
-                                                                            )
-                                                                          : 'à l\'instant',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodySmall
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).grey2,
-                                                                            fontSize:
-                                                                                12.0,
-                                                                            fontWeight:
-                                                                                FontWeight.normal,
-                                                                            useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        if ((listViewChatMessagesRecord
-                                                                    .user !=
-                                                                currentUserReference) &&
-                                                            (listViewChatMessagesRecord
-                                                                        .image !=
-                                                                    ''))
-                                                          StreamBuilder<
-                                                              UsersRecord>(
-                                                            stream: UsersRecord
-                                                                .getDocument(
-                                                                    listViewChatMessagesRecord
-                                                                        .user!),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              // Customize what your widget looks like when it's loading.
-                                                              if (!snapshot
-                                                                  .hasData) {
-                                                                return Center(
-                                                                  child:
-                                                                      SizedBox(
-                                                                    width: 50.0,
-                                                                    height:
-                                                                        50.0,
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      valueColor:
-                                                                          AlwaysStoppedAnimation<
-                                                                              Color>(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .secondary,
+                                                                        child:
+                                                                            Text(
+                                                                          ((dateTimeFormat(
+                                                                                            'relative',
+                                                                                            listViewChatMessagesRecord.time,
+                                                                                            locale: FFLocalizations.of(context).languageCode,
+                                                                                          ) !=
+                                                                                          'il y a moins d\'une minute') &&
+                                                                                      (dateTimeFormat(
+                                                                                            'relative',
+                                                                                            listViewChatMessagesRecord.time,
+                                                                                            locale: FFLocalizations.of(context).languageCode,
+                                                                                          ) !=
+                                                                                          'd\'ici moins d\'une minute')) &&
+                                                                                  true
+                                                                              ? dateTimeFormat(
+                                                                                  'relative',
+                                                                                  listViewChatMessagesRecord.time!,
+                                                                                  locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
+                                                                                )
+                                                                              : 'à l\'instant',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodySmall
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                                                                                color: FlutterFlowTheme.of(context).grey2,
+                                                                                fontSize: 12.0,
+                                                                                fontWeight: FontWeight.normal,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                              ),
+                                                                        ),
                                                                       ),
-                                                                    ),
+                                                                    ],
                                                                   ),
-                                                                );
-                                                              }
-                                                              final imageotherUsersRecord =
-                                                                  snapshot
-                                                                      .data!;
-                                                              return Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Column(
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          if ((listViewChatMessagesRecord
+                                                                      .user !=
+                                                                  currentUserReference) &&
+                                                              (listViewChatMessagesRecord
+                                                                          .text !=
+                                                                      ''))
+                                                            Align(
+                                                              alignment:
+                                                                  const AlignmentDirectional(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: StreamBuilder<
+                                                                  UsersRecord>(
+                                                                stream: UsersRecord
+                                                                    .getDocument(
+                                                                        listViewChatMessagesRecord
+                                                                            .user!),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width:
+                                                                            50.0,
+                                                                        height:
+                                                                            50.0,
+                                                                        child:
+                                                                            CircularProgressIndicator(
+                                                                          valueColor:
+                                                                              AlwaysStoppedAnimation<Color>(
+                                                                            FlutterFlowTheme.of(context).secondary,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  final messageotherUsersRecord =
+                                                                      snapshot
+                                                                          .data!;
+                                                                  return Column(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
@@ -904,6 +509,219 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                                                                             .start,
                                                                     children: [
                                                                       Container(
+                                                                        constraints:
+                                                                            BoxConstraints(
+                                                                          maxWidth:
+                                                                              MediaQuery.sizeOf(context).width * 0.7,
+                                                                        ),
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondary,
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                              blurRadius: 16.0,
+                                                                              color: FlutterFlowTheme.of(context).boxShadow,
+                                                                              offset: const Offset(0.0, 2.0),
+                                                                            )
+                                                                          ],
+                                                                          borderRadius:
+                                                                              const BorderRadius.only(
+                                                                            bottomLeft:
+                                                                                Radius.circular(0.0),
+                                                                            bottomRight:
+                                                                                Radius.circular(20.0),
+                                                                            topLeft:
+                                                                                Radius.circular(20.0),
+                                                                            topRight:
+                                                                                Radius.circular(20.0),
+                                                                          ),
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                              16.0,
+                                                                              10.0,
+                                                                              16.0,
+                                                                              10.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.min,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Wrap(
+                                                                                spacing: 0.0,
+                                                                                runSpacing: 0.0,
+                                                                                alignment: WrapAlignment.start,
+                                                                                crossAxisAlignment: WrapCrossAlignment.start,
+                                                                                direction: Axis.horizontal,
+                                                                                runAlignment: WrapAlignment.start,
+                                                                                verticalDirection: VerticalDirection.down,
+                                                                                clipBehavior: Clip.none,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    listViewChatMessagesRecord.text,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                          color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                          fontWeight: FontWeight.w900,
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                        ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                8.0,
+                                                                                8.0,
+                                                                                4.0),
+                                                                            child:
+                                                                                Text(
+                                                                              messageotherUsersRecord.displayName,
+                                                                              style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                                                                                    color: FlutterFlowTheme.of(context).grey2,
+                                                                                    fontSize: 12.0,
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.circle_rounded,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            size:
+                                                                                5.0,
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                                8.0,
+                                                                                8.0,
+                                                                                0.0,
+                                                                                4.0),
+                                                                            child:
+                                                                                Text(
+                                                                              ((dateTimeFormat(
+                                                                                                'relative',
+                                                                                                listViewChatMessagesRecord.time,
+                                                                                                locale: FFLocalizations.of(context).languageCode,
+                                                                                              ) !=
+                                                                                              'il y a moins d\'une minute') &&
+                                                                                          (dateTimeFormat(
+                                                                                                'relative',
+                                                                                                listViewChatMessagesRecord.time,
+                                                                                                locale: FFLocalizations.of(context).languageCode,
+                                                                                              ) !=
+                                                                                              'd\'ici moins d\'une minute')) &&
+                                                                                      true
+                                                                                  ? dateTimeFormat(
+                                                                                      'relative',
+                                                                                      listViewChatMessagesRecord.time!,
+                                                                                      locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
+                                                                                    )
+                                                                                  : 'à l\'instant',
+                                                                              style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                                                                                    color: FlutterFlowTheme.of(context).grey2,
+                                                                                    fontSize: 12.0,
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          if ((listViewChatMessagesRecord
+                                                                      .user ==
+                                                                  currentUserReference) &&
+                                                              (listViewChatMessagesRecord
+                                                                          .image !=
+                                                                      ''))
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onLongPress:
+                                                                          () async {
+                                                                        var confirmDialogResponse = await showDialog<bool>(
+                                                                              context: context,
+                                                                              builder: (alertDialogContext) {
+                                                                                return AlertDialog(
+                                                                                  title: const Text('Voulez vous supprimer ce message ?'),
+                                                                                  content: const Text('Votre interlocuteur verra que vous avez supprimé votre message.'),
+                                                                                  actions: [
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                      child: const Text('Conserver'),
+                                                                                    ),
+                                                                                    TextButton(
+                                                                                      onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                      child: const Text('Supprimer'),
+                                                                                    ),
+                                                                                  ],
+                                                                                );
+                                                                              },
+                                                                            ) ??
+                                                                            false;
+                                                                        if (confirmDialogResponse) {
+                                                                          await listViewChatMessagesRecord
+                                                                              .reference
+                                                                              .update({
+                                                                            ...createChatMessagesRecordData(
+                                                                              text: 'Ce message a été retiré.',
+                                                                            ),
+                                                                            ...mapToFirestore(
+                                                                              {
+                                                                                'image': FieldValue.delete(),
+                                                                              },
+                                                                            ),
+                                                                          });
+                                                                        }
+                                                                      },
+                                                                      child:
+                                                                          Container(
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           borderRadius:
@@ -926,8 +744,10 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                                                                               PageTransition(
                                                                                 type: PageTransitionType.fade,
                                                                                 child: FlutterFlowExpandedImageView(
-                                                                                  image: Image.network(
-                                                                                    listViewChatMessagesRecord.image,
+                                                                                  image: CachedNetworkImage(
+                                                                                    fadeInDuration: const Duration(milliseconds: 500),
+                                                                                    fadeOutDuration: const Duration(milliseconds: 500),
+                                                                                    imageUrl: listViewChatMessagesRecord.image,
                                                                                     fit: BoxFit.contain,
                                                                                   ),
                                                                                   allowRotation: false,
@@ -946,8 +766,10 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                                                                             child:
                                                                                 ClipRRect(
                                                                               borderRadius: BorderRadius.circular(16.0),
-                                                                              child: Image.network(
-                                                                                listViewChatMessagesRecord.image,
+                                                                              child: CachedNetworkImage(
+                                                                                fadeInDuration: const Duration(milliseconds: 500),
+                                                                                fadeOutDuration: const Duration(milliseconds: 500),
+                                                                                imageUrl: listViewChatMessagesRecord.image,
                                                                                 width: 300.0,
                                                                                 height: 200.0,
                                                                                 fit: BoxFit.cover,
@@ -956,62 +778,162 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                      Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children:
-                                                                            [
-                                                                          Padding(
-                                                                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                8.0,
-                                                                                8.0,
-                                                                                4.0),
-                                                                            child:
-                                                                                Text(
-                                                                              imageotherUsersRecord.displayName,
-                                                                              style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                                    color: FlutterFlowTheme.of(context).grey2,
-                                                                                    fontSize: 12.0,
-                                                                                    fontWeight: FontWeight.normal,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          4.0),
+                                                                      child:
+                                                                          Text(
+                                                                        ((dateTimeFormat(
+                                                                                          'relative',
+                                                                                          listViewChatMessagesRecord.time,
+                                                                                          locale: FFLocalizations.of(context).languageCode,
+                                                                                        ) !=
+                                                                                        'il y a moins d\'une minute') &&
+                                                                                    (dateTimeFormat(
+                                                                                          'relative',
+                                                                                          listViewChatMessagesRecord.time,
+                                                                                          locale: FFLocalizations.of(context).languageCode,
+                                                                                        ) !=
+                                                                                        'd\'ici moins d\'une minute')) &&
+                                                                                true
+                                                                            ? dateTimeFormat(
+                                                                                'relative',
+                                                                                listViewChatMessagesRecord.time!,
+                                                                                locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
+                                                                              )
+                                                                            : 'à l\'instant',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodySmall
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                                                                              color: FlutterFlowTheme.of(context).grey2,
+                                                                              fontSize: 12.0,
+                                                                              fontWeight: FontWeight.normal,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          if ((listViewChatMessagesRecord
+                                                                      .user !=
+                                                                  currentUserReference) &&
+                                                              (listViewChatMessagesRecord
+                                                                          .image !=
+                                                                      ''))
+                                                            StreamBuilder<
+                                                                UsersRecord>(
+                                                              stream: UsersRecord
+                                                                  .getDocument(
+                                                                      listViewChatMessagesRecord
+                                                                          .user!),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                // Customize what your widget looks like when it's loading.
+                                                                if (!snapshot
+                                                                    .hasData) {
+                                                                  return Center(
+                                                                    child:
+                                                                        SizedBox(
+                                                                      width:
+                                                                          50.0,
+                                                                      height:
+                                                                          50.0,
+                                                                      child:
+                                                                          CircularProgressIndicator(
+                                                                        valueColor:
+                                                                            AlwaysStoppedAnimation<Color>(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .secondary,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                }
+                                                                final imageotherUsersRecord =
+                                                                    snapshot
+                                                                        .data!;
+                                                                return Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Container(
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(20.0),
+                                                                          ),
+                                                                          child:
+                                                                              InkWell(
+                                                                            splashColor:
+                                                                                Colors.transparent,
+                                                                            focusColor:
+                                                                                Colors.transparent,
+                                                                            hoverColor:
+                                                                                Colors.transparent,
+                                                                            highlightColor:
+                                                                                Colors.transparent,
+                                                                            onTap:
+                                                                                () async {
+                                                                              await Navigator.push(
+                                                                                context,
+                                                                                PageTransition(
+                                                                                  type: PageTransitionType.fade,
+                                                                                  child: FlutterFlowExpandedImageView(
+                                                                                    image: Image.network(
+                                                                                      listViewChatMessagesRecord.image,
+                                                                                      fit: BoxFit.contain,
+                                                                                    ),
+                                                                                    allowRotation: false,
+                                                                                    tag: listViewChatMessagesRecord.image,
+                                                                                    useHeroAnimation: true,
                                                                                   ),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                            child:
+                                                                                Hero(
+                                                                              tag: listViewChatMessagesRecord.image,
+                                                                              transitionOnUserGestures: true,
+                                                                              child: ClipRRect(
+                                                                                borderRadius: BorderRadius.circular(16.0),
+                                                                                child: Image.network(
+                                                                                  listViewChatMessagesRecord.image,
+                                                                                  width: 300.0,
+                                                                                  height: 200.0,
+                                                                                  fit: BoxFit.cover,
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ),
-                                                                          Icon(
-                                                                            Icons.circle_rounded,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            size:
-                                                                                5.0,
-                                                                          ),
-                                                                          Align(
-                                                                            alignment:
-                                                                                const AlignmentDirectional(-1.0, 0.0),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
+                                                                        ),
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children:
+                                                                              [
+                                                                            Padding(
+                                                                              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 8.0, 4.0),
                                                                               child: Text(
-                                                                                ((dateTimeFormat(
-                                                                                                  'relative',
-                                                                                                  listViewChatMessagesRecord.time,
-                                                                                                  locale: FFLocalizations.of(context).languageCode,
-                                                                                                ) !=
-                                                                                                'il y a moins d\'une minute') &&
-                                                                                            (dateTimeFormat(
-                                                                                                  'relative',
-                                                                                                  listViewChatMessagesRecord.time,
-                                                                                                  locale: FFLocalizations.of(context).languageCode,
-                                                                                                ) !=
-                                                                                                'd\'ici moins d\'une minute')) &&
-                                                                                        true
-                                                                                    ? dateTimeFormat(
-                                                                                        'relative',
-                                                                                        listViewChatMessagesRecord.time!,
-                                                                                        locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
-                                                                                      )
-                                                                                    : 'à l\'instant',
+                                                                                imageotherUsersRecord.displayName,
                                                                                 style: FlutterFlowTheme.of(context).bodySmall.override(
                                                                                       fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
                                                                                       color: FlutterFlowTheme.of(context).grey2,
@@ -1021,30 +943,69 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                                                                                     ),
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ].divide(const SizedBox(width: 8.0)),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ),
-                                                      ].divide(const SizedBox(
-                                                          height: 0.0)),
-                                                    ),
-                                                  );
-                                                },
-                                                controller:
-                                                    _model.listViewController,
-                                              );
-                                            },
+                                                                            Icon(
+                                                                              Icons.circle_rounded,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              size: 5.0,
+                                                                            ),
+                                                                            Align(
+                                                                              alignment: const AlignmentDirectional(-1.0, 0.0),
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 4.0),
+                                                                                child: Text(
+                                                                                  ((dateTimeFormat(
+                                                                                                    'relative',
+                                                                                                    listViewChatMessagesRecord.time,
+                                                                                                    locale: FFLocalizations.of(context).languageCode,
+                                                                                                  ) !=
+                                                                                                  'il y a moins d\'une minute') &&
+                                                                                              (dateTimeFormat(
+                                                                                                    'relative',
+                                                                                                    listViewChatMessagesRecord.time,
+                                                                                                    locale: FFLocalizations.of(context).languageCode,
+                                                                                                  ) !=
+                                                                                                  'd\'ici moins d\'une minute')) &&
+                                                                                          true
+                                                                                      ? dateTimeFormat(
+                                                                                          'relative',
+                                                                                          listViewChatMessagesRecord.time!,
+                                                                                          locale: FFLocalizations.of(context).languageShortCode ?? FFLocalizations.of(context).languageCode,
+                                                                                        )
+                                                                                      : 'à l\'instant',
+                                                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                        fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                                                                                        color: FlutterFlowTheme.of(context).grey2,
+                                                                                        fontSize: 12.0,
+                                                                                        fontWeight: FontWeight.normal,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ].divide(const SizedBox(width: 8.0)),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+                                                            ),
+                                                        ].divide(const SizedBox(
+                                                            height: 0.0)),
+                                                      ),
+                                                    );
+                                                  },
+                                                  controller:
+                                                      _model.listViewController,
+                                                );
+                                              },
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -1056,28 +1017,11 @@ class _ChatGroupPageWidgetState extends State<ChatGroupPageWidget>
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 1.0,
                           decoration: const BoxDecoration(),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed(
-                                'group_detail',
-                                queryParameters: {
-                                  'groupRef': serializeParam(
-                                    chatGroupPageChatsRecord.groupRef,
-                                    ParamType.DocumentReference,
-                                  ),
-                                }.withoutNulls,
-                              );
-                            },
-                            child: wrapWithModel(
-                              model: _model.groupCardModel,
-                              updateCallback: () => setState(() {}),
-                              child: GroupCardWidget(
-                                groupRef: widget.group!,
-                              ),
+                          child: wrapWithModel(
+                            model: _model.groupCardBackModel,
+                            updateCallback: () => setState(() {}),
+                            child: GroupCardBackWidget(
+                              groupRef: widget.group!,
                             ),
                           ),
                         ),

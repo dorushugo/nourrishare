@@ -25,9 +25,9 @@ class ProfilcompletionModel extends FlutterFlowModel<ProfilcompletionWidget> {
   FocusNode? mailFocusNode;
   TextEditingController? mailController;
   String? Function(BuildContext, String?)? mailControllerValidator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for phonePrefix widget.
+  String? phonePrefixValue;
+  FormFieldController<String>? phonePrefixValueController;
   // State field(s) for PhoneNumber widget.
   FocusNode? phoneNumberFocusNode;
   TextEditingController? phoneNumberController;

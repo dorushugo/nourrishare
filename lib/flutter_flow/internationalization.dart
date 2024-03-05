@@ -272,41 +272,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Modifier le plat',
       'en': 'Edit the dish',
     },
+    'dlriu696': {
+      'fr': 'Gérer la commande',
+      'en': 'Edit the dish',
+    },
     'ofjtgcbw': {
       'fr': 'Supprimer le plat',
       'en': 'Remove dish',
-    },
-    '9tuzsrdy': {
-      'fr': 'Commander un plat',
-      'en': 'Order a dish',
-    },
-    '9zm78y73': {
-      'fr': 'Commander pour maintenant',
-      'en': 'Order now',
-    },
-    'n1o6wp6b': {
-      'fr':
-          'Vous serez servie dès que le plat sera prêt. (Ex : Service dans 30 minutes)',
-      'en':
-          'You will be served as soon as the dish is ready. (Ex: Service in 30 minutes)',
-    },
-    'w0u2lfph': {
-      'fr': 'Sélectionner',
-      'en': 'Select',
-    },
-    'ah4cwcb3': {
-      'fr': 'Commander pour plus tard',
-      'en': 'Order for later',
-    },
-    't5gv4bag': {
-      'fr':
-          'Votre plat sera prêt pour le jour souhaité.  \n(Ex : Service jeudi midi)',
-      'en':
-          'Your dish will be ready for the desired day.\n(Ex: Thursday lunchtime service)',
-    },
-    't58po2fe': {
-      'fr': 'Sélectionner',
-      'en': 'Select',
     },
     'qqwsupqa': {
       'fr': 'Commander un plat',
@@ -725,9 +697,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Adresse email',
       'en': 'E-mail address',
     },
-    '3iocowg0': {
+    '6ra0aqej': {
+      'fr': '🇫🇷  (+33) France ',
+      'en': '🇫🇷 (+33) France',
+    },
+    'lpg5ku8v': {
+      'fr': '🇺🇸  (+1) USA',
+      'en': '🇺🇸 (+1) USA',
+    },
+    'wzitpasb': {
+      'fr': 'Please select...',
+      'en': 'Please select...',
+    },
+    'by0d9sn1': {
+      'fr': 'Rechercher',
+      'en': 'To research',
+    },
+    '73i49sfs': {
       'fr': 'Numéro de téléphone',
       'en': 'Phone number',
+    },
+    '55m4icoi': {
+      'fr': '612345678',
+      'en': '612345678',
     },
     '8p1wbw3u': {
       'fr': 'Je veux vendre des plats',
@@ -745,17 +737,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Ville',
       'en': 'City',
     },
-    '9hskxwux': {
-      'fr': 'Option 1',
-      'en': 'Option 1',
-    },
     'pc3rbb95': {
       'fr': 'Code postal',
       'en': 'Postal code',
-    },
-    'nnns7x7h': {
-      'fr': 'Option 1',
-      'en': 'Option 1',
     },
     '3sr3ie58': {
       'fr': 'Confirmer',
@@ -965,7 +949,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Voir',
       'en': 'See',
     },
-    'jjhy9y4m': {
+    'rx69qktg': {
       'fr': 'Rejoindre le groupe',
       'en': 'join the group',
     },
@@ -1028,7 +1012,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Refuse the order',
     },
     'ybvtrqsw': {
-      'fr': 'La commande est prête',
+      'fr': 'La commande est prête a être livrée',
+      'en': 'The order is ready',
+    },
+    '3u0hsqzo': {
+      'fr': 'Obtenir l\'itinéraire',
+      'en': 'The order is ready',
+    },
+    '1tb2hvs0': {
+      'fr': 'Confirmer la livraison',
       'en': 'The order is ready',
     },
     'd5tuc0nd': {
@@ -1051,6 +1043,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Recommencer le paiement',
       'en': 'Start payment again',
     },
+    '14q1y2mw': {
+      'fr': 'Ajouter une photo de livraison',
+      'en': 'Sell',
+    },
     'tl6noen9': {
       'fr': 'Home',
       'en': 'Home',
@@ -1059,10 +1055,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // Notifications
   {
     '4lvqnp5p': {
-      'fr': 'Mes commandes en cours',
+      'fr': 'Vos commandes à livrer',
       'en': 'My current orders',
     },
-    '3g8kiyzo': {
+    '7z3u8w6t': {
+      'fr': 'Plats que vous avez commandés',
+      'en': 'My current orders',
+    },
+    'c7wec9n9': {
       'fr': 'Mes notifications',
       'en': 'My notifications',
     },
@@ -1300,6 +1300,77 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'wzb3dwio': {
       'fr': 'Mettre en vente',
       'en': 'Sell',
+    },
+  },
+  // selectAddress
+  {
+    'zpw8z10y': {
+      'fr':
+          'Choisissez l\'adresse que vous souhaitez utiliser pour votre session.',
+      'en': 'Generate recipes by AI with a photo of your fridge',
+    },
+    'zr8d1s6v': {
+      'fr': 'Ma géolocalisation',
+      'en': '',
+    },
+    'u7osr2w0': {
+      'fr': 'Utiliser',
+      'en': 'See',
+    },
+    '79y5urtr': {
+      'fr': 'Mon adresse',
+      'en': '',
+    },
+    'cewt5uce': {
+      'fr': 'Utiliser',
+      'en': 'See',
+    },
+  },
+  // noPlatsFavoris
+  {
+    '6fq687or': {
+      'fr': 'Ajoutez des plats en favoris pour les garder sous la main !',
+      'en': 'There are no dishes around you, invite your friends to see more!',
+    },
+  },
+  // NoGroups
+  {
+    'qw6o84tp': {
+      'fr':
+          'Aucun groupe trouvé pour votre recherche. Mais vous pouvez en créer un ! ',
+      'en': 'There are no dishes around you, invite your friends to see more!',
+    },
+  },
+  // NoUsersFound
+  {
+    'do96h25z': {
+      'fr':
+          'Aucun utilisateur trouvé pour votre recherche. Mais vous pouvez inviter vos amis ! ',
+      'en': 'There are no dishes around you, invite your friends to see more!',
+    },
+  },
+  // NoPlatsCollegues
+  {
+    'waoubgnt': {
+      'fr':
+          'Il n\'y a pas de plats proposés dans ce groupe. Soyez le premier à en proposer !',
+      'en':
+          'There are no ingredients near you, invite your friends to see more!',
+    },
+  },
+  // prooveShipping
+  {
+    'ikdykw4l': {
+      'fr': 'Sécurisez la transaction en prouvant la bonne livraison du plat',
+      'en': 'Sell ​​a dish or ingredients on NourriShare',
+    },
+    'qjv09vt4': {
+      'fr': 'Ajouter une photo',
+      'en': 'Sell',
+    },
+    '9to03qjt': {
+      'fr': 'Continuer sans sécurité',
+      'en': 'Available soon',
     },
   },
   // Miscellaneous

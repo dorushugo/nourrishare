@@ -61,15 +61,6 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -148,7 +139,8 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                     final selectedMedia =
                                         await selectMediaWithSourceBottomSheet(
                                       context: context,
-                                      imageQuality: 100,
+                                      maxWidth: 500.00,
+                                      imageQuality: 75,
                                       allowPhoto: true,
                                       textColor:
                                           FlutterFlowTheme.of(context).primary,
@@ -284,6 +276,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       builder: (context) => TextFormField(
                                         controller: _model.prenomController,
                                         focusNode: _model.prenomFocusNode,
+                                        autofillHints: const [AutofillHints.name],
                                         textCapitalization:
                                             TextCapitalization.words,
                                         textInputAction: TextInputAction.next,
@@ -404,6 +397,9 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       builder: (context) => TextFormField(
                                         controller: _model.nomController,
                                         focusNode: _model.nomFocusNode,
+                                        autofillHints: const [
+                                          AutofillHints.familyName
+                                        ],
                                         textCapitalization:
                                             TextCapitalization.words,
                                         textInputAction: TextInputAction.next,
@@ -526,6 +522,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                               TextFormField(
                                 controller: _model.mailController,
                                 focusNode: _model.mailFocusNode,
+                                autofillHints: const [AutofillHints.email],
                                 textCapitalization: TextCapitalization.none,
                                 textInputAction: TextInputAction.next,
                                 readOnly: true,
@@ -622,9 +619,9 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         0.0, 0.0, 8.0, 0.0),
                                     child: FlutterFlowDropDown<String>(
                                       controller:
-                                          _model.dropDownValueController ??=
+                                          _model.phonePrefixValueController ??=
                                               FormFieldController<String>(
-                                        _model.dropDownValue ??= '+33',
+                                        _model.phonePrefixValue ??= '+33',
                                       ),
                                       options: List<String>.from(['+33', '+1']),
                                       optionLabels: [
@@ -636,7 +633,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         )
                                       ],
                                       onChanged: (val) => setState(
-                                          () => _model.dropDownValue = val),
+                                          () => _model.phonePrefixValue = val),
                                       width: 120.0,
                                       height: 57.0,
                                       searchHintTextStyle: FlutterFlowTheme.of(
@@ -705,6 +702,9 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         controller:
                                             _model.phoneNumberController,
                                         focusNode: _model.phoneNumberFocusNode,
+                                        autofillHints: const [
+                                          AutofillHints.telephoneNumberNational
+                                        ],
                                         textCapitalization:
                                             TextCapitalization.none,
                                         textInputAction: TextInputAction.next,
@@ -1070,7 +1070,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                       ...createUsersRecordData(
                                         email: _model.mailController.text,
                                         phoneNumber:
-                                            '${_model.dropDownValue}${_model.phoneNumberController.text}',
+                                            _model.phoneNumberController.text,
                                         chief: _model.checkboxValue,
                                         address:
                                             _model.addresspickerValue.address,
@@ -1085,6 +1085,7 @@ class _ProfilcompletionWidgetState extends State<ProfilcompletionWidget> {
                                         dateOfBirth: _model.datePicked,
                                         postalCode:
                                             _model.addresspickerValue.zipCode,
+                                        phonePrefix: _model.phonePrefixValue,
                                       ),
                                       ...mapToFirestore(
                                         {

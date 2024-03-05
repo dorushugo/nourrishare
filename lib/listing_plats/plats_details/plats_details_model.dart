@@ -21,10 +21,6 @@ class PlatsDetailsModel extends FlutterFlowModel<PlatsDetailsWidget> {
   final unfocusNode = FocusNode();
   // Model for UserCard component.
   late UserCardModel userCardModel;
-  // Stores action output result for [Custom Action - prixStripe] action in Button widget.
-  int? prixStripeValueCopy;
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  CommandesRecord? commandeCreeCopy;
   // State field(s) for Calendar widget.
   DateTimeRange? calendarSelectedDay;
   // State field(s) for momentLivraison widget.
@@ -36,10 +32,10 @@ class PlatsDetailsModel extends FlutterFlowModel<PlatsDetailsWidget> {
   int? comission;
   // Stores action output result for [Custom Action - calculateTotal] action in Button widget.
   int? prixTotalResult;
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  CommandesRecord? commandeCree;
   // Stores action output result for [Backend Call - API (Sessions)] action in Button widget.
   ApiCallResponse? sessionCree;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  CommandesRecord? commandeCree;
 
   /// Initialization and disposal methods.
 

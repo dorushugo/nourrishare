@@ -91,3 +91,11 @@ String replaceString(String inputJson) {
 
   return formattedString;
 }
+
+LatLng returnLatLng(
+  double lat,
+  double lng,
+) {
+  // Output latlng with lat and lng in input
+  return LatLng(lat, lng);
+}

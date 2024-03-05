@@ -15,7 +15,6 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -91,15 +90,6 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -115,6 +105,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
             key: _model.formKey,
             autovalidateMode: AutovalidateMode.always,
             child: SingleChildScrollView(
+              primary: false,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -1188,7 +1179,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                                     useGoogleFonts: GoogleFonts
                                                                             .asMap()
                                                                         .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                            'Plus Jakarta Sans'),
                                                                   ),
                                                             ),
                                                             Row(
@@ -1218,7 +1209,7 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                                                           fontWeight:
                                                                               FontWeight.normal,
                                                                           useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                              GoogleFonts.asMap().containsKey('Plus Jakarta Sans'),
                                                                         ),
                                                                   ),
                                                                 ),
@@ -1342,6 +1333,19 @@ class _AjouterunplatWidgetState extends State<AjouterunplatWidget> {
                                   },
                                 ),
                               }, platsRecordReference);
+                              if ((_model.placedeventeValue == 2) ||
+                                  (_model.placedeventeValue == 3)) {
+                                await _model.creerPlat!.reference.update({
+                                  ...mapToFirestore(
+                                    {
+                                      'groupe_destine': (currentUserDocument
+                                              ?.groupes
+                                              .toList() ??
+                                          []),
+                                    },
+                                  ),
+                                });
+                              }
                               if (_model.placedeventeValue == 4) {
                                 await _model.creerPlat!.reference.update({
                                   ...mapToFirestore(

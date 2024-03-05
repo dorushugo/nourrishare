@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components_general/aucunelement/aucunelement_widget.dart';
-import '/components_general/group_card/group_card_widget.dart';
+import '/components_general/no_ingredient/no_ingredient_widget.dart';
 import '/components_general/plats_voisins/plats_voisins_widget.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:provider/provider.dart';
 import 'group_detail_model.dart';
 export 'group_detail_model.dart';
@@ -50,15 +48,6 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -93,58 +82,85 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                 height: MediaQuery.sizeOf(context).height * 1.0,
                 child: Stack(
                   children: [
-                    Builder(builder: (context) {
-                      final googleMapMarker = stackGroupesRecord.latlng;
-                      return FlutterFlowGoogleMap(
-                        controller: _model.googleMapsController,
-                        onCameraIdle: (latLng) =>
-                            _model.googleMapsCenter = latLng,
-                        initialLocation: _model.googleMapsCenter ??=
-                            stackGroupesRecord.latlng!,
-                        markers: [
-                          if (googleMapMarker != null)
-                            FlutterFlowMarker(
-                              googleMapMarker.serialize(),
-                              googleMapMarker,
-                            ),
-                        ],
-                        markerColor: GoogleMarkerColor.green,
-                        mapType: MapType.normal,
-                        style: GoogleMapStyle.standard,
-                        initialZoom: 11.0,
-                        allowInteraction: true,
-                        allowZoom: true,
-                        showZoomControls: false,
-                        showLocation: false,
-                        showCompass: false,
-                        showMapToolbar: false,
-                        showTraffic: false,
-                        centerMapOnMarkerTap: false,
-                      );
-                    }),
+                    Container(
+                      height: MediaQuery.sizeOf(context).height * 0.5,
+                      decoration: const BoxDecoration(),
+                      child: Builder(builder: (context) {
+                        final googleMapMarker = stackGroupesRecord.latlng;
+                        return FlutterFlowGoogleMap(
+                          controller: _model.googleMapsController,
+                          onCameraIdle: (latLng) =>
+                              _model.googleMapsCenter = latLng,
+                          initialLocation: _model.googleMapsCenter ??=
+                              stackGroupesRecord.latlng!,
+                          markers: [
+                            if (googleMapMarker != null)
+                              FlutterFlowMarker(
+                                googleMapMarker.serialize(),
+                                googleMapMarker,
+                              ),
+                          ],
+                          markerColor: GoogleMarkerColor.green,
+                          mapType: MapType.normal,
+                          style: GoogleMapStyle.standard,
+                          initialZoom: 11.0,
+                          allowInteraction: true,
+                          allowZoom: true,
+                          showZoomControls: false,
+                          showLocation: true,
+                          showCompass: false,
+                          showMapToolbar: false,
+                          showTraffic: false,
+                          centerMapOnMarkerTap: false,
+                        );
+                      }),
+                    ),
                     Align(
                       alignment: const AlignmentDirectional(0.0, 1.0),
-                      child: PointerInterceptor(
-                        intercepting: isWeb,
-                        child: Container(
-                          width: double.infinity,
-                          height: MediaQuery.sizeOf(context).height * 0.6,
-                          decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(0.0),
-                              bottomRight: Radius.circular(0.0),
-                              topLeft: Radius.circular(32.0),
-                              topRight: Radius.circular(32.0),
-                            ),
+                      child: StreamBuilder<List<UsersRecord>>(
+                        stream: queryUsersRecord(
+                          queryBuilder: (usersRecord) => usersRecord.where(
+                            'groupes',
+                            arrayContains: widget.groupRef,
                           ),
-                          child: Align(
-                            alignment: const AlignmentDirectional(-1.0, -1.0),
-                            child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 24.0, 0.0, 0.0),
+                          limit: 1000,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          List<UsersRecord> containerUsersRecordList = snapshot
+                              .data!
+                              .where((u) => u.uid != currentUserUid)
+                              .toList();
+                          return Container(
+                            width: double.infinity,
+                            height: MediaQuery.sizeOf(context).height * 0.6,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(0.0),
+                                bottomRight: Radius.circular(0.0),
+                                topLeft: Radius.circular(32.0),
+                                topRight: Radius.circular(32.0),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: const AlignmentDirectional(-1.0, -1.0),
                               child: SingleChildScrollView(
+                                primary: false,
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -152,7 +168,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
+                                          24.0, 24.0, 24.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -385,11 +401,17 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            FFIcons.klocation1,
-                                            color: FlutterFlowTheme.of(context)
-                                                .grey1,
-                                            size: 18.0,
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 2.0),
+                                            child: Icon(
+                                              FFIcons.klocation1,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grey1,
+                                              size: 18.0,
+                                            ),
                                           ),
                                           InkWell(
                                             splashColor: Colors.transparent,
@@ -434,11 +456,17 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                                 .grey1,
                                             size: 6.0,
                                           ),
-                                          Icon(
-                                            FFIcons.kaccountIcon2,
-                                            color: FlutterFlowTheme.of(context)
-                                                .grey1,
-                                            size: 18.0,
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 2.0),
+                                            child: Icon(
+                                              FFIcons.kaccountIcon2,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grey1,
+                                              size: 18.0,
+                                            ),
                                           ),
                                           Text(
                                             '${stackGroupesRecord.users.length.toString()} membres',
@@ -495,589 +523,597 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      child: wrapWithModel(
-                                        model: _model.groupCardModel,
-                                        updateCallback: () => setState(() {}),
-                                        child: GroupCardWidget(
-                                          groupRef: widget.groupRef!,
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(-1.0, 0.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'h0blhuuc' /* Plats proposés dans le groupe */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleLargeFamily,
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w900,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleLargeFamily),
-                                              ),
-                                        ),
-                                      ),
-                                    ),
                                     if (stackGroupesRecord.users
                                             .contains(currentUserReference) ==
                                         true)
-                                      Container(
-                                        width: double.infinity,
-                                        height: 260.0,
-                                        decoration: const BoxDecoration(),
-                                        child: Align(
-                                          alignment:
-                                              const AlignmentDirectional(-1.0, 0.0),
-                                          child:
-                                              StreamBuilder<List<PlatsRecord>>(
-                                            stream: queryPlatsRecord(
-                                              queryBuilder: (platsRecord) =>
-                                                  platsRecord
-                                                      .whereIn(
-                                                          'Seller',
-                                                          stackGroupesRecord
-                                                              .users)
-                                                      .where(
-                                                        'Etat',
-                                                        isGreaterThan: 1,
-                                                      )
-                                                      .where(
-                                                        'Etat',
-                                                        isLessThan: 4,
-                                                      ),
-                                              limit: 20,
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                              Color>(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }
-                                              List<PlatsRecord>
-                                                  listViewPlatsRecordList =
-                                                  snapshot.data!;
-                                              return ListView.separated(
-                                                padding: const EdgeInsets.fromLTRB(
-                                                  24.0,
-                                                  0,
-                                                  0,
-                                                  0,
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                const AlignmentDirectional(-1.0, 0.0),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'h0blhuuc' /* Plats proposés dans le groupe */,
                                                 ),
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount:
-                                                    listViewPlatsRecordList
-                                                        .length,
-                                                separatorBuilder: (_, __) =>
-                                                    const SizedBox(width: 16.0),
-                                                itemBuilder:
-                                                    (context, listViewIndex) {
-                                                  final listViewPlatsRecord =
-                                                      listViewPlatsRecordList[
-                                                          listViewIndex];
-                                                  return Align(
-                                                    alignment:
-                                                        const AlignmentDirectional(
-                                                            -1.0, 0.0),
-                                                    child: Container(
-                                                      width: 200.0,
-                                                      height: 240.0,
-                                                      decoration:
-                                                          const BoxDecoration(),
-                                                      child: PlatsVoisinsWidget(
-                                                        key: Key(
-                                                            'Key4zg_${listViewIndex}_of_${listViewPlatsRecordList.length}'),
-                                                        plat:
-                                                            listViewPlatsRecord
-                                                                .reference,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(-1.0, 0.0),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 0.0, 0.0),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            'h0xztt5b' /* Membres du groupe */,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleLarge
-                                              .override(
-                                                fontFamily:
+                                                style:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleLargeFamily,
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w900,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleLargeFamily),
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    if (stackGroupesRecord.users
-                                            .contains(currentUserReference) ==
-                                        true)
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        child: PagedListView<
-                                            DocumentSnapshot<Object?>?,
-                                            UsersRecord>(
-                                          pagingController:
-                                              _model.setListViewController2(
-                                            UsersRecord.collection.where(
-                                              'groupes',
-                                              arrayContains: widget.groupRef,
-                                            ),
-                                          ),
-                                          padding: EdgeInsets.zero,
-                                          primary: false,
-                                          shrinkWrap: true,
-                                          reverse: false,
-                                          scrollDirection: Axis.vertical,
-                                          builderDelegate:
-                                              PagedChildBuilderDelegate<
-                                                  UsersRecord>(
-                                            // Customize what your widget looks like when it's loading the first page.
-                                            firstPageProgressIndicatorBuilder:
-                                                (_) => Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                  ),
-                                                ),
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleLargeFamily,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLargeFamily),
+                                                        ),
                                               ),
                                             ),
-                                            // Customize what your widget looks like when it's loading another page.
-                                            newPageProgressIndicatorBuilder:
-                                                (_) => Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                  ),
+                                          ),
+                                          Container(
+                                            width: double.infinity,
+                                            height: 260.0,
+                                            decoration: const BoxDecoration(),
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  -1.0, 0.0),
+                                              child: StreamBuilder<
+                                                  List<PlatsRecord>>(
+                                                stream: queryPlatsRecord(
+                                                  queryBuilder: (platsRecord) =>
+                                                      platsRecord
+                                                          .whereIn(
+                                                              'Seller',
+                                                              stackGroupesRecord
+                                                                  .users)
+                                                          .where(
+                                                            'Etat',
+                                                            isGreaterThan: 1,
+                                                          )
+                                                          .where(
+                                                            'Etat',
+                                                            isLessThan: 4,
+                                                          ),
+                                                  limit: 20,
                                                 ),
-                                              ),
-                                            ),
-                                            noItemsFoundIndicatorBuilder: (_) =>
-                                                const Center(
-                                              child: AucunelementWidget(),
-                                            ),
-                                            itemBuilder:
-                                                (context, _, listViewIndex) {
-                                              final listViewUsersRecord = _model
-                                                  .listViewPagingController2!
-                                                  .itemList![listViewIndex];
-                                              return Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 4.0, 0.0, 8.0),
-                                                child: Container(
-                                                  width: double.infinity,
-                                                  height: 60.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        blurRadius: 4.0,
-                                                        color:
-                                                            Color(0x32000000),
-                                                        offset:
-                                                            Offset(0.0, 2.0),
-                                                      )
-                                                    ],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      26.0),
-                                                          child: Image.network(
-                                                            listViewUsersRecord
-                                                                .photoUrl,
-                                                            width: 36.0,
-                                                            height: 36.0,
-                                                            fit: BoxFit.cover,
-                                                            errorBuilder: (context,
-                                                                    error,
-                                                                    stackTrace) =>
-                                                                Image.asset(
-                                                              'assets/images/error_image.png',
-                                                              width: 36.0,
-                                                              height: 36.0,
-                                                              fit: BoxFit.cover,
-                                                            ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
                                                           ),
                                                         ),
-                                                        Expanded(
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        12.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  listViewUsersRecord
-                                                                      .displayName,
-                                                                  style: FlutterFlowTheme.of(
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<PlatsRecord>
+                                                      listViewPlatsRecordList =
+                                                      snapshot.data!;
+                                                  if (listViewPlatsRecordList
+                                                      .isEmpty) {
+                                                    return const NoIngredientWidget();
+                                                  }
+                                                  return ListView.separated(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                            horizontal: 24.0),
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount:
+                                                        listViewPlatsRecordList
+                                                            .length,
+                                                    separatorBuilder: (_, __) =>
+                                                        const SizedBox(width: 24.0),
+                                                    itemBuilder: (context,
+                                                        listViewIndex) {
+                                                      final listViewPlatsRecord =
+                                                          listViewPlatsRecordList[
+                                                              listViewIndex];
+                                                      return Align(
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                -1.0, 0.0),
+                                                        child: Container(
+                                                          width: 200.0,
+                                                          height: 240.0,
+                                                          decoration:
+                                                              const BoxDecoration(),
+                                                          child:
+                                                              PlatsVoisinsWidget(
+                                                            key: Key(
+                                                                'Key4zg_${listViewIndex}_of_${listViewPlatsRecordList.length}'),
+                                                            plat:
+                                                                listViewPlatsRecord
+                                                                    .reference,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment:
+                                                const AlignmentDirectional(-1.0, 0.0),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 0.0, 0.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'h0xztt5b' /* Membres du groupe */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleLargeFamily,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Plus Jakarta Sans',
-                                                                        color: const Color(
-                                                                            0xFF14181B),
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                      ),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                      .titleLargeFamily),
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    24.0, 0.0, 24.0, 0.0),
+                                            child: Builder(
+                                              builder: (context) {
+                                                final containerVar =
+                                                    containerUsersRecordList
+                                                        .toList();
+                                                if (containerVar.isEmpty) {
+                                                  return const Center(
+                                                    child: AucunelementWidget(),
+                                                  );
+                                                }
+                                                return ReorderableListView
+                                                    .builder(
+                                                  padding: EdgeInsets.zero,
+                                                  primary: false,
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount:
+                                                      containerVar.length,
+                                                  itemBuilder: (context,
+                                                      containerVarIndex) {
+                                                    final containerVarItem =
+                                                        containerVar[
+                                                            containerVarIndex];
+                                                    return Container(
+                                                      key: ValueKey(
+                                                          "ListView_nctqi1qo" '_' +
+                                                              containerVarIndex
+                                                                  .toString()),
+                                                      child: Visibility(
+                                                        visible:
+                                                            (containerVarIndex <
+                                                                    3) ||
+                                                                _model
+                                                                    .showUsers,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      4.0,
+                                                                      0.0,
+                                                                      8.0),
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 60.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              boxShadow: const [
+                                                                BoxShadow(
+                                                                  blurRadius:
+                                                                      4.0,
+                                                                  color: Color(
+                                                                      0x32000000),
+                                                                  offset:
+                                                                      Offset(
                                                                           0.0,
-                                                                          4.0,
+                                                                          2.0),
+                                                                )
+                                                              ],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20.0),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            26.0),
+                                                                    child: Image
+                                                                        .network(
+                                                                      containerVarItem
+                                                                          .photoUrl,
+                                                                      width:
+                                                                          36.0,
+                                                                      height:
+                                                                          36.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      errorBuilder: (context,
+                                                                              error,
+                                                                              stackTrace) =>
+                                                                          Image
+                                                                              .asset(
+                                                                        'assets/images/error_image.png',
+                                                                        width:
+                                                                            36.0,
+                                                                        height:
+                                                                            36.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          12.0,
+                                                                          0.0,
                                                                           0.0,
                                                                           0.0),
                                                                       child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
                                                                           Text(
-                                                                        stackGroupesRecord.administrateurs.contains(listViewUsersRecord.reference)
-                                                                            ? 'Administrateur'
-                                                                            : 'Membre',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .labelMedium
-                                                                            .override(
-                                                                              fontFamily: 'Plus Jakarta Sans',
-                                                                              color: const Color(0xFF57636C),
-                                                                              fontSize: 14.0,
-                                                                              fontWeight: FontWeight.normal,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelMediumFamily),
-                                                                            ),
+                                                                            containerVarItem.displayName,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Avenir',
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  fontSize: 14.0,
+                                                                                  fontWeight: FontWeight.w900,
+                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey('Avenir'),
+                                                                                ),
+                                                                          ),
+                                                                          Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                                                                child: Text(
+                                                                                  stackGroupesRecord.administrateurs.contains(containerVarItem.reference) ? 'Administrateur' : 'Membre',
+                                                                                  style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                        fontFamily: 'Avenir',
+                                                                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                        fontSize: 14.0,
+                                                                                        fontWeight: FontWeight.normal,
+                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey('Avenir'),
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                                  ),
+                                                                  if ((stackGroupesRecord.administrateurs.contains(containerVarItem
+                                                                              .reference)
+                                                                          ? false
+                                                                          : true) &&
+                                                                      stackGroupesRecord
+                                                                          .administrateurs
+                                                                          .contains(
+                                                                              currentUserReference) &&
+                                                                      (containerVarItem
+                                                                              .reference !=
+                                                                          currentUserReference))
+                                                                    Padding(
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          FFButtonWidget(
+                                                                        onPressed:
+                                                                            () async {
+                                                                          var confirmDialogResponse = await showDialog<bool>(
+                                                                                context: context,
+                                                                                builder: (alertDialogContext) {
+                                                                                  return AlertDialog(
+                                                                                    title: const Text('Êtes vous sur ?'),
+                                                                                    content: const Text('L\'utilisateur quittera le groupe automatiquement.'),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                        child: const Text('Conserver'),
+                                                                                      ),
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                        child: const Text('Supprimer'),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              ) ??
+                                                                              false;
+                                                                          if (confirmDialogResponse) {
+                                                                            await stackGroupesRecord.reference.update({
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'administrateurs': FieldValue.arrayRemove([
+                                                                                    containerVarItem.reference
+                                                                                  ]),
+                                                                                  'Users': FieldValue.arrayRemove([
+                                                                                    containerVarItem.reference
+                                                                                  ]),
+                                                                                },
+                                                                              ),
+                                                                            });
+
+                                                                            await containerVarItem.reference.update({
+                                                                              ...mapToFirestore(
+                                                                                {
+                                                                                  'groupes': FieldValue.arrayRemove([
+                                                                                    widget.groupRef
+                                                                                  ]),
+                                                                                },
+                                                                              ),
+                                                                            });
+                                                                            context.safePop();
+                                                                          }
+                                                                        },
+                                                                        text: FFLocalizations.of(context)
+                                                                            .getText(
+                                                                          't5ns8ti9' /*  */,
+                                                                        ),
+                                                                        icon:
+                                                                            const Icon(
+                                                                          FFIcons
+                                                                              .kdelete,
+                                                                          size:
+                                                                              15.0,
+                                                                        ),
+                                                                        options:
+                                                                            FFButtonOptions(
+                                                                          width:
+                                                                              60.0,
+                                                                          height:
+                                                                              40.0,
+                                                                          padding:
+                                                                              const EdgeInsets.all(0.0),
+                                                                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                                                              4.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).error,
+                                                                          textStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Outfit',
+                                                                                color: Colors.white,
+                                                                                fontSize: 14.0,
+                                                                                fontWeight: FontWeight.normal,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey('Outfit'),
+                                                                              ),
+                                                                          elevation:
+                                                                              2.0,
+                                                                          borderSide:
+                                                                              const BorderSide(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            width:
+                                                                                1.0,
+                                                                          ),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(200.0),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  FFButtonWidget(
+                                                                    onPressed:
+                                                                        () async {
+                                                                      context
+                                                                          .pushNamed(
+                                                                        'vendeur_detail',
+                                                                        pathParameters:
+                                                                            {
+                                                                          'seller':
+                                                                              serializeParam(
+                                                                            containerVarItem.reference,
+                                                                            ParamType.DocumentReference,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                      );
+                                                                    },
+                                                                    text: FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'h7sbbqn2' /* Voir */,
+                                                                    ),
+                                                                    options:
+                                                                        FFButtonOptions(
+                                                                      height:
+                                                                          40.0,
+                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          16.0,
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0),
+                                                                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      textStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Avenir',
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w900,
+                                                                            useGoogleFonts:
+                                                                                GoogleFonts.asMap().containsKey('Avenir'),
+                                                                          ),
+                                                                      elevation:
+                                                                          2.0,
+                                                                      borderSide:
+                                                                          const BorderSide(
+                                                                        color: Colors
+                                                                            .transparent,
+                                                                        width:
+                                                                            1.0,
+                                                                      ),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              200.0),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
-                                                        if ((stackGroupesRecord
-                                                                    .administrateurs
-                                                                    .contains(
-                                                                        listViewUsersRecord
-                                                                            .reference)
-                                                                ? false
-                                                                : true) &&
-                                                            stackGroupesRecord
-                                                                .administrateurs
-                                                                .contains(
-                                                                    currentUserReference) &&
-                                                            (listViewUsersRecord
-                                                                    .reference !=
-                                                                currentUserReference))
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        8.0,
-                                                                        0.0),
-                                                            child:
-                                                                FFButtonWidget(
-                                                              onPressed:
-                                                                  () async {
-                                                                var confirmDialogResponse =
-                                                                    await showDialog<
-                                                                            bool>(
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (alertDialogContext) {
-                                                                            return AlertDialog(
-                                                                              title: const Text('Êtes vous sur ?'),
-                                                                              content: const Text('L\'utilisateur quittera le groupe automatiquement.'),
-                                                                              actions: [
-                                                                                TextButton(
-                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
-                                                                                  child: const Text('Conserver'),
-                                                                                ),
-                                                                                TextButton(
-                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
-                                                                                  child: const Text('Supprimer'),
-                                                                                ),
-                                                                              ],
-                                                                            );
-                                                                          },
-                                                                        ) ??
-                                                                        false;
-                                                                if (confirmDialogResponse) {
-                                                                  await stackGroupesRecord
-                                                                      .reference
-                                                                      .update({
-                                                                    ...mapToFirestore(
-                                                                      {
-                                                                        'administrateurs':
-                                                                            FieldValue.arrayRemove([
-                                                                          listViewUsersRecord
-                                                                              .reference
-                                                                        ]),
-                                                                        'Users':
-                                                                            FieldValue.arrayRemove([
-                                                                          listViewUsersRecord
-                                                                              .reference
-                                                                        ]),
-                                                                      },
-                                                                    ),
-                                                                  });
-
-                                                                  await listViewUsersRecord
-                                                                      .reference
-                                                                      .update({
-                                                                    ...mapToFirestore(
-                                                                      {
-                                                                        'groupes':
-                                                                            FieldValue.arrayRemove([
-                                                                          widget
-                                                                              .groupRef
-                                                                        ]),
-                                                                      },
-                                                                    ),
-                                                                  });
-                                                                  context
-                                                                      .safePop();
-                                                                }
-                                                              },
-                                                              text: FFLocalizations
-                                                                      .of(context)
-                                                                  .getText(
-                                                                't5ns8ti9' /*  */,
-                                                              ),
-                                                              icon: const Icon(
-                                                                FFIcons.kdelete,
-                                                                size: 15.0,
-                                                              ),
-                                                              options:
-                                                                  FFButtonOptions(
-                                                                width: 60.0,
-                                                                height: 40.0,
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                            0.0),
-                                                                iconPadding:
-                                                                    const EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            4.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
-                                                                textStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Outfit',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                    ),
-                                                                elevation: 2.0,
-                                                                borderSide:
-                                                                    const BorderSide(
-                                                                  color: Colors
-                                                                      .transparent,
-                                                                  width: 1.0,
-                                                                ),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            200.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        FFButtonWidget(
-                                                          onPressed: () async {
-                                                            context.pushNamed(
-                                                              'vendeur_detail',
-                                                              pathParameters: {
-                                                                'seller':
-                                                                    serializeParam(
-                                                                  listViewUsersRecord
-                                                                      .reference,
-                                                                  ParamType
-                                                                      .DocumentReference,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          },
-                                                          text: FFLocalizations
-                                                                  .of(context)
-                                                              .getText(
-                                                            'h7sbbqn2' /* Voir */,
-                                                          ),
-                                                          options:
-                                                              FFButtonOptions(
-                                                            height: 40.0,
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        16.0,
-                                                                        0.0,
-                                                                        16.0,
-                                                                        0.0),
-                                                            iconPadding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        10.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
+                                                      ),
+                                                    );
+                                                  },
+                                                  onReorder: (int
+                                                          reorderableOldIndex,
+                                                      int reorderableNewIndex) async {},
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          if (containerUsersRecordList.length >
+                                              5)
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 24.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  setState(() {
+                                                    _model.showUsers =
+                                                        !_model.showUsers;
+                                                  });
+                                                },
+                                                text: _model.showUsers
+                                                    ? 'Cacher les membres'
+                                                    : 'Afficher les membres',
+                                                options: FFButtonOptions(
+                                                  width: double.infinity,
+                                                  height: 60.0,
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          24.0, 0.0, 24.0, 0.0),
+                                                  iconPadding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              8.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .transparent,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmallFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .secondary,
-                                                            textStyle:
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Outfit',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                    ),
-                                                            elevation: 2.0,
-                                                            borderSide:
-                                                                const BorderSide(
-                                                              color: Colors
-                                                                  .transparent,
-                                                              width: 1.0,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        200.0),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                                    .titleSmallFamily),
+                                                      ),
+                                                  elevation: 0.0,
+                                                  borderSide: const BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
                                                   ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
                                                 ),
-                                              );
-                                            },
-                                          ),
-                                        ),
+                                              ),
+                                            ),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     if (!stackGroupesRecord.users
                                         .contains(currentUserReference))
@@ -1098,7 +1134,7 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                           },
                                           text: FFLocalizations.of(context)
                                               .getText(
-                                            'jjhy9y4m' /* Rejoindre le groupe */,
+                                            'rx69qktg' /* Rejoindre le groupe */,
                                           ),
                                           options: FFButtonOptions(
                                             width: double.infinity,
@@ -1409,40 +1445,37 @@ class _GroupDetailWidgetState extends State<GroupDetailWidget> {
                                 ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ),
                     Align(
                       alignment: const AlignmentDirectional(-1.0, -1.0),
-                      child: PointerInterceptor(
-                        intercepting: isWeb,
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              24.0, 24.0, 0.0, 0.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('messageList');
-                            },
-                            child: Container(
-                              width: 48.0,
-                              height: 48.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
-                                child: Icon(
-                                  FFIcons.kcloseSquare,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 24.0,
-                                ),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 24.0, 0.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed('messageList');
+                          },
+                          child: Container(
+                            width: 48.0,
+                            height: 48.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Icon(
+                                FFIcons.kcloseSquare,
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 24.0,
                               ),
                             ),
                           ),

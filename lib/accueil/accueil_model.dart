@@ -1,16 +1,17 @@
+import '/backend/backend.dart';
 import '/components_general/nav_bar1/nav_bar1_widget.dart';
-import '/components_general/profil_card/profil_card_widget.dart';
 import '/components_general/switchpage/switchpage_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'accueil_widget.dart' show AccueilWidget;
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class AccueilModel extends FlutterFlowModel<AccueilWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Model for ProfilCard component.
-  late ProfilCardModel profilCardModel;
+  Completer<List<UsersRecord>>? algoliaRequestCompleter;
+  Completer<List<PlatsRecord>>? firestoreRequestCompleter;
   // Model for Switchpage component.
   late SwitchpageModel switchpageModel;
   // Model for NavBar1 component.
@@ -20,7 +21,6 @@ class AccueilModel extends FlutterFlowModel<AccueilWidget> {
 
   @override
   void initState(BuildContext context) {
-    profilCardModel = createModel(context, () => ProfilCardModel());
     switchpageModel = createModel(context, () => SwitchpageModel());
     navBar1Model = createModel(context, () => NavBar1Model());
   }
@@ -28,7 +28,6 @@ class AccueilModel extends FlutterFlowModel<AccueilWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    profilCardModel.dispose();
     switchpageModel.dispose();
     navBar1Model.dispose();
   }
@@ -36,4 +35,34 @@ class AccueilModel extends FlutterFlowModel<AccueilWidget> {
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
+
+  Future waitForAlgoliaRequestCompleted({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(const Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = algoliaRequestCompleter?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForFirestoreRequestCompleted({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(const Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = firestoreRequestCompleter?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
 }

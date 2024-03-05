@@ -47,6 +47,7 @@ abstract class FlutterFlowTheme {
   late Color grey3;
   late Color grey4;
   late Color transparent;
+  late Color backgroundBottomSheet;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -157,6 +158,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color grey3 = const Color(0xFFCCD4DE);
   late Color grey4 = const Color(0xFFEAF4F1);
   late Color transparent = const Color(0x00FFFFFF);
+  late Color backgroundBottomSheet = const Color(0x8BEAF4F1);
 }
 
 abstract class Typography {

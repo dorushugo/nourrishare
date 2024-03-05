@@ -12,9 +12,9 @@ class NotificationsModel extends FlutterFlowModel<NotificationsWidget> {
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, NotificationRecord>?
-      listViewPagingController2;
-  Query? listViewPagingQuery2;
-  List<StreamSubscription?> listViewStreamSubscriptions2 = [];
+      listViewPagingController3;
+  Query? listViewPagingQuery3;
+  List<StreamSubscription?> listViewStreamSubscriptions3 = [];
 
   // Model for NavBar1 component.
   late NavBar1Model navBar1Model;
@@ -29,10 +29,10 @@ class NotificationsModel extends FlutterFlowModel<NotificationsWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    for (var s in listViewStreamSubscriptions2) {
+    for (var s in listViewStreamSubscriptions3) {
       s?.cancel();
     }
-    listViewPagingController2?.dispose();
+    listViewPagingController3?.dispose();
 
     navBar1Model.dispose();
   }
@@ -42,20 +42,20 @@ class NotificationsModel extends FlutterFlowModel<NotificationsWidget> {
   /// Additional helper methods are added here.
 
   PagingController<DocumentSnapshot?, NotificationRecord>
-      setListViewController2(
+      setListViewController3(
     Query query, {
     DocumentReference<Object?>? parent,
   }) {
-    listViewPagingController2 ??= _createListViewController2(query, parent);
-    if (listViewPagingQuery2 != query) {
-      listViewPagingQuery2 = query;
-      listViewPagingController2?.refresh();
+    listViewPagingController3 ??= _createListViewController3(query, parent);
+    if (listViewPagingQuery3 != query) {
+      listViewPagingQuery3 = query;
+      listViewPagingController3?.refresh();
     }
-    return listViewPagingController2!;
+    return listViewPagingController3!;
   }
 
   PagingController<DocumentSnapshot?, NotificationRecord>
-      _createListViewController2(
+      _createListViewController3(
     Query query,
     DocumentReference<Object?>? parent,
   ) {
@@ -65,9 +65,9 @@ class NotificationsModel extends FlutterFlowModel<NotificationsWidget> {
       ..addPageRequestListener(
         (nextPageMarker) => queryNotificationRecordPage(
           parent: parent,
-          queryBuilder: (_) => listViewPagingQuery2 ??= query,
+          queryBuilder: (_) => listViewPagingQuery3 ??= query,
           nextPageMarker: nextPageMarker,
-          streamSubscriptions: listViewStreamSubscriptions2,
+          streamSubscriptions: listViewStreamSubscriptions3,
           controller: controller,
           pageSize: 25,
           isStream: true,

@@ -115,6 +115,16 @@ class CommandesRecord extends FirestoreRecord {
   String get paymentUrl => _paymentUrl ?? '';
   bool hasPaymentUrl() => _paymentUrl != null;
 
+  // "as_proof" field.
+  bool? _asProof;
+  bool get asProof => _asProof ?? false;
+  bool hasAsProof() => _asProof != null;
+
+  // "proofs_url" field.
+  List<String>? _proofsUrl;
+  List<String> get proofsUrl => _proofsUrl ?? const [];
+  bool hasProofsUrl() => _proofsUrl != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _amount = castToType<double>(snapshotData['amount']);
@@ -136,6 +146,8 @@ class CommandesRecord extends FirestoreRecord {
     _stripeSessionId = snapshotData['stripe_session_id'] as String?;
     _quantity = castToType<int>(snapshotData['quantity']);
     _paymentUrl = snapshotData['payment_url'] as String?;
+    _asProof = snapshotData['as_proof'] as bool?;
+    _proofsUrl = getDataList(snapshotData['proofs_url']);
   }
 
   static CollectionReference get collection =>
@@ -192,6 +204,7 @@ Map<String, dynamic> createCommandesRecordData({
   String? stripeSessionId,
   int? quantity,
   String? paymentUrl,
+  bool? asProof,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -214,6 +227,7 @@ Map<String, dynamic> createCommandesRecordData({
       'stripe_session_id': stripeSessionId,
       'quantity': quantity,
       'payment_url': paymentUrl,
+      'as_proof': asProof,
     }.withoutNulls,
   );
 
@@ -245,7 +259,9 @@ class CommandesRecordDocumentEquality implements Equality<CommandesRecord> {
         e1?.isInstant == e2?.isInstant &&
         e1?.stripeSessionId == e2?.stripeSessionId &&
         e1?.quantity == e2?.quantity &&
-        e1?.paymentUrl == e2?.paymentUrl;
+        e1?.paymentUrl == e2?.paymentUrl &&
+        e1?.asProof == e2?.asProof &&
+        listEquality.equals(e1?.proofsUrl, e2?.proofsUrl);
   }
 
   @override
@@ -269,7 +285,9 @@ class CommandesRecordDocumentEquality implements Equality<CommandesRecord> {
         e?.isInstant,
         e?.stripeSessionId,
         e?.quantity,
-        e?.paymentUrl
+        e?.paymentUrl,
+        e?.asProof,
+        e?.proofsUrl
       ]);
 
   @override

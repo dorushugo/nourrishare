@@ -109,14 +109,14 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                         width: 48.0,
                         height: 48.0,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1000.0),
+                          borderRadius: BorderRadius.circular(0.0),
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).secondary,
-                            width: 1.0,
+                            color: FlutterFlowTheme.of(context).transparent,
+                            width: 0.0,
                           ),
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(800.0),
+                          borderRadius: BorderRadius.circular(10.0),
                           child: CachedNetworkImage(
                             fadeInDuration: const Duration(milliseconds: 0),
                             fadeOutDuration: const Duration(milliseconds: 0),
@@ -180,9 +180,7 @@ class _UserCardWidgetState extends State<UserCardWidget> {
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.w900,
                                         useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmallFamily),
+                                            .containsKey('Avenir'),
                                       ),
                                 ),
                               ].divide(const SizedBox(width: 8.0)),

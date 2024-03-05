@@ -1,5 +1,5 @@
 import '/backend/backend.dart';
-import '/components_general/group_card/group_card_widget.dart';
+import '/components_general/group_card_back/group_card_back_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'chat_group_page_widget.dart' show ChatGroupPageWidget;
 import 'package:flutter/material.dart';
@@ -30,8 +30,8 @@ class ChatGroupPageModel extends FlutterFlowModel<ChatGroupPageWidget> {
   ScrollController? columnController;
   // State field(s) for ListView widget.
   ScrollController? listViewController;
-  // Model for GroupCard component.
-  late GroupCardModel groupCardModel;
+  // Model for GroupCardBack component.
+  late GroupCardBackModel groupCardBackModel;
   // State field(s) for messageField widget.
   FocusNode? messageFieldFocusNode;
   TextEditingController? messageFieldController;
@@ -54,7 +54,7 @@ class ChatGroupPageModel extends FlutterFlowModel<ChatGroupPageWidget> {
   void initState(BuildContext context) {
     columnController = ScrollController();
     listViewController = ScrollController();
-    groupCardModel = createModel(context, () => GroupCardModel());
+    groupCardBackModel = createModel(context, () => GroupCardBackModel());
   }
 
   @override
@@ -62,7 +62,7 @@ class ChatGroupPageModel extends FlutterFlowModel<ChatGroupPageWidget> {
     unfocusNode.dispose();
     columnController?.dispose();
     listViewController?.dispose();
-    groupCardModel.dispose();
+    groupCardBackModel.dispose();
     messageFieldFocusNode?.dispose();
     messageFieldController?.dispose();
   }

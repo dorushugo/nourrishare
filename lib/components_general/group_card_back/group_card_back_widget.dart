@@ -153,16 +153,17 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
                               width: 48.0,
                               height: 48.0,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(1000.0),
+                                borderRadius: BorderRadius.circular(0.0),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  width: 1.0,
+                                  color:
+                                      FlutterFlowTheme.of(context).transparent,
+                                  width: 0.0,
                                 ),
                               ),
                               child: Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(800.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                     child: CachedNetworkImage(
                                       fadeInDuration:
                                           const Duration(milliseconds: 500),
@@ -221,9 +222,7 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w900,
                                             useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmallFamily),
+                                                .containsKey('Avenir'),
                                           ),
                                     ),
                                   ].divide(const SizedBox(width: 8.0)),
@@ -235,7 +234,7 @@ class _GroupCardBackWidgetState extends State<GroupCardBackWidget> {
                         FlutterFlowIconButton(
                           borderRadius: 10.0,
                           buttonSize: 44.0,
-                          fillColor: FlutterFlowTheme.of(context).primary,
+                          fillColor: FlutterFlowTheme.of(context).secondary,
                           icon: Icon(
                             FFIcons.kmenuIcon3,
                             color:
