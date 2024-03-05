@@ -389,7 +389,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                         0.0, 24.0, 0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
-                                        'ox0l4nyt' /* Mangez plus sain en dépensant ... */,
+                                        'ox0l4nyt' /* Créez des recettes plus saines... */,
                                       ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
@@ -413,7 +413,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                         0.0, 16.0, 0.0, 0.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
-                                        '9vsupxxi' /* Économisez grâce à des repas p... */,
+                                        '9vsupxxi' /* Prenez en photo vos ingrédient... */,
                                       ),
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)

@@ -172,11 +172,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'By cooking in larger quantities and selling the surplus.',
     },
     'ox0l4nyt': {
-      'fr': 'Mangez plus sain en dépensant moins',
+      'fr': 'Créez des recettes plus saines grâce à l\'IA',
       'en': 'Eat healthier while spending less',
     },
     '9vsupxxi': {
-      'fr': 'Économisez grâce à des repas plus abordables fait maison.',
+      'fr':
+          'Prenez en photo vos ingrédients pour générer des recettes adaptées à vos objectifs.',
       'en': 'Save money with more affordable home-cooked meals.',
     },
     '5vfu49lg': {
