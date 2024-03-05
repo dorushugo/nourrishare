@@ -173,12 +173,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'ox0l4nyt': {
       'fr': 'Créez des recettes plus saines grâce à l\'IA',
-      'en': 'Eat healthier while spending less',
+      'en': 'Create healthier recipes with AI',
     },
     '9vsupxxi': {
       'fr':
           'Prenez en photo vos ingrédients pour générer des recettes adaptées à vos objectifs.',
-      'en': 'Save money with more affordable home-cooked meals.',
+      'en':
+          'Take photos of your ingredients to generate recipes tailored to your goals.',
     },
     '5vfu49lg': {
       'fr': 'Onboarding',

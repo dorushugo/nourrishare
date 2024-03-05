@@ -315,7 +315,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: SvgPicture.asset(
-                                      'assets/images/Man_with_a_prosthetic_arm_collected_an_order.svg',
+                                      'assets/images/groupes.svg',
                                       width: double.infinity,
                                       height: 400.0,
                                       fit: BoxFit.contain,
