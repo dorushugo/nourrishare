@@ -252,7 +252,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: SvgPicture.asset(
-                                      'assets/images/Cook.svg',
+                                      'assets/images/groupes.svg',
                                       width: double.infinity,
                                       height: 400.0,
                                       fit: BoxFit.contain,
@@ -315,7 +315,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: SvgPicture.asset(
-                                      'assets/images/groupes.svg',
+                                      'assets/images/Cook.svg',
                                       width: double.infinity,
                                       height: 400.0,
                                       fit: BoxFit.contain,
