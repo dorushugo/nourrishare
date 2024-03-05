@@ -168,7 +168,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Reimburse your groceries and eat for free',
     },
     '63bl8eng': {
-      'fr': 'En cuisinant en plus grande quantité et en vendant le surplus.',
+      'fr':
+          'En cuisinant en plus grande quantité et en vendant le surplus, mangez gratuitement.',
       'en': 'By cooking in larger quantities and selling the surplus.',
     },
     'ox0l4nyt': {
