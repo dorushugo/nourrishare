@@ -1,7 +1,5 @@
-# NourriShare
+# NourriShare - Sell your meal to your coworkers!
 
-A new Flutter project.
+FlutterFlow mobile app project that have been deployed on the App Store in beta version. 
 
-## Getting Started
 
-FlutterFlow projects are built to run on the Flutter _stable_ release.
